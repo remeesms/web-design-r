@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml
+	Purpose:
+		
+	Description:
+		
+	History:
+		Fri Apr 23 15:16:37     2010, Created by henrichen
+
+Copyright (C) 2010 Potix Corporation. All Rights Reserved.
+-->
+
+<config>
+	<config-name>zpoiex</config-name><!-- used to resolve dependency -->
+	<depends>zpoi</depends>
+
+	<version>
+		<version-class>org.zkoss.zpoiex.Version</version-class>
+		<version-uid>3.8.1</version-uid>
+		<zk-version>5.0.11</zk-version><!-- or later -->
+	</version>
+	<library-property>
+		<name>org.zkoss.poi.ss.usermodel.PivotTableHelper.class</name>
+		<value>org.zkoss.zpoiex.ss.usermodel.helpers.PivotTableHelper</value>
+	</library-property>
+</config>
