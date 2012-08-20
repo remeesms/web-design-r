@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="zpoi/srcooxml"/>
+	<classpathentry excluding="archive/" kind="src" path="zss/src"/>
+	<classpathentry kind="src" path="zss/src/archive"/>
+	<classpathentry kind="src" path="zpoi/srcjava"/>
+	<classpathentry kind="src" path="zpoi/srcscratchpad"/>
+	<classpathentry kind="src" path="zpoi/srcresources"/>
+	<classpathentry kind="src" path="zpoi/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/breeze.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/bsh.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/commons-io.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/commons-math.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/gmapsz.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/iText-5.0.3.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/jasperreports.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/jcommon.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/jfreechart.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/ooxml-schemas-1.1.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/opencsv.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/zcommon.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/zcommons-el.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/zk.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/zkex.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/zkplus.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/zpoi.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/zul.jar"/>
+	<classpathentry kind="lib" path="/zssapp-2.3.0-customized/WebContent/WEB-INF/lib/zweb.jar"/>
+	<classpathentry kind="lib" path="/abuild/lib/junit-4.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
