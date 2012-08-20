@@ -11,8 +11,9 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.xml.namespace.QName;
-import org.apache.xmlbeans.SchemaType;
+
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
 import org.openxmlformats.schemas.officeDocument.x2006.relationships.STRelationshipId;
@@ -26,12 +27,10 @@ import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTLocation;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTPivotField;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTPivotFields;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTPivotTableDefinition;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTPivotTableDefinition.Factory;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTRowFields;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTRowItems;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTX;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.PivotTableDefinitionDocument;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.PivotTableDefinitionDocument.Factory;
 import org.zkoss.poi.POIXMLDocumentPart;
 import org.zkoss.poi.openxml4j.opc.PackagePart;
 import org.zkoss.poi.openxml4j.opc.PackageRelationship;
@@ -40,11 +39,8 @@ import org.zkoss.poi.openxml4j.opc.internal.MemoryPackagePart;
 import org.zkoss.poi.ss.usermodel.Calculation;
 import org.zkoss.poi.ss.usermodel.DataField;
 import org.zkoss.poi.ss.usermodel.PivotCache;
-import org.zkoss.poi.ss.usermodel.PivotCache.CacheField;
 import org.zkoss.poi.ss.usermodel.PivotField;
 import org.zkoss.poi.ss.usermodel.PivotField.Item;
-import org.zkoss.poi.ss.usermodel.PivotField.Item.Type;
-import org.zkoss.poi.ss.usermodel.PivotField.Type;
 import org.zkoss.poi.ss.usermodel.PivotTable;
 import org.zkoss.poi.ss.usermodel.Sheet;
 import org.zkoss.poi.ss.util.AreaReference;
@@ -185,7 +181,7 @@ public class XSSFPivotTable extends POIXMLDocumentPart
     boolean typeChanged = false;
     PivotField.Type type = field.getType();
     if (type != null)
-      switch (1.$SwitchMap$org$zkoss$poi$ss$usermodel$PivotField$Type[type.ordinal()])
+      switch (type.ordinal())
       {
       case 1:
         typeChanged = true;
@@ -251,7 +247,7 @@ public class XSSFPivotTable extends POIXMLDocumentPart
 
     ArrayList list = new ArrayList();
     List pivotFields = getPivotFields();
-    List dataFieldList = dataFields.getDataFieldList();
+    List<CTDataField> dataFieldList = dataFields.getDataFieldList();
     for (CTDataField dataField : dataFieldList) {
       PivotField pivotField = (PivotField)pivotFields.get((int)dataField.getFld());
       list.add(new XSSFDataField(dataField, pivotField));
@@ -374,7 +370,7 @@ public class XSSFPivotTable extends POIXMLDocumentPart
 
   public PivotField getPivotField(String name)
   {
-    List pivotFields = getPivotFields();
+    List<PivotField> pivotFields = getPivotFields();
     for (PivotField f : pivotFields) {
       String fName = f.getName();
       if (fName.equalsIgnoreCase(name))
@@ -639,7 +635,7 @@ public class XSSFPivotTable extends POIXMLDocumentPart
     boolean typeChanged = false;
     PivotField.Type type = field.getType();
     if (type != null)
-      switch (1.$SwitchMap$org$zkoss$poi$ss$usermodel$PivotField$Type[type.ordinal()])
+      switch (type.ordinal())
       {
       case 3:
         typeChanged = true;
@@ -786,7 +782,7 @@ public class XSSFPivotTable extends POIXMLDocumentPart
   private class DataFieldIndexMapper {
     HashMap<String, Integer> _mapper = new HashMap();
 
-    DataFieldIndexMapper() {
+    DataFieldIndexMapper(List dataFields) {
       for (int i = 0; i < dataFields.size(); ++i) {
         DataField f = (DataField)dataFields.get(i);
         this._mapper.put(f.getName(), Integer.valueOf(i));
@@ -806,13 +802,13 @@ public class XSSFPivotTable extends POIXMLDocumentPart
   {
     List<HashMap<Object, Integer>> _mapper = new ArrayList();
 
-    IndexMapper()
+    IndexMapper(List<PivotField> fields)
     {
       for (PivotField pivotField : fields) {
-        map = new HashMap();
+        HashMap<Object, Integer> map = new HashMap<Object, Integer>();
         this._mapper.add(map);
-        items = pivotField.getItems();
-        for (j = 0; j < items.size(); ++j) {
+        List<Item> items = pivotField.getItems();
+        for (int j = 0; j < items.size(); ++j) {
           PivotField.Item item = (PivotField.Item)items.get(j);
           Object value = item.getValue();
           if (value instanceof Calendar)

@@ -23,7 +23,6 @@ import org.zkoss.poi.openxml4j.opc.PackageRelationshipCollection;
 import org.zkoss.poi.ss.usermodel.PivotCache;
 import org.zkoss.poi.ss.usermodel.PivotCache.CacheField;
 import org.zkoss.poi.ss.usermodel.PivotTable;
-import org.zkoss.poi.ss.usermodel.PivotTableHelper;
 import org.zkoss.poi.ss.usermodel.Sheet;
 import org.zkoss.poi.ss.usermodel.Workbook;
 import org.zkoss.poi.ss.util.AreaReference;
@@ -37,7 +36,6 @@ import org.zkoss.poi.xssf.usermodel.XSSFSheet;
 import org.zkoss.poi.xssf.usermodel.XSSFWorkbook;
 
 public class PivotTableHelper
-  implements PivotTableHelper
 {
   public PivotCache createPivotCache(AreaReference sourceRef, Workbook book)
   {

@@ -29,7 +29,6 @@ import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTSharedItems;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTString;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTWorksheetSource;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.PivotCacheDefinitionDocument;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.PivotCacheDefinitionDocument.Factory;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.STSourceType;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.STSourceType.Enum;
 import org.zkoss.poi.POIXMLDocument;
@@ -56,8 +55,7 @@ import org.zkoss.poi.ss.usermodel.Workbook;
 import org.zkoss.poi.ss.util.AreaReference;
 import org.zkoss.poi.ss.util.CellReference;
 
-public class XSSFPivotCache extends POIXMLDocumentPart
-  implements PivotCache
+public class XSSFPivotCache extends POIXMLDocumentPart implements PivotCache
 {
   private long _cacheId;
   private CTPivotCacheDefinition _pivotCacheDefinition;
@@ -160,7 +158,7 @@ public class XSSFPivotCache extends POIXMLDocumentPart
   }
 
   public List<PivotCache.CacheRecord> getRecords() {
-    List records = this._pivotCacheRecords.getRows();
+    List<CTRecord> records = this._pivotCacheRecords.getRows();
     if (records == null) {
       return Collections.emptyList();
     }
@@ -440,21 +438,21 @@ public class XSSFPivotCache extends POIXMLDocumentPart
         }
 
         if (ctSharedItems.getContainsDate()) {
-          List dList = ctSharedItems.getDList();
+          List<CTDateTime> dList = ctSharedItems.getDList();
           for (CTDateTime d : dList)
             map.put(d.getV(), Integer.valueOf(idx++));
 
         }
 
         if (ctSharedItems.getContainsNumber()) {
-          List nList = ctSharedItems.getNList();
+          List<CTNumber> nList = ctSharedItems.getNList();
           for (CTNumber n : nList)
             map.put(Double.valueOf(n.getV()), Integer.valueOf(idx++));
 
         }
 
         if (ctSharedItems.getContainsString()) {
-          List sList = ctSharedItems.getSList();
+          List<CTString> sList = ctSharedItems.getSList();
           for (CTString s : sList)
             map.put(s.getV(), Integer.valueOf(idx++));
         }
@@ -578,7 +576,7 @@ public class XSSFPivotCache extends POIXMLDocumentPart
           }
         } else if (isString(cell)) {
           this.containsString = true;
-          String str = XSSFPivotCache.access$000(cell);
+          String str = XSSFPivotCache.getCellText(cell);
 
           getSharedStrings().add(str);
           this.values.add(str);

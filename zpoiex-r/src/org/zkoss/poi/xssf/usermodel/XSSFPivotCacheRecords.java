@@ -14,7 +14,6 @@ import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTPivotCacheRecords;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTPivotCacheRecords.Factory;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTRecord;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.PivotCacheRecordsDocument;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.PivotCacheRecordsDocument.Factory;
 import org.zkoss.poi.POIXMLDocumentPart;
 import org.zkoss.poi.POIXMLException;
 import org.zkoss.poi.openxml4j.opc.PackagePart;

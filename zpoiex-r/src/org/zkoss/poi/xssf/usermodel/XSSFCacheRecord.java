@@ -14,8 +14,7 @@ import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTString;
 import org.w3c.dom.Node;
 import org.zkoss.poi.ss.usermodel.PivotCache.CacheRecord;
 
-public class XSSFCacheRecord
-  implements PivotCache.CacheRecord
+public class XSSFCacheRecord implements CacheRecord
 {
   private CTRecord _record;
   private List<CTCacheField> _fields;
@@ -40,7 +39,7 @@ public class XSSFCacheRecord
     HashMap dataMap = new HashMap();
     IndexMapper indexMapper = new IndexMapper(this._record.getDomNode());
 
-    List xList = this._record.getXList();
+    List<CTIndex> xList = this._record.getXList();
     if (xList != null)
       for (CTIndex e : xList) {
         int index = ((Integer)indexMapper.get(e.getDomNode())).intValue();
@@ -52,7 +51,7 @@ public class XSSFCacheRecord
       }
 
 
-    List nList = this._record.getNList();
+    List<CTNumber> nList = this._record.getNList();
     if (nList != null)
       for (CTNumber n : nList) {
         int index = ((Integer)indexMapper.get(n.getDomNode())).intValue();
@@ -60,7 +59,7 @@ public class XSSFCacheRecord
       }
 
 
-    List sList = this._record.getSList();
+    List<CTString> sList = this._record.getSList();
     if (sList != null)
       for (CTString s : sList) {
         int index = ((Integer)indexMapper.get(s.getDomNode())).intValue();
@@ -68,7 +67,7 @@ public class XSSFCacheRecord
       }
 
 
-    List dList = this._record.getDList();
+    List<CTDateTime> dList = this._record.getDList();
     if (dList != null)
       for (CTDateTime d : dList) {
         int index = ((Integer)indexMapper.get(d.getDomNode())).intValue();
@@ -76,7 +75,7 @@ public class XSSFCacheRecord
       }
 
 
-    List bList = this._record.getBList();
+    List<CTBoolean> bList = this._record.getBList();
     if (bList != null)
       for (CTBoolean b : bList) {
         int index = ((Integer)indexMapper.get(b.getDomNode())).intValue();

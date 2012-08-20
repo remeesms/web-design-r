@@ -13,8 +13,7 @@ import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTSharedItems;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTString;
 import org.zkoss.poi.ss.usermodel.PivotCache.CacheField;
 
-public class XSSFCacheField
-  implements PivotCache.CacheField
+public class XSSFCacheField implements CacheField
 {
   private final CTCacheField _cacheField;
 
