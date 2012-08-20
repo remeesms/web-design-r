@@ -9,23 +9,16 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTItem;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTItems;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTPivotField;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.STAxis;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.STAxis.Enum;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.STFieldSortType;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.STFieldSortType.Enum;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.STItemType;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.STItemType.Enum;
 import org.zkoss.poi.ss.usermodel.Calculation;
-import org.zkoss.poi.ss.usermodel.PivotCache.CacheField;
+import org.zkoss.poi.ss.usermodel.PivotCache;
 import org.zkoss.poi.ss.usermodel.PivotField;
-import org.zkoss.poi.ss.usermodel.PivotField.FieldGroup;
-import org.zkoss.poi.ss.usermodel.PivotField.Item;
-import org.zkoss.poi.ss.usermodel.PivotField.Item.Type;
-import org.zkoss.poi.ss.usermodel.PivotField.SortType;
-import org.zkoss.poi.ss.usermodel.PivotField.Type;
 import org.zkoss.poi.ss.usermodel.PivotTable;
 
 public class XSSFPivotField
@@ -122,7 +115,7 @@ public class XSSFPivotField
 
   public void setType(PivotField.Type type)
   {
-    switch (1.$SwitchMap$org$zkoss$poi$ss$usermodel$PivotField$Type[type.ordinal()])
+    switch (type.ordinal())
     {
     case 1:
       if (this._pivotField.getDataField())
@@ -272,7 +265,7 @@ public class XSSFPivotField
 
   public void setSortType(PivotField.SortType type)
   {
-    switch (1.$SwitchMap$org$zkoss$poi$ss$usermodel$PivotField$SortType[type.ordinal()])
+    switch (type.ordinal())
     {
     case 1:
       this._pivotField.setSortType(STFieldSortType.ASCENDING);
@@ -315,7 +308,7 @@ public class XSSFPivotField
   private class IndexMapper {
     HashMap<Object, Integer> _map = new HashMap();
 
-    IndexMapper() {
+    IndexMapper(List src) {
       for (int i = 0; i < src.size(); ++i) {
         Object obj = src.get(i);
         if (obj instanceof Calendar)
@@ -336,8 +329,7 @@ public class XSSFPivotField
     }
   }
 
-  private class XSSFFieldGroup
-    implements PivotField.FieldGroup
+  private class XSSFFieldGroup implements PivotField.FieldGroup
   {
     private final XSSFPivotField _fieldGroup;
     private final PivotCache.CacheField _cacheField;
@@ -408,7 +400,7 @@ public class XSSFPivotField
     {
       int index = this._cacheField.getFieldGroup();
       if (index > 0)
-        return new XSSFFieldGroup(XSSFPivotField.this, (XSSFPivotField)this._pivotTable.getPivotFields().get(index));
+        return new XSSFFieldGroup((XSSFPivotField)this._pivotTable.getPivotFields().get(index));
 
       return null;
     }
