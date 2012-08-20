@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	Purpose: Defines functions for ZK Spread Sheet formula. 
+	Description: 
+	Histroy: Oct 14 17:14:27 2010, Created by ashish 
+	
+	Copyright (C) 2010 Potix Corporation. All Rights Reserved. 
+-->
+
+<taglib>
+	<uri>http://www.zkoss.org/zss/functions/statistical</uri>
+	<description>
+		Statistical Functions for ZK Spread Sheet
+		formula.
+	</description>
+
+	<!-- -->
+	<!-- Imports -->
+	<!-- -->
+	<import>
+		<import-name>StatFns</import-name>
+		<import-class>org.zkoss.zssex.formula.fn.StatFns</import-class>
+	</import>
+
+	<!-- -->
+	<!-- Math and trigonometry Functions -->
+	<!-- -->
+	<function>
+		<name>AVERAGEA</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			averagea(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the double factorial of a number.
+		</description>
+	</function>
+	<function>
+		<name>BINOMDIST</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			binomdist(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the individual term binomial distribution probability.
+		</description>
+	</function>
+	<function>
+		<name>CHIDIST</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			chidist(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the one-tailed probability of the chi-squared distribution.
+		</description>
+	</function>
+	<function>
+		<name>CHIINV</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			chiinv(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the inverse of the one-tailed probability of the chi-squared distribution.
+		</description>
+	</function>
+	<function>
+		<name>EXPONDIST</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			expondist(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the exponential distribution.
+		</description>
+	</function>
+	<function>
+		<name>FDIST</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			fdist(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the F probability distribution.
+		</description>
+	</function>
+	<function>
+		<name>FINV</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			finv(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the inverse of the F probability distribution.
+		</description>
+	</function>
+	<function>
+		<name>GAMMADIST</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			gammadist(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the gamma distribution.
+		</description>
+	</function>
+	<function>
+		<name>GAMMAINV</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			gammainv(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the inverse of the gamma cumulative distribution.
+		</description>
+	</function>
+	<function>
+		<name>GAMMALN</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			gammaln(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the natural logarithm of the gamma function.
+		</description>
+	</function>
+	<function>
+		<name>GEOMEAN</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			geomean(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the geometric mean of an array or range of positive data.
+		</description>
+	</function>
+	<function>
+		<name>HARMEAN</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			harmean(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the harmonic mean of a data set.
+		</description>
+	</function>
+	<function>
+		<name>HYPGEOMDIST</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			hypgeomdist(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the hypergeometric distribution.
+		</description>
+	</function>
+	<function>
+		<name>KURT</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			kurt(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the kurtosis of a data set.
+		</description>
+	</function>
+	<function>
+		<name>NORMDIST</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			normdist(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the normal cumulative distribution.
+		</description>
+	</function>
+	<function>
+		<name>POISSON</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			poisson(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the Poisson distribution.
+		</description>
+	</function>
+	<function>
+		<name>SKEW</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			skew(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the skewness of a distribution.
+		</description>
+	</function>
+	<function>
+		<name>SLOPE</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			slope(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the slope of the linear regression line.
+		</description>
+	</function>
+	<function>
+		<name>STDEV</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			stdev(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Estimates standard deviation based on a sample.
+		</description>
+	</function>
+	<function>
+		<name>STDEVP</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			stdevp(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Calculates standard deviation based on the entire population.
+		</description>
+	</function>
+	<function>
+		<name>TDIST</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			tdist(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the Student's t-distribution.
+		</description>
+	</function>
+	<function>
+		<name>TINV</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			tinv(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the inverse of the Student's t-distribution.
+		</description>
+	</function>
+	<function>
+		<name>VAR</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			var(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Estimates variance based on a sample.
+		</description>
+	</function>
+	<function>
+		<name>VARP</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			varp(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Calculates variance based on the entire population.
+		</description>
+	</function>
+	<function>
+		<name>WEIBULL</name>
+		<function-class>org.zkoss.zssex.formula.fn.StatFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			weibull(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the Weibull distribution.
+		</description>
+	</function>
+</taglib>
+
