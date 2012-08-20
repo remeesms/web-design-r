@@ -1,1 +1,1 @@
-base version   zss-src-2.3.0
+base version   zss-src-2.4.0
