@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	Purpose: Defines functions for ZK Spread Sheet formula. 
+	Description: 
+	Histroy: Fri Sep 09 17:14:27 2007, Created by ashish 
+	
+	Copyright (C) 2010 Potix Corporation. All Rights Reserved. 
+-->
+
+<taglib>
+	<uri>http://www.zkoss.org/zss/functions/engineering</uri>
+	<description>
+		Engineering Functions for ZK Spread Sheet formula.
+	</description>
+
+	<!-- -->
+	<!-- Imports -->
+	<!-- -->
+	<import>
+		<import-name>EngineeringFns</import-name>
+		<import-class>org.zkoss.zssex.formula.fn.EngineeringFns</import-class>
+	</import>
+
+	<!-- -->
+	<!-- Engineering Functions -->
+	<!-- -->
+	<function>
+		<name>BESSELI</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			besseli(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the modified Bessel function In(x).
+		</description>
+	</function>
+	<function>
+		<name>BESSELJ</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			besselj(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the Bessel function Jn(x).
+		</description>
+	</function>
+	<function>
+		<name>BESSELK</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			besselk(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the modified Bessel function Kn(x).
+		</description>
+	</function>
+	<function>
+		<name>BESSELY</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			bessely(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the Bessel function Yn(x).
+		</description>
+	</function>
+	<function>
+		<name>BIN2DEC</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			bin2dec(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts a binary number to decimal.
+		</description>
+	</function>
+	<function>
+		<name>BIN2HEX</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			bin2hex(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts a binary number to hexadecimal.
+		</description>
+	</function>
+	<function>
+		<name>BIN2OCT</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			bin2oct(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts a binary number to octal.
+		</description>
+	</function>
+	<function>
+		<name>COMPLEX</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			complex(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts real and imaginary coefficients into a complex number.
+		</description>
+	</function>
+	<function>
+		<name>DEC2BIN</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			dec2bin(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Converts a decimal number to binary.
+		</description>
+	</function>
+	<function>
+		<name>DEC2HEX</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			dec2hex(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Converts a decimal number to hexadecimal.
+		</description>
+	</function>
+	<function>
+		<name>DEC2OCT</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			dec2oct(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Converts a decimal number to octal.
+		</description>
+	</function>
+	<function>
+		<name>DELTA</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			delta(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Tests whether two values are equal.
+		</description>
+	</function>
+	<function>
+		<name>ERF</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			erf(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the error function.
+		</description>
+	</function>
+	<function>
+		<name>ERFC</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			erfc(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the complementary error function.
+		</description>
+	</function>
+	<function>
+		<name>GESTEP</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			gestep(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Tests whether a number is greater than a threshold value.
+		</description>
+	</function>
+	<function>
+		<name>HEX2BIN</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			hex2bin(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Converts a hexadecimal number to binary.
+		</description>
+	</function>
+	<function>
+		<name>HEX2DEC</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			hex2dec(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Converts a hexadecimal number to decimal.
+		</description>
+	</function>
+	<function>
+		<name>HEX2OCT</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			hex2oct(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Converts a hexadecimal number to octal.
+		</description>
+	</function>
+	<function>
+		<name>IMABS</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imabs(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the absolute value (modulus) of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMAGINARY</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imaginary(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the imaginary coefficient of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMARGUMENT</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imargument(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the argument theta, an angle expressed in radians.
+		</description>
+	</function>
+	<function>
+		<name>IMCONJUGATE</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imconjugate(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the complex conjugate of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMCOS</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imcos(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the cosine of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMDIV</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imdiv(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the quotient of two complex numbers.
+		</description>
+	</function>
+	<function>
+		<name>IMEXP</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imexp(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the exponential of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMLN</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imln(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the natural logarithm of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMLOG10</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imlog10(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the base-10 logarithm of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMLOG2</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imlog2(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the base-2 logarithm of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMPOWER</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			impower(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns a complex number raised to an integer power.
+		</description>
+	</function>
+	<function>
+		<name>IMPRODUCT</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			improduct(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the product of from 2 to 29 complex numbers.
+		</description>
+	</function>
+	<function>
+		<name>IMREAL</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imreal(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the real coefficient of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMSIN</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imsin(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the sine of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMSQRT</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imsqrt(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the square root of a complex number.
+		</description>
+	</function>
+	<function>
+		<name>IMSUB</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imsub(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the difference between two complex numbers.
+		</description>
+	</function>
+	<function>
+		<name>IMSUM</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			imsum(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Returns the sum of complex numbers.
+		</description>
+	</function>
+	<function>
+		<name>OCT2BIN</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			oct2bin(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Converts a octal number to binary.
+		</description>
+	</function>
+	<function>
+		<name>OCT2DEC</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			oct2dec(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Converts a octal number to decimal.
+		</description>
+	</function>
+	<function>
+		<name>OCT2HEX</name>
+		<function-class>org.zkoss.zssex.formula.fn.EngineeringFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			oct2hex(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcCellRow,
+			int srcCellCol);</function-signature>
+		<description>
+			Converts a octal number to hexadecimal.
+		</description>
+	</function>
+</taglib>
+

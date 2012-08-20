@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	Purpose: Defines functions for ZK Spread Sheet formula. 
+	Description: 
+	Histroy: Fri Sep 09 17:14:27 2007, Created by henrichen 
+	
+	Copyright (C) 2007 Potix Corporation. All Rights Reserved. 
+-->
+
+<taglib>
+	<uri>http://www.zkoss.org/zss/functions/financial</uri>
+	<description>
+		Functions for ZK Spread Sheet formula.
+	</description>
+
+	<!-- -->
+	<!-- Imports -->
+	<!-- -->
+	<import>
+		<import-name>FinancialFns</import-name>
+		<import-class>org.zkoss.zssex.formula.fn.FinancialFns</import-class>
+	</import>
+
+	<!-- -->
+	<!-- Financial Functions -->
+	<!-- -->
+	<function>
+		<name>ACCRINT</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			accrint(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the accrued interest for a security that pays
+			periodic interest.
+		</description>
+	</function>
+
+	<function>
+		<name>ACCRINTM</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			accrintm(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the accrued interest for a security that pays
+			interest at maturity.
+		</description>
+	</function>
+
+	<function>
+		<name>AMORDEGRC</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			amordegrc(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>Returns the depreciation for each accounting period by
+			using a depreciation coefficient.</description>
+	</function>
+
+	<function>
+		<name>AMORLINC</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			amorlinc(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the depreciation for each accounting period.
+		</description>
+	</function>
+	<function>
+		<name>COUPDAYBS</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			coupdaybs(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the number of days from the beginning of the
+			coupon period to the
+			settlement date. 
+		</description>
+	</function>
+	<function>
+		<name>COUPDAYS</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			coupdays(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the number of days in the coupon period that
+			contains the settlement date. 
+		</description>
+	</function>
+	<function>
+		<name>COUPDAYSNC</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			coupdaysnc(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the number of days from the settlement date to
+			the next coupon date. 
+		</description>
+	</function>
+	<function>
+		<name>COUPNCD</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			coupncd(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns a number that represents the next coupon date
+			after the settlement date. 
+		</description>
+	</function>
+	<function>
+		<name>COUPNUM</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			coupnum(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the number of coupons payable between the
+			settlement date and maturity date, rounded up to the nearest whole
+			coupon. 
+		</description>
+	</function>
+	<function>
+		<name>COUPPCD</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			couppcd(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns a number that represents the previous coupon date
+			before the settlement date. 
+		</description>
+	</function>
+	<function>
+		<name>CUMIPMT</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			cumipmt(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the cumulative interest paid on a loan between
+			start_period and end_period. 
+		</description>
+	</function>
+	<function>
+		<name>CUMPRINC</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			cumprinc(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the cumulative principal paid on a loan between
+			start_period and end_period. 
+		</description>
+	</function>
+	<function>
+		<name>DB</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>
+			org.zkoss.poi.ss.formula.eval.ValueEval
+			db(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);
+		</function-signature>
+		<description>
+			Returns the depreciation of an asset for a specified
+			period by using the
+			fixed-declining balance method
+		</description>
+	</function>
+
+	<function>
+		<name>DDB</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>
+			org.zkoss.poi.ss.formula.eval.ValueEval
+			ddb(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);
+		</function-signature>
+		<description>
+			Returns the depreciation of an asset for a specified
+			period by using the
+			double-declining balance method or some other
+			method that you specify
+		</description>
+	</function>
+	<function>
+		<name>DISC</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			disc(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the discount rate for a security. 
+		</description>
+	</function>
+	<function>
+		<name>DOLLARDE</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			dollarde(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts a dollar price expressed as an integer part and
+			a fraction part. 
+		</description>
+	</function>
+	<function>
+		<name>DOLLARFR</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			dollarfr(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts a dollar price expressed as a decimal number
+			into a dollar price expressed as a fraction. 
+		</description>
+	</function>
+	<function>
+		<name>DURATION</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			duration(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the annual duration of a security with periodic
+			interest payments. 
+		</description>
+	</function>
+	<function>
+		<name>EFFECT</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			effect(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the effective annual interest rate. 
+		</description>
+	</function>
+	<function>
+		<name>FVSCHEDULE</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			fvschedule(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the future value of an initial principal after
+			applying a series of compound interest rates. 
+		</description>
+	</function>
+	<function>
+		<name>INTRATE</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			intrate(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the interest rate for a fully invested security.
+		</description>
+	</function>
+
+	<function>
+		<name>IPMT</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>
+			org.zkoss.poi.ss.formula.eval.ValueEval
+			ipmt(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);
+		</function-signature>
+		<description>
+			Returns the interest payment for an investment for a
+			given period
+		</description>
+	</function>
+	<function>
+		<name>PPMT</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>
+			org.zkoss.poi.ss.formula.eval.ValueEval
+			ppmt(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);
+		</function-signature>
+		<description>
+			Returns the payment on the principal for an investment
+			for a given period
+		</description>
+	</function>
+
+	<function>
+		<name>SLN</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>
+			org.zkoss.poi.ss.formula.eval.ValueEval
+			sln(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);
+		</function-signature>
+		<description>
+			Returns the straight-line depreciation of an asset for
+			one period
+		</description>
+	</function>
+
+	<function>
+		<name>SYD</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>
+			org.zkoss.poi.ss.formula.eval.ValueEval
+			syd(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);
+		</function-signature>
+		<description>
+			Returns the sum-of-years' digits depreciation of an asset
+			for a specified
+			period 
+		</description>
+	</function>
+
+	<function>
+		<name>NOMINAL</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			nominal(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the annual nominal interest rate. 
+		</description>
+	</function>
+	<function>
+		<name>NPV</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			npv(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the net present value of an investment based on a
+			series of periodic cash flows and a discount rate. 
+		</description>
+	</function>
+
+	<function>
+		<name>PRICE</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			price(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the price per $100 face value of a security that
+			pays periodic interest. 
+		</description>
+	</function>
+	<function>
+		<name>PRICEDISC</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			pricedisc(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the price per $100 face value of a discounted
+			security. 
+		</description>
+	</function>
+	<function>
+		<name>PRICEMAT</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			pricemat(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the price per $100 face value of a security that
+			pays interest at maturity. 
+		</description>
+	</function>
+	<function>
+		<name>RECEIVED</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			received(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the amount received at maturity for a fully
+			invested security. 
+		</description>
+	</function>
+	<function>
+		<name>TBILLEQ</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			tbilleq(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the bond-equivalent yield for a Treasury bill.
+		</description>
+	</function>
+	<function>
+		<name>TBILLPRICE</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			tbillprice(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the price per $100 face value for a Treasury
+			bill. 
+		</description>
+	</function>
+	<function>
+		<name>TBILLYIELD</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			tbillyield(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the yield for a Treasury bill. 
+		</description>
+	</function>
+	<function>
+		<name>XNPV</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			xnpv(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the net present value for a schedule of cash
+			flows that is not necessarily periodic. 
+		</description>
+	</function>
+	<function>
+		<name>YIELD</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			yield(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the yield on a security that pays periodic
+			interest. 
+		</description>
+	</function>
+	<function>
+		<name>YIELDDISC</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			yielddisc(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the annual yield for a discounted security.
+		</description>
+	</function>
+	<function>
+		<name>YIELDMAT</name>
+		<function-class>org.zkoss.zssex.formula.fn.FinancialFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			yieldmat(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the annual yield of a security that pays interest
+			at maturity. 
+		</description>
+	</function>
+</taglib>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	Purpose: Defines functions for ZK Spread Sheet formula. 
+	Description: 
+	Histroy: Oct 25 17:14:27 2010, Created by ashish 
+	
+	Copyright (C) 2010 Potix Corporation. All Rights Reserved. 
+-->
+
+<taglib>
+	<uri>http://www.zkoss.org/zss/functions/datetime</uri>
+	<description>
+		Date and Time Functions for ZK Spread Sheet
+		formula.
+	</description>
+
+	<!-- -->
+	<!-- Imports -->
+	<!-- -->
+	<import>
+		<import-name>DateTimeFns</import-name>
+		<import-class>org.zkoss.zssex.formula.fn.DateTimeFns</import-class>
+	</import>
+
+	<!-- -->
+	<!-- Date and Time Functions -->
+	<!-- -->
+	<function>
+		<name>DATEVALUE</name>
+		<function-class>org.zkoss.zssex.formula.fn.DateTimeFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			dateValue(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts a date in the form of text to a serial number.
+		</description>
+	</function>
+	<function>
+		<name>HOUR</name>
+		<function-class>org.zkoss.zssex.formula.fn.DateTimeFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			hour(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the hour of a time value.
+		</description>
+	</function>
+	<function>
+		<name>MINUTE</name>
+		<function-class>org.zkoss.zssex.formula.fn.DateTimeFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			minute(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts a serial number to minute.
+		</description>
+	</function>
+	<function>
+		<name>SECOND</name>
+		<function-class>org.zkoss.zssex.formula.fn.DateTimeFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			second(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts a serial number to a second.
+		</description>
+	</function>
+	<function>
+		<name>WEEKDAY</name>
+		<function-class>org.zkoss.zssex.formula.fn.DateTimeFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			weekDay(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts a serial number to a second.
+		</description>
+	</function>
+</taglib>
+

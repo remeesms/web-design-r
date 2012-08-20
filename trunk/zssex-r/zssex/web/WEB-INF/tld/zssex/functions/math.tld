@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	Purpose: Defines functions for ZK Spread Sheet formula. 
+	Description: 
+	Histroy: Oct 05 17:14:27 2010, Created by ashish 
+	
+	Copyright (C) 2010 Potix Corporation. All Rights Reserved. 
+-->
+
+<taglib>
+	<uri>http://www.zkoss.org/zss/functions/math</uri>
+	<description>
+		Math and trigonometry Functions for ZK Spread Sheet
+		formula.
+	</description>
+
+	<!-- -->
+	<!-- Imports -->
+	<!-- -->
+	<import>
+		<import-name>MathFns</import-name>
+		<import-class>org.zkoss.zssex.formula.fn.MathFns</import-class>
+	</import>
+
+	<!-- -->
+	<!-- Math and trigonometry Functions -->
+	<!-- -->
+	<function>
+		<name>FACTDOUBLE</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			factdouble(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the double factorial of a number.
+		</description>
+	</function>
+	<function>
+		<name>GCD</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			gcd(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the greatest common divisor.
+		</description>
+	</function>
+	<function>
+		<name>LCM</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			lcm(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the least common multiple.
+		</description>
+	</function>
+	<function>
+		<name>MDETERM</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			mdeterm(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the matrix determinant of an array.
+		</description>
+	</function>
+	<function>
+		<name>MROUND</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			mround(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns a number rounded to the desired multiple.
+		</description>
+	</function>
+	<function>
+		<name>MINVERSE</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			minverse(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the matrix inverse of an array.
+		</description>
+	</function>
+	<function>
+		<name>MMULT</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			mmult(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the matrix product of two arrays.
+		</description>
+	</function>
+	<function>
+		<name>MULTINOMIAL</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			multinomial(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the multinomial of a set of numbers.
+		</description>
+	</function>
+	<function>
+		<name>QUOTIENT</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			quotient(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the integer portion of a division.
+		</description>
+	</function>
+	<function>
+		<name>RANDBETWEEN</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			randbetween(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns a random number between the numbers you specify.
+		</description>
+	</function>
+	<function>
+		<name>ROMAN</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			roman(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Converts an arabic numeral to roman, as text.
+		</description>
+	</function>
+	<function>
+		<name>SQRTPI</name>
+		<function-class>org.zkoss.zssex.formula.fn.MathFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			sqrtpi(org.zkoss.poi.ss.formula.eval.ValueEval[] args, int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the square root of (number * pi).
+		</description>
+	</function>
+</taglib>
+
