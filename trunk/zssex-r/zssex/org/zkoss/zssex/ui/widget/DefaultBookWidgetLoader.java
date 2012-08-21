@@ -69,19 +69,20 @@ public class DefaultBookWidgetLoader implements WidgetLoader {
 		this._colSizeHelper = ((SpreadsheetCtrl) this._spreadsheet.getExtraCtrl()).getColumnPositionHelper(key);
 
 		DrawingManager dm = ((SheetCtrl) sheet).getDrawingManager();
-		Map list = new LinkedHashMap();
+		Map<String, Widget> list = new LinkedHashMap<String, Widget>();
 		preparePictureWidgets(sheet, dm, list);
 		prepareChartWidgets(sheet, dm, list);
+		prepareTableWidgets(sheet, dm, list);
 		if ((list != null) && (list.size() > 0))
 			this._widgetMap.put(key, list);
 	}
 
 	private void preparePictureWidgets(Worksheet sheet, DrawingManager dm, Map<String, Widget> list) {
 		List<Picture> pictures = dm.getPictures();
-		if ((pictures == null) || (pictures.size() == 0))
-			return;
+		if ((pictures == null) || (pictures.size() == 0)) { return; }
+		
 		int zindex = 200 + list.size();
-		for (Picture picture : pictures)
+		for (Picture picture : pictures) {
 			try {
 				ImageWidget imagewgt = newImageWidget(sheet, picture, zindex++);
 				if (imagewgt != null) {
@@ -91,14 +92,15 @@ public class DefaultBookWidgetLoader implements WidgetLoader {
 			} catch (IOException e) {
 				throw UiException.Aide.wrap(e);
 			}
+		}
 	}
 
 	private void prepareChartWidgets(Worksheet sheet, DrawingManager dm, Map<String, Widget> list) {
 		List<ZssChartX> charts = dm.getChartXs();
-		if ((charts == null) || (charts.size() == 0))
-			return;
+		if ((charts == null) || (charts.size() == 0)) { return; }
+		
 		int zindex = 200 + list.size();
-		for (ZssChartX chartX : charts)
+		for (ZssChartX chartX : charts) {
 			try {
 				ChartWidget chartwgt = newChartWidget(sheet, chartX, zindex++);
 				if (chartwgt != null) {
@@ -108,13 +110,40 @@ public class DefaultBookWidgetLoader implements WidgetLoader {
 			} catch (IOException e) {
 				throw UiException.Aide.wrap(e);
 			}
+		}
 	}
+	
+	/**
+	 * pivot table / grid
+	 * 
+	 * @param sheet
+	 * @param dm
+	 * @param list
+	 */
+	private void prepareTableWidgets(Worksheet sheet, DrawingManager dm, Map<String, Widget> list) {
+		// TODO
+		/*List<ZssChartX> charts = dm.getChartXs();
+		if ((charts == null) || (charts.size() == 0)) { return; }
+		
+		int zindex = 200 + list.size();
+		for (ZssChartX chartX : charts) {
+			try {
+				ChartWidget chartwgt = newChartWidget(sheet, chartX, zindex++);
+				if (chartwgt != null) {
+					list.put(chartX.getChartId(), chartwgt);
+					((SpreadsheetCtrl) this._spreadsheet.getExtraCtrl()).addWidget(chartwgt);
+				}
+			} catch (IOException e) {
+				throw UiException.Aide.wrap(e);
+			}
+		}*/
+	}	
 
 	public void addChartWidget(Worksheet sheet, ZssChartX chart) {
 		String key = Utils.getSheetUuid(sheet);
-		Map list = (Map) this._widgetMap.get(key);
+		Map<String, Widget> list = this._widgetMap.get(key);
 		if (list == null)
-			list = new LinkedHashMap();
+			list = new LinkedHashMap<String, Widget>();
 
 		int zindex = 200 + list.size();
 		try {
@@ -132,9 +161,9 @@ public class DefaultBookWidgetLoader implements WidgetLoader {
 
 	public void addPictureWidget(Worksheet sheet, Picture picture) {
 		String key = Utils.getSheetUuid(sheet);
-		Map list = (Map) this._widgetMap.get(key);
+		Map<String, Widget> list = this._widgetMap.get(key);
 		if (list == null)
-			list = new LinkedHashMap();
+			list = new LinkedHashMap<String, Widget>();
 
 		int zindex = 200 + list.size();
 		try {
@@ -152,7 +181,7 @@ public class DefaultBookWidgetLoader implements WidgetLoader {
 
 	public void deletePictureWidget(Worksheet sheet, Picture picture) {
 		String key = Utils.getSheetUuid(sheet);
-		Map list = (Map) this._widgetMap.get(key);
+		Map<String, Widget> list = this._widgetMap.get(key);
 		if (list == null)
 			return;
 
@@ -163,7 +192,7 @@ public class DefaultBookWidgetLoader implements WidgetLoader {
 
 	public void updatePictureWidget(Worksheet sheet, Picture picture) {
 		String key = Utils.getSheetUuid(sheet);
-		Map list = (Map) this._widgetMap.get(key);
+		Map<String, Widget> list = (Map<String, Widget>) this._widgetMap.get(key);
 		if (list == null) {
 			return;
 		}
@@ -406,7 +435,7 @@ public class DefaultBookWidgetLoader implements WidgetLoader {
 
 	public void updateChartWidget(Worksheet sheet, Chart chart) {
 		String key = Utils.getSheetUuid(sheet);
-		Map list = (Map) this._widgetMap.get(key);
+		Map<String, Widget> list = this._widgetMap.get(key);
 		if (list == null) {
 			return;
 		}
@@ -422,12 +451,13 @@ public class DefaultBookWidgetLoader implements WidgetLoader {
 
 	public void deleteChartWidget(Worksheet sheet, Chart chart) {
 		String key = Utils.getSheetUuid(sheet);
-		Map list = (Map) this._widgetMap.get(key);
+		Map<String, Widget> list = this._widgetMap.get(key);
 		if (list == null)
 			return;
 
 		ChartWidget imagewgt = (ChartWidget) list.remove(chart.getChartId());
-		if (imagewgt != null)
+		if (imagewgt != null) {
 			((SpreadsheetCtrl) this._spreadsheet.getExtraCtrl()).removeWidget(imagewgt);
+		}
 	}
 }
