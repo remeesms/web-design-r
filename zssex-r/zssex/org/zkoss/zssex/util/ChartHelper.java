@@ -84,12 +84,10 @@ public class ChartHelper {
 	}
 
 	public static String getChartType(ChartInfo chartInfo) {
-		return getHSSFChartType(((HSSFChart) chartInfo).getType(),
-				(HSSFChart) chartInfo);
+		return getHSSFChartType(((HSSFChart) chartInfo).getType(), (HSSFChart) chartInfo);
 	}
 
-	private static String getHSSFChartType(HSSFChart.HSSFChartType type,
-			HSSFChart chartInfo) {
+	private static String getHSSFChartType(HSSFChart.HSSFChartType type, HSSFChart chartInfo) {
 		switch (type.ordinal() + 1) {
 		case 1:
 			return "area";
@@ -98,25 +96,21 @@ public class ChartHelper {
 		case 3:
 			return "line";
 		case 4:
-			return ((((PieRecord) chartInfo.getShapeRecord()).getPcDonut() == 0) ? "pie"
-					: "ring");
+			return ((((PieRecord) chartInfo.getShapeRecord()).getPcDonut() == 0) ? "pie" : "ring");
 		case 5:
 			return "scatter";
 		}
 		return null;
 	}
 
-	public static AreaReference getAreaReference(HSSFSheet sheet,
-			LinkedDataRecord linkedDataRecord) {
+	public static AreaReference getAreaReference(HSSFSheet sheet, LinkedDataRecord linkedDataRecord) {
 		if (linkedDataRecord == null)
 			return null;
 
-		return prepareSingleReference(sheet, linkedDataRecord
-				.getFormulaOfLink());
+		return prepareSingleReference(sheet, linkedDataRecord.getFormulaOfLink());
 	}
 
-	public static AreaReference prepareSingleReference(HSSFSheet sheet,
-			Ptg[] ptgs) {
+	public static AreaReference prepareSingleReference(HSSFSheet sheet, Ptg[] ptgs) {
 		String sheetName = null;
 		int firstRow = -1;
 		int lastRow = 0;
@@ -131,9 +125,8 @@ public class ChartHelper {
 			if (ptg instanceof Ref3DPtg) {
 				Ref3DPtg areaPtg = (Ref3DPtg) ptg;
 				externIndex = areaPtg.getExternSheetIndex();
-				sheetName = new HSSFWorkbookHelper(sheet.getWorkbook())
-						.getInternalWorkbook().findSheetNameFromExternSheet(
-								externIndex);
+				sheetName = new HSSFWorkbookHelper(sheet.getWorkbook()).getInternalWorkbook()
+						.findSheetNameFromExternSheet(externIndex);
 				firstRow = areaPtg.getRow();
 				lastRow = firstRow;
 				firstCol = areaPtg.getColumn();
@@ -141,9 +134,8 @@ public class ChartHelper {
 			} else if (ptg instanceof Area3DPtg) {
 				Area3DPtg areaPtg = (Area3DPtg) ptg;
 				externIndex = areaPtg.getExternSheetIndex();
-				sheetName = new HSSFWorkbookHelper(sheet.getWorkbook())
-						.getInternalWorkbook().findSheetNameFromExternSheet(
-								externIndex);
+				sheetName = new HSSFWorkbookHelper(sheet.getWorkbook()).getInternalWorkbook()
+						.findSheetNameFromExternSheet(externIndex);
 				firstRow = areaPtg.getFirstRow();
 				lastRow = areaPtg.getLastRow();
 				firstCol = areaPtg.getFirstColumn();
@@ -165,8 +157,7 @@ public class ChartHelper {
 			}
 		}
 		if (firstRow >= 0) {
-			CellReference c1 = new CellReference(sheetName, firstRow, firstCol,
-					true, true);
+			CellReference c1 = new CellReference(sheetName, firstRow, firstCol, true, true);
 			CellReference c2 = new CellReference(lastRow, lastCol, true, true);
 			return new AreaReference(c1, c2);
 		}
@@ -194,12 +185,11 @@ public class ChartHelper {
 
 	}
 
-	public static String[] getLiterals(HSSFWorkbook book,
-			LabelSSTRecord[] labelRecords) {
+	public static String[] getLiterals(HSSFWorkbook book, LabelSSTRecord[] labelRecords) {
 		String[] lits = new String[labelRecords.length];
 		for (int j = 0; j < lits.length; ++j) {
-			lits[j] = new HSSFWorkbookHelper(book).getInternalWorkbook()
-					.getSSTString(labelRecords[j].getSSTIndex()).getString();
+			lits[j] = new HSSFWorkbookHelper(book).getInternalWorkbook().getSSTString(labelRecords[j].getSSTIndex())
+					.getString();
 		}
 
 		return lits;
@@ -213,14 +203,12 @@ public class ChartHelper {
 		return true;
 	}
 
-	public static String getChartType(
-			org.zkoss.poi.ss.usermodel.Chart poiChart, ChartGrouping grouping) {
+	public static String getChartType(org.zkoss.poi.ss.usermodel.Chart poiChart, ChartGrouping grouping) {
 		XSSFChart xssfChart = (XSSFChart) poiChart;
 		switch (xssfChart.getChartType().ordinal() + 1) {
 		case 1:
 		case 2:
-			return ((grouping == ChartGrouping.STACKED) ? "stacked_area"
-					: "area");
+			return ((grouping == ChartGrouping.STACKED) ? "stacked_area" : "area");
 		case 3:
 		case 4:
 			return ((grouping == ChartGrouping.STACKED) ? "stacked_bar" : "bar");
@@ -288,8 +276,7 @@ public class ChartHelper {
 		return "";
 	}
 
-	public static Chart createChart(org.zkoss.poi.ss.usermodel.Chart poiChart,
-			int chartLibType) {
+	public static Chart createChart(org.zkoss.poi.ss.usermodel.Chart poiChart, int chartLibType) {
 
 		if (chartLibType == CHART_LIB_TYPE_JS_CHART) {
 			// TODO
@@ -308,16 +295,14 @@ public class ChartHelper {
 		}
 	}
 
-	public static void drawChart(ChartDrawer drawer, Chart zchart,
-			Worksheet sheet, ZssChartX poiChart) {
+	public static void drawChart(ChartDrawer drawer, Chart zchart, Worksheet sheet, ZssChartX poiChart) {
 		if (sheet instanceof HSSFSheet)
 			drawHSSFChart(drawer, zchart, sheet, poiChart);
 		else
 			drawXSSFChart(drawer, zchart, sheet, poiChart);
 	}
 
-	private static void drawHSSFChart(ChartDrawer drawer, Chart chart,
-			Worksheet sheet, ZssChartX chartX) {
+	private static void drawHSSFChart(ChartDrawer drawer, Chart chart, Worksheet sheet, ZssChartX chartX) {
 		HSSFChart chartInfo = (HSSFChart) chartX.getChartInfo();
 		HSSFChart.HSSFChartType type = chartInfo.getType();
 		HSSFChart.HSSFSeries[] series = chartInfo.getSeries();
@@ -343,28 +328,23 @@ public class ChartHelper {
 			drawChart0(drawer, (HSSFSheet) sheet, chart, model, chartInfo);
 	}
 
-	private static ChartModel prepareScatterModel(ChartDrawer drawer,
-			HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
+	private static ChartModel prepareScatterModel(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
 		return prepareXYModel(drawer, sheet, series);
 	}
 
-	private static ChartModel prepareAreaModel(ChartDrawer drawer,
-			HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
+	private static ChartModel prepareAreaModel(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
 		return prepareCategoryModel(drawer, sheet, series);
 	}
 
-	private static ChartModel prepareBarModel(ChartDrawer drawer,
-			HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
+	private static ChartModel prepareBarModel(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
 		return prepareCategoryModel(drawer, sheet, series);
 	}
 
-	private static ChartModel prepareLineModel(ChartDrawer drawer,
-			HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
+	private static ChartModel prepareLineModel(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
 		return prepareCategoryModel(drawer, sheet, series);
 	}
 
-	private static ChartModel prepareCategoryModel(ChartDrawer drawer,
-			HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
+	private static ChartModel prepareCategoryModel(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
 		CategoryModel model = new SimpleCategoryModel();
 
 		for (HSSFChart.HSSFSeries ser : series) {
@@ -378,8 +358,7 @@ public class ChartHelper {
 		return model;
 	}
 
-	private static XYModel prepareXYModel(ChartDrawer drawer, HSSFSheet sheet,
-			HSSFChart.HSSFSeries[] series) {
+	private static XYModel prepareXYModel(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
 		XYModel model = new SimpleXYModel();
 		int sj = 1;
 		for (HSSFChart.HSSFSeries ser : series) {
@@ -393,8 +372,7 @@ public class ChartHelper {
 		return model;
 	}
 
-	private static PieModel preparePieModel(ChartDrawer drawer,
-			HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
+	private static PieModel preparePieModel(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
 		PieModel model = new SimplePieModel();
 
 		for (HSSFChart.HSSFSeries ser : series) {
@@ -407,8 +385,8 @@ public class ChartHelper {
 		return model;
 	}
 
-	private static void drawChart0(ChartDrawer drawer, HSSFSheet sheet,
-			Chart chart, ChartModel model, ChartInfo chartInfo) {
+	private static void drawChart0(ChartDrawer drawer, HSSFSheet sheet, Chart chart, ChartModel model,
+			ChartInfo chartInfo) {
 		chart.setType(getChartType(chartInfo));
 		chart.setTitle(getChartTitle(drawer, sheet, chartInfo));
 		chart.setThreeD(isThreeD(chartInfo));
@@ -416,21 +394,18 @@ public class ChartHelper {
 		chart.setModel(model);
 	}
 
-	private static String getChartTitle(ChartDrawer drawer, HSSFSheet sheet,
-			ChartInfo chartInfo) {
+	private static String getChartTitle(ChartDrawer drawer, HSSFSheet sheet, ChartInfo chartInfo) {
 		boolean autoTitleDeleted = ((HSSFChart) chartInfo).isAutoTitleDeleted();
 		if (!(autoTitleDeleted)) {
 			String title = ((HSSFChart) chartInfo).getChartTitle();
 			String type = getChartType(chartInfo);
-			return ((("pie".equals(type)) || ("ring".equals(type))) ? getFirstSeriesTitle(
-					drawer, sheet, chartInfo)
+			return ((("pie".equals(type)) || ("ring".equals(type))) ? getFirstSeriesTitle(drawer, sheet, chartInfo)
 					: (title != null) ? title : null);
 		}
 		return null;
 	}
 
-	private static String getFirstSeriesTitle(ChartDrawer drawer,
-			HSSFSheet sheet, ChartInfo chartInfo) {
+	private static String getFirstSeriesTitle(ChartDrawer drawer, HSSFSheet sheet, ChartInfo chartInfo) {
 		HSSFChart.HSSFSeries[] series = ((HSSFChart) chartInfo).getSeries();
 		if (series.length == 0)
 			return null;
@@ -438,8 +413,7 @@ public class ChartHelper {
 		return prepareTitle(drawer, sheet, series[0], -1);
 	}
 
-	private static String prepareTitle(ChartDrawer drawer, HSSFSheet sheet,
-			HSSFChart.HSSFSeries ser, int sj) {
+	private static String prepareTitle(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries ser, int sj) {
 		AreaReference dataname = getAreaReference(sheet, ser.getDataName());
 		if (dataname == null) {
 			String title = ser.getSeriesTitle();
@@ -453,20 +427,16 @@ public class ChartHelper {
 		int drow2 = dc2.getRow();
 		drawer.prepareUpdateAreaReference(dcol1, drow1, dcol2, drow2);
 		String sheetName = dc1.getSheetName();
-		Worksheet csheet = (Worksheet) ((sheetName != null) ? sheet
-				.getWorkbook().getSheet(sheetName) : sheet);
+		Worksheet csheet = (Worksheet) ((sheetName != null) ? sheet.getWorkbook().getSheet(sheetName) : sheet);
 		Range rng = Ranges.range(csheet, drow1, dcol1);
 		return rng.getText().getString();
 	}
 
-	private static String[] prepareLabels(ChartDrawer drawer, HSSFSheet sheet,
-			HSSFChart.HSSFSeries ser) {
+	private static String[] prepareLabels(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries ser) {
 		short num = ser.getNumValues();
-		AreaReference categories = getAreaReference(sheet, ser
-				.getDataCategoryLabels());
+		AreaReference categories = getAreaReference(sheet, ser.getDataCategoryLabels());
 		if (categories == null)
-			return getLiterals(sheet.getWorkbook(), ser
-					.getDataCategoryLabelLiterals());
+			return getLiterals(sheet.getWorkbook(), ser.getDataCategoryLabelLiterals());
 
 		CellReference c1 = categories.getFirstCell();
 		CellReference c2 = categories.getLastCell();
@@ -476,8 +446,7 @@ public class ChartHelper {
 		int row2 = c2.getRow();
 		drawer.prepareUpdateAreaReference(col1, row1, col2, row2);
 		String sheetName = c1.getSheetName();
-		Worksheet csheet = (Worksheet) ((sheetName != null) ? sheet
-				.getWorkbook().getSheet(sheetName) : sheet);
+		Worksheet csheet = (Worksheet) ((sheetName != null) ? sheet.getWorkbook().getSheet(sheetName) : sheet);
 		String[] labels = new String[num];
 		int r = row1;
 		for (int j = 0; r <= row2; ++r)
@@ -489,8 +458,7 @@ public class ChartHelper {
 		return labels;
 	}
 
-	private static Number[] prepareXValues(ChartDrawer drawer, HSSFSheet sheet,
-			HSSFChart.HSSFSeries ser) {
+	private static Number[] prepareXValues(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries ser) {
 		int len = ser.getSeries().getNumValues();
 		Number[] values = new Number[len];
 		for (int j = 0; j < len; ++j)
@@ -499,8 +467,7 @@ public class ChartHelper {
 		return values;
 	}
 
-	private static Number[] prepareValues(ChartDrawer drawer, HSSFSheet sheet,
-			HSSFChart.HSSFSeries ser) {
+	private static Number[] prepareValues(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries ser) {
 		LinkedDataRecord valueRecord = ser.getDataValues();
 		if (valueRecord == null)
 			return new Double[0];
@@ -515,8 +482,7 @@ public class ChartHelper {
 		int total = 0;
 		for (int j = 0; j < ptgs.length; ++j) {
 			Ptg ptg = ptgs[j];
-			Number[] value = prepareSingleReferenceValues(drawer, sheet,
-					new Ptg[] { ptg });
+			Number[] value = prepareSingleReferenceValues(drawer, sheet, new Ptg[] { ptg });
 			if (value != null) {
 				nums[(count++)] = value;
 				total += value.length;
@@ -532,8 +498,7 @@ public class ChartHelper {
 		return vals;
 	}
 
-	private static Number[] prepareSingleReferenceValues(ChartDrawer drawer,
-			HSSFSheet sheet, Ptg[] ptgs) {
+	private static Number[] prepareSingleReferenceValues(ChartDrawer drawer, HSSFSheet sheet, Ptg[] ptgs) {
 		AreaReference values = prepareSingleReference(sheet, ptgs);
 		if (values == null)
 			return null;
@@ -545,8 +510,7 @@ public class ChartHelper {
 		return (((HSSFChart) chartInfo).getChart3D() != null);
 	}
 
-	private static void drawXSSFChart(ChartDrawer drawer, Chart chart,
-			Worksheet sheet, ZssChartX _chartX) {
+	private static void drawXSSFChart(ChartDrawer drawer, Chart chart, Worksheet sheet, ZssChartX _chartX) {
 		XSSFChart xssfChart = (XSSFChart) _chartX.getChart();
 		ChartModel model = null;
 		ChartGrouping grouping = ChartGrouping.STANDARD;
@@ -554,120 +518,104 @@ public class ChartHelper {
 		switch (xssfChart.getChartType().ordinal() + 1) {
 		case 12:
 			XSSFPie3DChartData data13 = new XSSFPie3DChartData(xssfChart);
-			model = preparePieModel(drawer, (XSSFSheet) sheet, data13
-					.getSeries());
+			model = preparePieModel(drawer, (XSSFSheet) sheet, data13.getSeries());
 			break;
 		case 13:
 			XSSFPieChartData data12 = new XSSFPieChartData(xssfChart);
-			model = preparePieModel(drawer, (XSSFSheet) sheet, data12
-					.getSeries());
+			model = preparePieModel(drawer, (XSSFSheet) sheet, data12.getSeries());
 			break;
 		case 8:
 			XSSFDoughnutChartData data8 = new XSSFDoughnutChartData(xssfChart);
-			model = preparePieModel(drawer, (XSSFSheet) sheet, data8
-					.getSeries());
+			model = preparePieModel(drawer, (XSSFSheet) sheet, data8.getSeries());
 			break;
 		case 3:
 			XSSFBar3DChartData data4 = new XSSFBar3DChartData(xssfChart);
-			model = prepareBarModel(drawer, (XSSFSheet) sheet, data4
-					.getSeries());
+			model = prepareBarModel(drawer, (XSSFSheet) sheet, data4.getSeries());
 			grouping = data4.getGrouping();
 			barDir = data4.getBarDirection();
 			break;
 		case 7:
 			XSSFColumn3DChartData data6 = new XSSFColumn3DChartData(xssfChart);
-			model = prepareBarModel(drawer, (XSSFSheet) sheet, data6
-					.getSeries());
+			model = prepareBarModel(drawer, (XSSFSheet) sheet, data6.getSeries());
 			grouping = data6.getGrouping();
 			barDir = data6.getBarDirection();
 			break;
 		case 4:
 			XSSFBarChartData data3 = new XSSFBarChartData(xssfChart);
-			model = prepareBarModel(drawer, (XSSFSheet) sheet, data3
-					.getSeries());
+			model = prepareBarModel(drawer, (XSSFSheet) sheet, data3.getSeries());
 			grouping = data3.getGrouping();
 			barDir = data3.getBarDirection();
 			break;
 		case 6:
 			XSSFColumnChartData data5 = new XSSFColumnChartData(xssfChart);
-			model = prepareBarModel(drawer, (XSSFSheet) sheet, data5
-					.getSeries());
+			model = prepareBarModel(drawer, (XSSFSheet) sheet, data5.getSeries());
 			grouping = data5.getGrouping();
 			barDir = data5.getBarDirection();
 			break;
 		case 9:
 			XSSFLine3DChartData data10 = new XSSFLine3DChartData(xssfChart);
-			model = prepareLineModel(drawer, (XSSFSheet) sheet, data10
-					.getSeries());
+			model = prepareLineModel(drawer, (XSSFSheet) sheet, data10.getSeries());
 			break;
 		case 10:
 			XSSFLineChartData data9 = new XSSFLineChartData(xssfChart);
-			model = prepareLineModel(drawer, (XSSFSheet) sheet, data9
-					.getSeries());
+			model = prepareLineModel(drawer, (XSSFSheet) sheet, data9.getSeries());
 			break;
 		case 2:
 			XSSFAreaChartData data1 = new XSSFAreaChartData(xssfChart);
-			model = prepareAreaModel(drawer, (XSSFSheet) sheet, data1
-					.getSeries());
+			model = prepareAreaModel(drawer, (XSSFSheet) sheet, data1.getSeries());
 			break;
 		case 1:
 			XSSFArea3DChartData data2 = new XSSFArea3DChartData(xssfChart);
-			model = prepareAreaModel(drawer, (XSSFSheet) sheet, data2
-					.getSeries());
+			model = prepareAreaModel(drawer, (XSSFSheet) sheet, data2.getSeries());
 			break;
 		case 15:
 			XSSFScatChartData data15 = new XSSFScatChartData(xssfChart);
-			model = prepareScatterModel(drawer, (XSSFSheet) sheet, data15
-					.getSeries());
+			model = prepareScatterModel(drawer, (XSSFSheet) sheet, data15.getSeries());
 			break;
 		case 5:
 			XSSFBubbleChartData data7 = new XSSFBubbleChartData(xssfChart);
-			model = prepareBubbleModel(drawer, (XSSFSheet) sheet, data7
-					.getSeries());
+			model = prepareBubbleModel(drawer, (XSSFSheet) sheet, data7.getSeries());
 			break;
 		case 16:
 			XSSFStockChartData data16 = new XSSFStockChartData(xssfChart);
-			model = prepareStockModel(drawer, (XSSFSheet) sheet, data16
-					.getSeries());
-		case 11: 
-		case 14: 
+			model = prepareStockModel(drawer, (XSSFSheet) sheet, data16.getSeries());
+		case 11:
+		case 14:
 		case 17:
 		case 18:
 		}
 
-		if ((model != null)
-				&& (!(drawer.prepareChart(chart, model, xssfChart))))
-			drawChart1(drawer, (XSSFSheet) sheet, chart, model, xssfChart,
-					grouping, barDir);
+		if ((model != null) && (!(drawer.prepareChart(chart, model, xssfChart))))
+			drawChart1(drawer, (XSSFSheet) sheet, chart, model, xssfChart, grouping, barDir);
 	}
 
-	private static ChartModel prepareBarModel(ChartDrawer drawer,
-			XSSFSheet sheet, List<? extends CategoryDataSerie> series) {
+	private static ChartModel prepareBarModel(ChartDrawer drawer, XSSFSheet sheet,
+			List<? extends CategoryDataSerie> series) {
 		return prepareCategoryModel(drawer, sheet, series);
 	}
 
-	private static ChartModel prepareLineModel(ChartDrawer drawer,
-			XSSFSheet sheet, List<? extends CategoryDataSerie> series) {
+	private static ChartModel prepareLineModel(ChartDrawer drawer, XSSFSheet sheet,
+			List<? extends CategoryDataSerie> series) {
 		return prepareCategoryModel(drawer, sheet, series);
 	}
 
-	private static ChartModel prepareAreaModel(ChartDrawer drawer,
-			XSSFSheet sheet, List<? extends CategoryDataSerie> series) {
+	private static ChartModel prepareAreaModel(ChartDrawer drawer, XSSFSheet sheet,
+			List<? extends CategoryDataSerie> series) {
 		return prepareCategoryModel(drawer, sheet, series);
 	}
 
-	private static ChartModel prepareScatterModel(ChartDrawer drawer,
-			XSSFSheet sheet, List<? extends XYDataSerie> series) {
+	private static ChartModel prepareScatterModel(ChartDrawer drawer, XSSFSheet sheet,
+			List<? extends XYDataSerie> series) {
 		return prepareXYModel(drawer, sheet, series);
 	}
 
-	private static ChartModel prepareBubbleModel(ChartDrawer drawer,
-			XSSFSheet sheet, List<? extends XYZDataSerie> series) {
+	private static ChartModel prepareBubbleModel(ChartDrawer drawer, XSSFSheet sheet,
+			List<? extends XYZDataSerie> series) {
 		return prepareXYZModel(drawer, sheet, series);
 	}
 
-	private static ChartModel prepareStockModel(ChartDrawer drawer,
-			XSSFSheet sheet, List<? extends CategoryDataSerie> series) {
+	private static ChartModel prepareStockModel(ChartDrawer drawer, XSSFSheet sheet,
+			List<? extends CategoryDataSerie> series) {
 		HiLoModel model = new SimpleHiLoModel();
 		CategoryDataSerie vols = (CategoryDataSerie) series.get(0);
 		CategoryDataSerie opens = (CategoryDataSerie) series.get(1);
@@ -680,18 +628,16 @@ public class ChartHelper {
 		Number[] highvals = prepareValues(drawer, sheet, highs.getValues());
 		Number[] lowvals = prepareValues(drawer, sheet, lows.getValues());
 		Number[] closevals = prepareValues(drawer, sheet, closes.getValues());
-		String[] labels = prepareLabels(drawer, sheet, opens.getCategories(),
-				highvals.length);
+		String[] labels = prepareLabels(drawer, sheet, opens.getCategories(), highvals.length);
 
 		for (int j = 0; j < openvals.length; ++j)
-			model.addValue(null, openvals[j], highvals[j], lowvals[j],
-					closevals[j], volvals[j]);
+			model.addValue(null, openvals[j], highvals[j], lowvals[j], closevals[j], volvals[j]);
 
 		return model;
 	}
 
-	private static ChartModel prepareCategoryModel(ChartDrawer drawer,
-			XSSFSheet sheet, List<? extends CategoryDataSerie> series) {
+	private static ChartModel prepareCategoryModel(ChartDrawer drawer, XSSFSheet sheet,
+			List<? extends CategoryDataSerie> series) {
 		String title;
 		Number[] vals;
 		String[] labels;
@@ -701,8 +647,7 @@ public class ChartHelper {
 		for (CategoryDataSerie ser : series) {
 			title = prepareTitle(drawer, sheet, ser.getTitle(), sj++);
 			vals = prepareValues(drawer, sheet, ser.getValues());
-			labels = prepareLabels(drawer, sheet, ser.getCategories(),
-					vals.length);
+			labels = prepareLabels(drawer, sheet, ser.getCategories(), vals.length);
 			for (j = 0; j < vals.length; ++j)
 				model.setValue(title, labels[j], vals[j]);
 		}
@@ -710,8 +655,7 @@ public class ChartHelper {
 		return model;
 	}
 
-	private static XYModel prepareXYModel(ChartDrawer drawer, XSSFSheet sheet,
-			List<? extends XYDataSerie> series) {
+	private static XYModel prepareXYModel(ChartDrawer drawer, XSSFSheet sheet, List<? extends XYDataSerie> series) {
 		String title;
 		Number[] xs;
 		Number[] ys;
@@ -729,8 +673,7 @@ public class ChartHelper {
 		return model;
 	}
 
-	private static XYModel prepareXYZModel(ChartDrawer drawer, XSSFSheet sheet,
-			List<? extends XYZDataSerie> series) {
+	private static XYModel prepareXYZModel(ChartDrawer drawer, XSSFSheet sheet, List<? extends XYZDataSerie> series) {
 		String title;
 		Number[] xs;
 		Number[] ys;
@@ -750,8 +693,8 @@ public class ChartHelper {
 		return model;
 	}
 
-	private static ChartModel preparePieModel(ChartDrawer drawer,
-			XSSFSheet sheet, List<? extends CategoryDataSerie> series) {
+	private static ChartModel preparePieModel(ChartDrawer drawer, XSSFSheet sheet,
+			List<? extends CategoryDataSerie> series) {
 		Number[] vals;
 		String[] labels;
 		int j;
@@ -759,8 +702,7 @@ public class ChartHelper {
 
 		for (CategoryDataSerie ser : series) {
 			vals = prepareValues(drawer, sheet, ser.getValues());
-			labels = prepareLabels(drawer, sheet, ser.getCategories(),
-					vals.length);
+			labels = prepareLabels(drawer, sheet, ser.getCategories(), vals.length);
 			for (j = 0; j < vals.length; ++j)
 				model.setValue(labels[j], vals[j]);
 		}
@@ -768,17 +710,14 @@ public class ChartHelper {
 		return model;
 	}
 
-	private static void drawChart1(ChartDrawer drawer, XSSFSheet sheet,
-			Chart chart, ChartModel model,
-			org.zkoss.poi.ss.usermodel.Chart poiChart, ChartGrouping grouping,
-			ChartDirection dir) {
+	private static void drawChart1(ChartDrawer drawer, XSSFSheet sheet, Chart chart, ChartModel model,
+			org.zkoss.poi.ss.usermodel.Chart poiChart, ChartGrouping grouping, ChartDirection dir) {
 		chart.setType(getChartType(poiChart, grouping));
 		chart.setTitle(getChartTitle(drawer, sheet, poiChart));
 		chart.setThreeD(isThreeD(poiChart));
 		chart.setFgAlpha(128);
 		if (dir != null)
-			chart.setOrient((dir == ChartDirection.HORIZONTAL) ? "horizontal"
-					: "vertical");
+			chart.setOrient((dir == ChartDirection.HORIZONTAL) ? "horizontal" : "vertical");
 
 		chart.setModel(model);
 	}
@@ -787,22 +726,20 @@ public class ChartHelper {
 		return ((XSSFChart) poiChart).isSetView3D();
 	}
 
-	private static String getChartTitle(ChartDrawer drawer, XSSFSheet sheet,
-			org.zkoss.poi.ss.usermodel.Chart poiChart) {
+	private static String getChartTitle(ChartDrawer drawer, XSSFSheet sheet, org.zkoss.poi.ss.usermodel.Chart poiChart) {
 		XSSFChart xssfChart = (XSSFChart) poiChart;
 		boolean autoTitleDeleted = xssfChart.isAutoTitleDeleted();
 		if (!(autoTitleDeleted)) {
 			String title = xssfChart.getChartTitle();
 			String type = getChartType(poiChart);
-			return ((("pie".equals(type)) || ("ring".equals(type))) ? getFirstSeriesTitle(
-					drawer, sheet, poiChart)
+			return ((("pie".equals(type)) || ("ring".equals(type))) ? getFirstSeriesTitle(drawer, sheet, poiChart)
 					: (!(Strings.isEmpty(title))) ? title : null);
 		}
 		return null;
 	}
 
-	private static String getFirstSeriesTitle(ChartDrawer drawer,
-			XSSFSheet sheet, org.zkoss.poi.ss.usermodel.Chart poiChart) {
+	private static String getFirstSeriesTitle(ChartDrawer drawer, XSSFSheet sheet,
+			org.zkoss.poi.ss.usermodel.Chart poiChart) {
 		CategoryData data;
 		XSSFChart xssfChart = (XSSFChart) poiChart;
 		ChartType type = xssfChart.getChartType();
@@ -810,32 +747,33 @@ public class ChartHelper {
 		switch (type.ordinal() + 1) {
 		case 12:
 			data = new XSSFPie3DChartData(xssfChart);
-			if (data.getSeries().size() == 0) { return null; }
-			return getFristSeriesTitle(drawer, sheet, (CategoryDataSerie) data
-					.getSeries().get(0));
+			if (data.getSeries().size() == 0) {
+				return null;
+			}
+			return getFristSeriesTitle(drawer, sheet, (CategoryDataSerie) data.getSeries().get(0));
 		case 13:
 			data = new XSSFPieChartData(xssfChart);
-			if (data.getSeries().size() == 0) { return null; }
-			return getFristSeriesTitle(drawer, sheet, (CategoryDataSerie) data
-					.getSeries().get(0));
+			if (data.getSeries().size() == 0) {
+				return null;
+			}
+			return getFristSeriesTitle(drawer, sheet, (CategoryDataSerie) data.getSeries().get(0));
 		case 8:
 			data = new XSSFDoughnutChartData(xssfChart);
-			if (data.getSeries().size() == 0) { return null; }
-			return getFristSeriesTitle(drawer, sheet, (CategoryDataSerie) data
-					.getSeries().get(0));
+			if (data.getSeries().size() == 0) {
+				return null;
+			}
+			return getFristSeriesTitle(drawer, sheet, (CategoryDataSerie) data.getSeries().get(0));
 		}
 
 		return null;
 	}
 
-	private static String getFristSeriesTitle(ChartDrawer drawer,
-			XSSFSheet sheet, CategoryDataSerie serie) {
+	private static String getFristSeriesTitle(ChartDrawer drawer, XSSFSheet sheet, CategoryDataSerie serie) {
 		ChartTextSource text = serie.getTitle();
 		return ((text == null) ? "" : prepareTitle(drawer, sheet, text, 1));
 	}
 
-	private static String prepareTitle(ChartDrawer drawer, XSSFSheet sheet,
-			ChartTextSource text, int sj) {
+	private static String prepareTitle(ChartDrawer drawer, XSSFSheet sheet, ChartTextSource text, int sj) {
 		if (text == null)
 			return "Series" + sj;
 		if (text.isReference()) {
@@ -844,14 +782,12 @@ public class ChartHelper {
 				titleRef = titleRef.substring(1, titleRef.length() - 1);
 
 			if (AreaReference.isContiguous(titleRef))
-				return prepareSingleReferenceTitle(drawer, (Worksheet) sheet,
-						new AreaReference(titleRef));
+				return prepareSingleReferenceTitle(drawer, (Worksheet) sheet, new AreaReference(titleRef));
 
 			AreaReference[] refs = AreaReference.generateContiguous(titleRef);
 			StringBuffer sb = new StringBuffer();
 			for (int j = 0; j < refs.length; ++j)
-				sb.append(prepareSingleReferenceTitle(drawer,
-						(Worksheet) sheet, refs[j]));
+				sb.append(prepareSingleReferenceTitle(drawer, (Worksheet) sheet, refs[j]));
 
 			return sb.toString();
 		}
@@ -859,8 +795,7 @@ public class ChartHelper {
 		return text.getTextString();
 	}
 
-	private static String prepareSingleReferenceTitle(ChartDrawer drawer,
-			Worksheet sheet, AreaReference refs) {
+	private static String prepareSingleReferenceTitle(ChartDrawer drawer, Worksheet sheet, AreaReference refs) {
 		CellReference c1 = refs.getFirstCell();
 		CellReference c2 = refs.getLastCell();
 		String sheetName = c1.getSheetName();
@@ -868,30 +803,26 @@ public class ChartHelper {
 		int row1 = c1.getRow();
 		int col2 = c2.getCol();
 		int row2 = c2.getRow();
-		Worksheet csheet = (Worksheet) ((sheetName != null) ? sheet
-				.getWorkbook().getSheet(sheetName) : sheet);
+		Worksheet csheet = (Worksheet) ((sheetName != null) ? sheet.getWorkbook().getSheet(sheetName) : sheet);
 		drawer.prepareUpdateAreaReference(col1, row1, col2, row2);
 		Range rng = Ranges.range(csheet, row1, col1);
 		return rng.getText().getString();
 	}
 
-	private static Number[] prepareValues(ChartDrawer drawer, XSSFSheet sheet,
-			ChartDataSource<? extends Number> vals) {
+	private static Number[] prepareValues(ChartDrawer drawer, XSSFSheet sheet, ChartDataSource<? extends Number> vals) {
 		if (vals.isReference()) {
 			String valRef = vals.getFormulaString();
 			if ((valRef.startsWith("(")) && (valRef.endsWith(")")))
 				valRef = valRef.substring(1, valRef.length() - 1);
 
 			if (AreaReference.isContiguous(valRef))
-				return prepareSingleReferenceValues(drawer, (Worksheet) sheet,
-						new AreaReference(valRef));
+				return prepareSingleReferenceValues(drawer, (Worksheet) sheet, new AreaReference(valRef));
 
 			AreaReference[] refs = AreaReference.generateContiguous(valRef);
 			Number[][] numbers = new Number[refs.length][];
 			int total = 0;
 			for (int j = 0; j < refs.length; ++j) {
-				numbers[j] = prepareSingleReferenceValues(drawer,
-						(Worksheet) sheet, refs[j]);
+				numbers[j] = prepareSingleReferenceValues(drawer, (Worksheet) sheet, refs[j]);
 				total += numbers[j].length;
 			}
 			Number[] values = new Number[total];
@@ -912,23 +843,20 @@ public class ChartHelper {
 		return values;
 	}
 
-	private static String[] prepareLabels(ChartDrawer drawer, XSSFSheet sheet,
-			ChartDataSource<?> cats, int size) {
+	private static String[] prepareLabels(ChartDrawer drawer, XSSFSheet sheet, ChartDataSource<?> cats, int size) {
 		if (cats.isReference()) {
 			String catRef = cats.getFormulaString();
 			if ((catRef.startsWith("(")) && (catRef.endsWith(")")))
 				catRef = catRef.substring(1, catRef.length() - 1);
 
 			if (AreaReference.isContiguous(catRef))
-				return prepareSingleReferenceLabels(drawer, (Worksheet) sheet,
-						new AreaReference(catRef));
+				return prepareSingleReferenceLabels(drawer, (Worksheet) sheet, new AreaReference(catRef));
 
 			AreaReference[] refs = AreaReference.generateContiguous(catRef);
 			String[][] labelA = new String[refs.length][];
 			int total = 0;
 			for (int j = 0; j < refs.length; ++j) {
-				labelA[j] = prepareSingleReferenceLabels(drawer,
-						(Worksheet) sheet, refs[j]);
+				labelA[j] = prepareSingleReferenceLabels(drawer, (Worksheet) sheet, refs[j]);
 				total += labelA[j].length;
 			}
 			String[] labels = new String[total];
@@ -956,8 +884,7 @@ public class ChartHelper {
 		return labels;
 	}
 
-	private static String[] prepareSingleReferenceLabels(ChartDrawer drawer,
-			Worksheet sheet, AreaReference refs) {
+	private static String[] prepareSingleReferenceLabels(ChartDrawer drawer, Worksheet sheet, AreaReference refs) {
 		CellReference c1 = refs.getFirstCell();
 		CellReference c2 = refs.getLastCell();
 		String sheetName = c1.getSheetName();
@@ -965,8 +892,7 @@ public class ChartHelper {
 		int row1 = c1.getRow();
 		int col2 = c2.getCol();
 		int row2 = c2.getRow();
-		Worksheet csheet = (Worksheet) ((sheetName != null) ? sheet
-				.getWorkbook().getSheet(sheetName) : sheet);
+		Worksheet csheet = (Worksheet) ((sheetName != null) ? sheet.getWorkbook().getSheet(sheetName) : sheet);
 		drawer.prepareUpdateAreaReference(col1, row1, col2, row2);
 		int len = (col2 - col1 + 1) * (row2 - row1 + 1);
 		String[] labels = new String[len];
@@ -980,8 +906,7 @@ public class ChartHelper {
 		return labels;
 	}
 
-	private static Number[] prepareSingleReferenceValues(ChartDrawer drawer,
-			Worksheet sheet, AreaReference values) {
+	private static Number[] prepareSingleReferenceValues(ChartDrawer drawer, Worksheet sheet, AreaReference values) {
 		CellReference vc1 = values.getFirstCell();
 		CellReference vc2 = values.getLastCell();
 		int vcol1 = vc1.getCol();
@@ -989,8 +914,7 @@ public class ChartHelper {
 		int vcol2 = vc2.getCol();
 		int vrow2 = vc2.getRow();
 		String sheetName = vc1.getSheetName();
-		Worksheet csheet = (Worksheet) ((sheetName != null) ? sheet
-				.getWorkbook().getSheet(sheetName) : sheet);
+		Worksheet csheet = (Worksheet) ((sheetName != null) ? sheet.getWorkbook().getSheet(sheetName) : sheet);
 		drawer.prepareUpdateAreaReference(vcol1, vrow1, vcol2, vrow2);
 		int num = (vcol2 - vcol1 + 1) * (vrow2 - vrow1 + 1);
 		Number[] vals = new Number[num];
