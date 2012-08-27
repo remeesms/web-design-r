@@ -89,10 +89,10 @@ public class ChartWidget extends BaseWidget implements ChartDrawer {
 	}
 
 	private void initUpdateAreaReference() {
-		this._outcol1 = 2147483647;
-		this._outrow1 = 2147483647;
-		this._outcol2 = -2147483648;
-		this._outrow2 = -2147483648;
+		this._outcol1 = Integer.MAX_VALUE;
+		this._outrow1 = Integer.MAX_VALUE;
+		this._outcol2 = Integer.MIN_VALUE;
+		this._outrow2 = Integer.MIN_VALUE;
 	}
 
 	public void prepareUpdateAreaReference(int col1, int row1, int col2,
