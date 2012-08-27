@@ -20,6 +20,7 @@ import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zk.ui.sys.ContentRenderer;
 import org.zkoss.zk.ui.util.ComponentCloneListener;
+import org.zkoss.zssex.util.HTMLUtil;
 import org.zkoss.zul.CategoryModel;
 import org.zkoss.zul.ChartModel;
 import org.zkoss.zul.Div;
@@ -393,7 +394,7 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 		if (Objects.equals(w, getWidth())) {
 			return;
 		}
-		_intWidth = stringToInt(w);
+		_intWidth = HTMLUtil.measureStringToInt(w);
 		super.setWidth(w);
 		smartDrawChart();
 	}
@@ -412,7 +413,7 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 		if (Objects.equals(h, getHeight())) {
 			return;
 		}
-		_intHeight = stringToInt(h);
+		_intHeight = HTMLUtil.measureStringToInt(h);
 		super.setHeight(h);
 		smartDrawChart();
 	}
@@ -548,7 +549,7 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 			_paneRGB = null;
 		} else {
 			_paneRGB = new int[3];
-			decode(_paneColor, _paneRGB);
+			HTMLUtil.colorDecode(_paneColor, _paneRGB);
 		}
 		smartDrawChart();
 	}
@@ -635,7 +636,7 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 			_bgRGB = null;
 		} else {
 			_bgRGB = new int[3];
-			decode(_bgColor, _bgRGB);
+			HTMLUtil.colorDecode(_bgColor, _bgRGB);
 		}
 		smartDrawChart();
 	}
@@ -1101,42 +1102,6 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 		}
 		_smartDrawChart = true;
 		Events.postEvent("onSmartDrawChart", this, null);
-	}
-
-	// -- utilities --//
-	/* package */
-	static void decode(String color, int[] rgb) {
-		if (color == null) {
-			return;
-		}
-		if (color.length() != 7 || color.charAt(0) != '#') {
-			throw new UiException("Incorrect color format (#RRGGBB) : " + color);
-		}
-		rgb[0] = Integer.parseInt(color.substring(1, 3), 16);
-		rgb[1] = Integer.parseInt(color.substring(3, 5), 16);
-		rgb[2] = Integer.parseInt(color.substring(5, 7), 16);
-	}
-
-	/* package */
-	static int stringToInt(String str) {
-		int j = str.lastIndexOf("px");
-		if (j > 0) {
-			final String num = str.substring(0, j);
-			return Integer.parseInt(num);
-		}
-
-		j = str.lastIndexOf("pt");
-		if (j > 0) {
-			final String num = str.substring(0, j);
-			return (int) (Integer.parseInt(num) * 1.3333);
-		}
-
-		j = str.lastIndexOf("em");
-		if (j > 0) {
-			final String num = str.substring(0, j);
-			return (int) (Integer.parseInt(num) * 13.3333);
-		}
-		return Integer.parseInt(str);
 	}
 
 	public boolean addEventListener(String evtnm, EventListener listener) {

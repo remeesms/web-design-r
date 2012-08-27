@@ -9,7 +9,7 @@ import org.zkoss.poi.ss.util.CellReference;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zss.model.Worksheet;
 import org.zkoss.zssex.util.ChartHelper;
-import org.zkoss.zssex.ui.widget.Chart;
+import org.zkoss.zssex.util.SpreadsheetHelper;
 import org.zkoss.zul.ChartModel;
 
 public class ChartWidget extends BaseWidget implements ChartDrawer {
@@ -160,13 +160,13 @@ public class ChartWidget extends BaseWidget implements ChartDrawer {
 			int col = anchor.getCol1();
 			int row2 = anchor.getRow2();
 			int col2 = anchor.getCol2();
-			int height = DefaultBookWidgetLoader.getHeightInPx(this._sheet,
+			int height = SpreadsheetHelper.getHeightInPx(this._sheet,
 					anchor);
-			int width = DefaultBookWidgetLoader.getWidthInPx(this._sheet,
+			int width = SpreadsheetHelper.getWidthInPx(this._sheet,
 					anchor);
-			int left = DefaultBookWidgetLoader.getLeftFraction(this._sheet,
+			int left = SpreadsheetHelper.getLeftFraction(this._sheet,
 					anchor);
-			int top = DefaultBookWidgetLoader.getTopFraction(this._sheet,
+			int top = SpreadsheetHelper.getTopFraction(this._sheet,
 					anchor);
 			setRow(row);
 			setColumn(col);
