@@ -108,6 +108,6 @@ public final class ObfuscatedString
       throw new AssertionError(localUnsupportedEncodingException);
     }
     int k = str.indexOf(0);
-    return ((-1 == k) ? str : str.substring(0, k));
-  }
+		return ((-1 == k) ? str : str.substring(0, k));
+	}
 }
