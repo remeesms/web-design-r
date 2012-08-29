@@ -1,0 +1,42 @@
+<project name="saiku" basedir="." default="alltasks">
+	<!-- the directory to output to -->
+
+	<property name="saikucore" value="../saiku-core" />
+	<property name="saikuweb" value="../saiku-web" />
+	<property name="saikuservice" value="../saiku-service" />
+	<property name="app" value="E:/MET/资料集，公司版/表现层技术/Saiku/saiku-server-foodmart-2.3/saiku-server/tomcat/webapps/saiku" />
+	<property name="abuild" value="../abuild" />
+
+
+	<!-- ================================================================= -->
+	<target name="gen-saikuweb.jar">
+		<jar basedir="${saikuweb}/bin" destfile="${abuild}/saiku-web-2.3.jar">
+		</jar>
+	</target>
+	<target name="copy-saikuweb.jar">
+		<copy todir="${app}/WEB-INF/lib" overwrite="yes">
+			<fileset dir="${abuild}" includes="saiku-web-2.3.jar" />
+		</copy>
+	</target>
+
+	<target name="gen-saikuservice.jar">
+		<jar basedir="${saikuservice}/bin" destfile="${abuild}/saiku-service-2.3.jar">
+		</jar>
+	</target>
+	<target name="copy-saikuservice.jar">
+		<copy todir="${app}/WEB-INF/lib" overwrite="yes">
+			<fileset dir="${abuild}" includes="saiku-service-2.3.jar" />
+		</copy>
+	</target>
+
+	<target name="alltasks">
+		<antcall target="gen-saikuweb.jar" />
+		<antcall target="copy-saikuweb.jar" />
+		<antcall target="gen-saikuservice.jar" />
+		<antcall target="copy-saikuservice.jar" />
+	</target>
+
+	<!-- Target clean -->
+	<target name="clean">
+	</target>
+</project>
