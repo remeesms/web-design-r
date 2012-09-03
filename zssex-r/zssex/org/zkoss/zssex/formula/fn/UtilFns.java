@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TimeZone;
+
 import org.apache.commons.math.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math.stat.regression.SimpleRegression;
 import org.zkoss.lang.Classes;
@@ -22,10 +23,11 @@ import org.zkoss.poi.ss.formula.eval.EvaluationException;
 import org.zkoss.poi.ss.formula.eval.NumberEval;
 import org.zkoss.poi.ss.formula.eval.StringEval;
 import org.zkoss.poi.ss.formula.eval.ValueEval;
+import org.zkoss.poi.ss.formula.functions.Complex;
+import org.zkoss.poi.ss.formula.functions.ComplexFormat;
 import org.zkoss.poi.ss.formula.functions.TextFunctionHelper;
 import org.zkoss.poi.ss.usermodel.DateUtil;
 import org.zkoss.util.Dates;
-import org.zkoss.zss.engine.ComplexFormat;
 
 public class UtilFns
 {
@@ -143,10 +145,10 @@ public class UtilFns
     return complex;
   }
 
-  public static org.zkoss.zss.engine.Complex validateComplex(String complex)
+  public static Complex validateComplex(String complex)
     throws EvaluationException
   {
-    org.zkoss.zss.engine.Complex result = null;
+    Complex result = null;
     String s = "i";
     int i = complex.indexOf(s);
     if (i == -1) {
@@ -166,13 +168,13 @@ public class UtilFns
     return result;
   }
 
-  public static org.zkoss.zss.engine.Complex cToComplex(org.apache.commons.math.complex.Complex c, String suffix)
+  public static Complex cToComplex(org.apache.commons.math.complex.Complex c, String suffix)
   {
-    org.zkoss.zss.engine.Complex result = new org.zkoss.zss.engine.Complex(c.getReal(), c.getImaginary(), suffix);
+    Complex result = new Complex(c.getReal(), c.getImaginary(), suffix);
     return result;
   }
 
-  public static String format(org.zkoss.zss.engine.Complex c)
+  public static String format(Complex c)
   {
     NumberFormat nfr = NumberFormat.getInstance();
     nfr.setMaximumFractionDigits(14);

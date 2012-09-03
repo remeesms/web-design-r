@@ -13,7 +13,7 @@
 
         domStyle_ : function(no) {
             var out = this.$supers('domStyle_', arguments);
-            out += ' border:1px #444 solid';
+//            out += ' border:1px #444 solid'; // 调试辅助用的边框
             return out; 
         },
 
@@ -32,7 +32,7 @@
 
         getChartId : function() {
             if (!this._chartId) {
-                this._chartId = 'hichart_' + Math.round(Math.random() * 10000000000);
+                this._chartId = 'highchart_' + Math.round(Math.random() * 10000000000);
             }
             return this._chartId;
         },

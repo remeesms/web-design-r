@@ -191,9 +191,11 @@
 
             sizable: null,
             movable: null,
+            focusable: null,
             id: null,
             type: null
         },
+        
         adjustLocation: function(s) {
             var i = this.$n(), p = this._sheet;
             if( !i || !p) {
@@ -216,7 +218,15 @@
                 h._topPos = this._topPos
             }
         },
-
+        
+        /**
+         * 在DefaultWidgetHandler#onLoadOnDemand中會向Spreadsheet widget發出setAttr:redrawWidget的cmd，
+         * Spreadsheet widget的redrawWidget會調用此函數。
+         * 在此函數中進行Spreadsheet的子widget的繪製。
+         * （包括mold的執行和bind_）
+         * （與普通zk component不同，他們的mold的執行在父component的mold執行中調用，
+         * 但是Spreadsheet不會調用自component的mold函數）
+         */
         redrawWidgetTo: function(h) {
             if( !h) {
                 return
@@ -225,6 +235,12 @@
             var i = h.$n("wp");
             jq(i).append(this.redrawHTML_());
 
+            // bind
+            for(var child = this.firstChild; child; child = child.nextSibling) {
+                child.bind(this.desktop, null);
+            }
+            
+            // afterRedrawHTML_事件
             for(var child = this.firstChild; child; child = child.nextSibling) {
                 child.afterRedrawHTML_ && child.afterRedrawHTML_();
             }
@@ -309,14 +325,14 @@
                             }
                         }
                     }
-                    this._delaySetDragMove = jq.now()
+                    this._delaySetDragMove = jq.now();
                 } else {
                     if(jq.isAncestor(this.$n("real"), r)) {
                         var l = this._delaySetDragMove;
                         if( !l || (l && (jq.now() - l) > 500)) {
                             this._dragType = "onWidgetMove";
                             this._delaySetDragMove = null;
-                            zcss.setRule(j + " .zswidget-focus", "cursor", "move", null, s)
+                            zcss.setRule(j + " .zswidget-focus", "cursor", "move", null, s);
                         }
                     }
                 }
@@ -325,40 +341,37 @@
 
         doMouseDown_: function(h) {
             if(jq.isAncestor(this.$n("real"), h.domTarget)) {
-                this._delaySetDragMove = null
+                this._delaySetDragMove = null;
             }
-            if( !this._focus) {
+            if(!this._focus && this.isFocusable()) {
                 var j = this._sheet, l = j.state;
                 if(l == zss.SSheetCtrl.EDITING) {
-                    j.dp.stopEditing()
+                    j.dp.stopEditing();
                 } else {
                     if(l == zss.SSheetCtrl.NOFOCUS) {
                         j.dp.gainFocus();
-                        return
+                        return;
                     }
                 }
-                var k = jq(this.$n()), i = this._focusBorderSize, n = this._leftPos - i, m = this._topPos - i;
+                var k = jq(this.$n()), 
+                    i = this._focusBorderSize, 
+                    n = this._leftPos - i, 
+                    m = this._topPos - i;
                 k.addClass("zswidget-focus");
                 if(n > 0) {
-                    k.css({
-                        left: jq.px(n)
-                    })
+                    k.css({ left: jq.px(n) })
                 }
                 if(m > 0) {
-                    k.css({
-                        top: jq.px(m)
-                    })
+                    k.css({ top: jq.px(m) });
                 }
-                j.fire("onFocused", {
-                    ctrl: this
-                });
-                this._updateListenFocus(true)
+                j.fire("onFocused", { ctrl: this });
+                this._updateListenFocus(true);
             }
         },
 
         doKeyDown_: function(h) {
             var i = h.keyCode;
-            this._sheet._wgt.fireWidgetCtrlKeyEvt(this._type, this._id, i, ! !h.ctrlKey, ! !h.shiftKey, ! !h.altKey)
+            this._sheet._wgt.fireWidgetCtrlKeyEvt(this._type, this._id, i, ! !h.ctrlKey, ! !h.shiftKey, ! !h.altKey);
         },
 
         _updateListenFocus: function(h) {
@@ -368,21 +381,28 @@
                     onFocused: this.proxy(this._onSheetFocus)
                 });
                 this._focus = h;
-                this.$n("fo")[h ? "focus" : "blur"]()
+                this.$n("fo")[h ? "focus" : "blur"]();
             }
         },
 
         bind_: function() {
-            this.$supers("bind_", arguments)
+           this.$supers("bind_", arguments);
+        },
+        
+        /**
+         * 在初始化時，因為spreadsheet沒有初始化內部的widget的mold，所以不能bindChildren
+         */
+        bindChildren_: function() {
+            // do nothing
         },
 
         unbind_: function() {
             this._updateListenFocus(false);
-            this.$supers("unbind_", arguments)
+            this.$supers("unbind_", arguments);
         },
 
         domClass_: function(h) {
-            return "zswidget"
+            return "zswidget";
         }
 
     })
