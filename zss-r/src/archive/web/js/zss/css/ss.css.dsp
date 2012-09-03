@@ -7,7 +7,7 @@
 	height: 100px;
 	background:#FFFFFF;
 	overflow:hidden;
-	border:1px solid #D8D8D8;
+	border:0px solid #D8D8D8; /* [customized] */
 }
 
 .zscave {
@@ -164,7 +164,7 @@
 	height: 19px; /*topHeidht -2 , 1 is border*/
 	/*line-height: 20px; lineHeight*/
 	overflow: hidden;
-	border-top: 1px solid #7F9DB9;
+	border-top: 0px solid #7F9DB9;  /* [customized] */
 	/*border-bottom: 1px solid #7F9DB9;*/
 	background:#DAE7F6 none repeat scroll 0%;
 }
@@ -282,7 +282,7 @@
 	left: 0px;
 	width: 35px; /* leftWith - 2 , 2 is border */
 	overflow: hidden;
-	border-left: 1px solid #7F9DB9;
+	border-left: 0px solid #7F9DB9;  /* [customized] */
 	background:#DAE7F6 none repeat scroll 0%;
 }
 
