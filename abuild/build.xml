@@ -1,5 +1,6 @@
 <project name="zss" basedir="." default="alltasks">
 	
+	<property name="encoding" value="UTF-8"/>
 	
 	<!-- [abuild]============================== -->
 	<property name="dir-abuild" value="../abuild" />
@@ -22,9 +23,10 @@
 	<!-- [zssexr]============================== -->
 	<property name="dir-zssexr" value="../zssex-r" />
 	<property name="dir-zssexr.bin" value="${dir-abuild.zssexr.bin}" />
+	<property name="dir-zssexr.javasrc" value="${dir-zssexr}/zssex" />
 	<property name="name-zssexr.jar" value="zssex-2.3.0-r.jar" />
 	<path id="path-zssexr.javasrc">
-		<fileset dir="${dir-zssexr}/zssex">
+		<fileset dir="${dir-zssexr.javasrc}">
 			<include name="org/**/*"/>
 	    </fileset>
 	</path>
@@ -49,7 +51,7 @@
 	</target>
 	<target name="copy-zsssrc.jar">
         <copy todir="${dir-zssapp.lib}" overwrite="yes">
-             <fileset dir="${dir-abuild}" includes="${dir-abuild}/${name-zssr.jar}"/>
+             <fileset dir="${dir-abuild}" includes="${name-zssr.jar}"/>
         </copy>
 	</target>
 
@@ -61,31 +63,37 @@
     </target>
     <target name="copy-zpoiexr.jar">
         <copy todir="${dir-zssapp.lib}" overwrite="yes">
-             <fileset dir="${dir-abuild}" includes="${dir-abuild}/${name-zpoiexr.jar}"/>
+             <fileset dir="${dir-abuild}" includes="${name-zpoiexr.jar}"/>
         </copy>
     </target>
 	
 	
 	<!-- zssexr==================dir-zssexr========================================= -->
-	<target name="compile-zssexr">
+	<target name="compile-zssexr.javasrc">
 		<delete dir="${dir-zssexr.bin}"/>
 		<mkdir dir="${dir-zssexr.bin}"/>
         <javac destdir="${dir-zssexr.bin}" 
         	   deprecation="true" encoding="${encoding}" debug="on" 
-        	   debuglevel="lines,vars,source" fork="yes" memoryMaximumSize="1000M">
-            <src><path refid="${path-zssexr.javasrc}" /></src>
+        	   debuglevel="lines,vars,source" fork="yes" memoryMaximumSize="1000M"
+        	   srcdir="${dir-zssexr.javasrc}"
+        	   sourcepathref="path-zssexr.javasrc">
             <classpath>
                 <path refid="path-zssexr.lib"/>
             </classpath>
         </javac>
 	</target>
+    <target name="copy-zssexr.websrc">
+        <copy todir="${dir-zssexr.bin}" overwrite="yes">
+             <path refid="path-zssexr.websrc"></path>
+        </copy>
+    </target>
     <target name="gen-zssexr.jar">
         <jar basedir="${dir-zssexr.bin}" destfile="${dir-abuild}/${name-zssexr.jar}">
         </jar>
     </target>
     <target name="copy-zssexr.jar">
         <copy todir="${dir-zssapp.lib}" overwrite="yes">
-             <fileset dir="${dir-abuild}" includes="${dir-abuild}/${name-zssexr.jar}"/>
+             <fileset dir="${dir-abuild}" includes="${name-zssexr.jar}"/>
         </copy>
     </target>
 	
@@ -96,7 +104,8 @@
 		<antcall target="copy-zsssrc.jar" />
 		<antcall target="gen-zpoiexr.jar" />
 		<antcall target="copy-zpoiexr.jar" />
-		<antcall target="compile-zssexr" />
+		<antcall target="compile-zssexr.javasrc" />
+		<antcall target="copy-zssexr.websrc" />
 		<antcall target="gen-zssexr.jar" />
 		<antcall target="copy-zssexr.jar" />
 	</target>
