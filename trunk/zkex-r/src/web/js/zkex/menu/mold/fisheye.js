@@ -1,0 +1,1 @@
+function(a){var b=this.uuid,c=this.getZclass();a.push("<div",this.domAttrs_(),'><img id="',b,'-img"','src="',this.getImage(),'" class="',c,'-img"/>','<div id="',b,'-label" style="display:none;" class="',c,'-text">',this.getLabel(),"</div></div>")};
