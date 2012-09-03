@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- zk.wpd
+	Purpose:
+		
+	Description:
+		
+	History:
+		Fri May 15 15:41:31     2009, Created by sam
+
+Copyright (C) 2009 Potix Corporation. All Rights Reserved.
+-->
+
+<package name="zkex.inp" language="xul/html" depends="zul.wgt">
+	<widget name="Colorbox"/>
+	<script src="Colorpalette.js" jsdoc="true"/>
+	<script src="Color.js" jsdoc="true"/>
+	<script src="Colorpicker.js" jsdoc="true"/>
+	<script src="ContentHandler.js" jsdoc="true"/>
+</package>
