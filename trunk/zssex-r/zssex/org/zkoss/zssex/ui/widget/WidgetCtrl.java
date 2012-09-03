@@ -9,7 +9,9 @@ import org.zkoss.zk.ui.sys.ContentRenderer;
 import org.zkoss.zss.ui.Spreadsheet;
 
 public class WidgetCtrl extends AbstractComponent {
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = -3733666884545385688L;
+	
 	private BaseWidget _widget;
 
 	public WidgetCtrl(BaseWidget widget) {

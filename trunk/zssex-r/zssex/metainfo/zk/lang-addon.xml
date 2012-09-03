@@ -56,4 +56,13 @@ Copyright (C) 2007 Potix Corporation. All Rights Reserved.
 			<mold-uri>mold/jschart.js</mold-uri>
 		</mold>
 	</component>
+	<component>
+        <component-name>simpletable</component-name>
+        <component-class>org.zkoss.zssex.ui.widget.SimpleTable</component-class>
+        <widget-class>zssex.SimpleTable</widget-class>
+        <mold>
+            <mold-name>default</mold-name>
+            <mold-uri>mold/simpletable.js</mold-uri>
+        </mold>
+    </component>
 </language-addon>

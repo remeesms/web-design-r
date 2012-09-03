@@ -71,7 +71,7 @@ public class ImageWidget extends BaseWidget {
 		inner().setParent(ctrl);
 		return ctrl;
 	}
-
+	
 	public void invalidate() {
 		inner().invalidate();
 	}

@@ -39,9 +39,10 @@ public class ChartWidget extends BaseWidget implements ChartDrawer {
 		this.createChart();
 
 		setId(this._chartX.getChartId());
-		setSizable(true);
-		setMovable(true);
-		setCtrlKeys("#del");
+		setSizable(false);
+		setMovable(false);
+		setFocusable(false);
+		setCtrlKeys("#del"); // FIXME 检查意义
 	}
 
 	protected Component getInnerComponent() {
@@ -139,7 +140,7 @@ public class ChartWidget extends BaseWidget implements ChartDrawer {
 		chart.setParent(getCtrl());
 		return chart;
 	}
-
+	
 	public void invalidate() {
 		if (this._chart != null)
 			initChart();

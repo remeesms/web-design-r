@@ -19,6 +19,7 @@ public abstract class BaseWidget implements Widget {
 	private boolean _visible;
 	private boolean _movable;
 	private boolean _sizable;
+	private boolean _focusable;
 	private String _ctrlKeys;
 	private WidgetCtrl _ctrl;
 	private WidgetHandler _handler;
@@ -192,6 +193,17 @@ public abstract class BaseWidget implements Widget {
 			getCtrl().smartUpdate("sizable", Boolean.valueOf(sizable));
 		}
 	}
+	
+	public boolean isFocusable() {
+		return this._focusable;
+	}
+	
+	public void setFocusable(boolean focusable) {
+		if (this._focusable != focusable) {
+			this._focusable = focusable;
+			getCtrl().smartUpdate("focusable", Boolean.valueOf(focusable));
+		}
+	}
 
 	public void setCtrlKeys(String ctrlKeys) {
 		if ((ctrlKeys != null) && (ctrlKeys.length() == 0))
@@ -238,7 +250,7 @@ public abstract class BaseWidget implements Widget {
 		sb.append(",zindex:").append(this._zindex);
 		return sb.toString();
 	}
-
+	
 	public abstract void invalidate();
 
 	public abstract AreaReference getUpdateAreaReference();

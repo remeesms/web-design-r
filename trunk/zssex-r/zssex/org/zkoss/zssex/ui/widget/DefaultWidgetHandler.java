@@ -20,6 +20,9 @@ import org.zkoss.zss.ui.sys.WidgetHandler;
 import org.zkoss.zssex.ui.au.out.AuRedrawWidget;
 
 public class DefaultWidgetHandler implements WidgetHandler, Serializable {
+	
+	private static final long serialVersionUID = -3762390991131862447L;
+	
 	private Spreadsheet _spreadsheet;
 	private List<WidgetCtrl> _clientWidgets;
 	private List<WidgetCtrl> _nonClientWidgets;
@@ -153,7 +156,7 @@ public class DefaultWidgetHandler implements WidgetHandler, Serializable {
 		int r2 = widget.getRow2();
 		int c2 = widget.getColumn2();
 		WidgetCtrl ctrl = widget.getCtrl();
-
+		
 		if ((r2 >= top) && (r <= bottom) && (c2 >= left) && (c <= right)) {
 			responseWidgetPosition(Utils.getSheetUuid(sheet), widget);
 			if (!(widget.isInClient())) {
@@ -173,10 +176,10 @@ public class DefaultWidgetHandler implements WidgetHandler, Serializable {
 	}
 
 	public void invaliate() {
-		Iterator iter = this._clientWidgets.iterator();
+		Iterator<WidgetCtrl> iter = this._clientWidgets.iterator();
 
 		while (iter.hasNext()) {
-			WidgetCtrl ctrl = (WidgetCtrl) iter.next();
+			WidgetCtrl ctrl = iter.next();
 			ctrl.getWidget().setInClient(false);
 			this._nonClientWidgets.add(ctrl);
 		}

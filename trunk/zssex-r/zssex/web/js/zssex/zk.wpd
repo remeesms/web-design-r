@@ -16,6 +16,7 @@ Copyright (C) 2010 Potix Corporation. All Rights Reserved.
 	<widget name="Btn"/>
 	<widget name="Popup"/>
 	<widget name="JsChart"/>
+	<widget name="SimpleTable"/>
 	<script src="autofilter.js"/>
 	<script src="highstock.customized.src.js"/>
 </package>
