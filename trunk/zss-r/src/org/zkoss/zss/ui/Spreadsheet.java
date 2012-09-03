@@ -310,6 +310,8 @@ public class Spreadsheet extends XulElement implements Serializable {
 	
 	private boolean _clientCacheDisabled = isDefaultClientCacheDisabled();
 	
+	private boolean _editable = false;
+	
 	private static Boolean _defClientCache;
 	
 	private int _maxRenderedCellSize = getDefaultMaxRenderedCellSize();
@@ -414,6 +416,13 @@ public class Spreadsheet extends XulElement implements Serializable {
 	 */
 	public void setDraggable(String draggable) {
 		throw new UnsupportedOperationException();
+	}
+	
+	public void setEditable(boolean editable) {
+		if (_editable != editable) {
+			_editable = editable;
+			smartUpdate("editable", _editable);
+		}
 	}
 
 	/**
