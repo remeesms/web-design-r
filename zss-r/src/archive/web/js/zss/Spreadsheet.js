@@ -689,6 +689,7 @@ zss.Spreadsheet = zk.$extends(zul.wgt.Div, {
 				});
 			}
 		},
+		editable: false,
 		focusRect: null,
 		selectionRect: null,
 		highLightRect: null,
@@ -841,6 +842,7 @@ zss.Spreadsheet = zk.$extends(zul.wgt.Div, {
 			
 			var center = new zul.layout.Center({border: 0});
 			center.appendChild(this.sheetCtrl = new zss.SSheetCtrl(this));
+			this.sheetCtrl.setEditable(this.isEditable());
 			this.cave.appendChild(center);
 		} else {
 			var sheet = this.sheetCtrl,

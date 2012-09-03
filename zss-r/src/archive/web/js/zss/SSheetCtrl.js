@@ -167,6 +167,7 @@ zss.SSheetCtrl = zk.$extends(zk.Widget, {
 		this._initiated = false;
 		
 		this._clienttxt = '';
+		this._editable = true;
 		
 		//init function later queue, the function in this queue will be invoke in ZK InitialLater
 		//I create this queue because ZK initial later doesn't support parameter.
@@ -386,6 +387,9 @@ zss.SSheetCtrl = zk.$extends(zk.Widget, {
 		}
 		this._resize();
 		return r;
+	},
+	setEditable: function(editable) {
+	    this._editable = !!editable;
 	},
 	bind_: function (desktop, skipper, after) {
 		this.$supers(zss.SSheetCtrl, 'bind_', arguments);
@@ -1004,6 +1008,8 @@ zss.SSheetCtrl = zk.$extends(zk.Widget, {
 		return false;
 	},
 	_doMousedown: function (evt) {
+	    if (!this._editable) { return; }
+	    
 		this.innerClicking++;
 		var sheet = this;
 		setTimeout(function() {
@@ -1229,6 +1235,8 @@ zss.SSheetCtrl = zk.$extends(zk.Widget, {
 		this._lastmdstr = this._lastmdstr + "_" + row + "_" + col;
 	},
 	_doMouseup: function (evt) {
+	    if (!this._editable) { return; }
+	    
 		if (this.isAsync())//wait async event, skip mouse click;
 			return;
 
@@ -1239,6 +1247,8 @@ zss.SSheetCtrl = zk.$extends(zk.Widget, {
 		this._lastmdelm = null;
 	},
 	_doMouseleftclick: function (evt) {
+	    if (!this._editable) { return; }
+	    
 		if(this.isAsync())//wait async event, skip mouse click;
 			return;
 
@@ -1246,12 +1256,16 @@ zss.SSheetCtrl = zk.$extends(zk.Widget, {
 		evt.stop();
 	},
 	_doMouserightclick : function (evt) {
+	    if (!this._editable) { return; }
+	    
 		if (this.isAsync())//wait async event, skip mouse click;
 			return;
 		this._doMouseclick(evt, "rc");
 		evt.stop();//always stop right (context) click.
 	},
 	_doMousedblclick: function (evt) {
+	    if (!this._editable) { return; }
+	    
 		if (this.isAsync())//wait async event, skip mouse click;
 			return;
 		this._doMouseclick(evt, "dbc");
