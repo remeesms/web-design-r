@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.apache.xmlbeans.XmlException;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTPivotCache;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTPivotCaches;
@@ -21,7 +22,6 @@ import org.zkoss.poi.openxml4j.opc.PackagePart;
 import org.zkoss.poi.openxml4j.opc.PackageRelationship;
 import org.zkoss.poi.openxml4j.opc.PackageRelationshipCollection;
 import org.zkoss.poi.ss.usermodel.PivotCache;
-import org.zkoss.poi.ss.usermodel.PivotCache.CacheField;
 import org.zkoss.poi.ss.usermodel.PivotTable;
 import org.zkoss.poi.ss.usermodel.Sheet;
 import org.zkoss.poi.ss.usermodel.Workbook;
@@ -35,7 +35,7 @@ import org.zkoss.poi.xssf.usermodel.XSSFRelation;
 import org.zkoss.poi.xssf.usermodel.XSSFSheet;
 import org.zkoss.poi.xssf.usermodel.XSSFWorkbook;
 
-public class PivotTableHelper
+public class PivotTableHelper implements org.zkoss.poi.ss.usermodel.PivotTableHelper
 {
   public PivotCache createPivotCache(AreaReference sourceRef, Workbook book)
   {
@@ -46,7 +46,7 @@ public class PivotTableHelper
   }
 
   private PivotCache createXSSFPivotCache(AreaReference sourceRef, XSSFWorkbook book) {
-    List pivotCacheList = book.getPivotCaches();
+    List<PivotCache> pivotCacheList = book.getPivotCaches();
     CTWorkbook ctWorkbook = book.getCTWorkbook();
     CTPivotCaches pivotCaches = ctWorkbook.getPivotCaches();
 
@@ -80,9 +80,9 @@ public class PivotTableHelper
 
   private List<PivotTable> initXSSFPivotTables(XSSFSheet sheet) {
     XSSFWorkbook book = sheet.getWorkbook();
-    List pivotCaches = book.getPivotCaches();
+    List<PivotCache> pivotCaches = book.getPivotCaches();
 
-    List pivotTableList = new ArrayList();
+    List<PivotTable> pivotTableList = new ArrayList<PivotTable>();
     PackagePart part = sheet.getPackagePart();
     try {
       PackageRelationshipCollection rels = part.getRelationshipsByType(XSSFRelation.PIVOT_TABLE.getRelation());
@@ -110,7 +110,7 @@ public class PivotTableHelper
 
   private List<PivotCache> initXSSFPivotCaches(XSSFWorkbook book) {
     try {
-      List pivotCacheList = new ArrayList();
+      List<PivotCache> pivotCacheList = new ArrayList<PivotCache>();
       CTPivotCaches pivotCaches = book.getCTPivotCaches();
       if (pivotCaches == null) {
         return pivotCacheList;
@@ -127,7 +127,7 @@ public class PivotTableHelper
   }
 
   public PivotTable createPivotTable(CellReference destination, String name, PivotCache pivotCache, Sheet sheet) {
-    List pivotTables = sheet.getPivotTables();
+    List<PivotTable> pivotTables = sheet.getPivotTables();
     if (sheet instanceof XSSFSheet) {
       if (containsPivotTable(name, pivotTables)) {
         throw new IllegalArgumentException("Already contains a pivot tabel of this name");
