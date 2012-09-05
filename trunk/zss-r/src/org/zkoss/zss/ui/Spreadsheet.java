@@ -99,24 +99,7 @@ import org.zkoss.zss.model.impl.BookCtrl;
 import org.zkoss.zss.model.impl.BookHelper;
 import org.zkoss.zss.model.impl.ExcelImporter;
 import org.zkoss.zss.model.impl.SheetCtrl;
-import org.zkoss.zss.ui.au.in.ActionCommand;
-import org.zkoss.zss.ui.au.in.BlockSyncCommand;
-import org.zkoss.zss.ui.au.in.CellFetchCommand;
-import org.zkoss.zss.ui.au.in.CellFocusedCommand;
-import org.zkoss.zss.ui.au.in.CellMouseCommand;
-import org.zkoss.zss.ui.au.in.CellSelectionCommand;
 import org.zkoss.zss.ui.au.in.Command;
-import org.zkoss.zss.ui.au.in.EditboxEditingCommand;
-import org.zkoss.zss.ui.au.in.FetchActiveRangeCommand;
-import org.zkoss.zss.ui.au.in.FilterCommand;
-import org.zkoss.zss.ui.au.in.HeaderCommand;
-import org.zkoss.zss.ui.au.in.HeaderMouseCommand;
-import org.zkoss.zss.ui.au.in.MoveWidgetCommand;
-import org.zkoss.zss.ui.au.in.SelectSheetCommand;
-import org.zkoss.zss.ui.au.in.SelectionChangeCommand;
-import org.zkoss.zss.ui.au.in.StartEditingCommand;
-import org.zkoss.zss.ui.au.in.StopEditingCommand;
-import org.zkoss.zss.ui.au.in.WidgetCtrlKeyCommand;
 import org.zkoss.zss.ui.au.out.AuCellFocus;
 import org.zkoss.zss.ui.au.out.AuCellFocusTo;
 import org.zkoss.zss.ui.au.out.AuDataUpdate;
@@ -148,11 +131,11 @@ import org.zkoss.zss.ui.impl.MergedRect;
 import org.zkoss.zss.ui.impl.SequenceId;
 import org.zkoss.zss.ui.impl.StringAggregation;
 import org.zkoss.zss.ui.impl.Utils;
+import org.zkoss.zss.ui.sys.ActionHandler;
 import org.zkoss.zss.ui.sys.SpreadsheetCtrl;
 import org.zkoss.zss.ui.sys.SpreadsheetCtrl.CellAttribute;
 import org.zkoss.zss.ui.sys.SpreadsheetInCtrl;
 import org.zkoss.zss.ui.sys.SpreadsheetOutCtrl;
-import org.zkoss.zss.ui.sys.ActionHandler;
 import org.zkoss.zss.ui.sys.WidgetHandler;
 import org.zkoss.zss.ui.sys.WidgetLoader;
 import org.zkoss.zul.Messagebox;
@@ -190,6 +173,8 @@ import org.zkoss.zul.impl.XulElement;
  * 
  * 
  * @author dennischen
+ * @author mengran
+ * 	Fix concurrent problem for {{@link #_actionDisabled}
  */
 
 public class Spreadsheet extends XulElement implements Serializable {
@@ -207,8 +192,8 @@ public class Spreadsheet extends XulElement implements Serializable {
 	public static final String ACTION_HANDLER = "org.zkoss.zss.ui.ActionHandler.class";
 	
 	private static final int DEFAULT_TOP_HEAD_HEIGHT = 20;
-	private static final int DEFAULT_LEFT_HEAD_WIDTH = 36;
 	private static final int DEFAULT_CELL_PADDING = 2;
+	private static final int DEFAULT_LEFT_HEAD_WIDTH = 36;
 	private static final int DEFAULT_MAX_ROWS = 20;
 	private static final int DEFAULT_MAX_COLUMNS = 10;
 	private static final int DEFAULT_ROW_FREEZE = -1;
@@ -320,7 +305,8 @@ public class Spreadsheet extends XulElement implements Serializable {
 	
 	private Set<Action> _actionDisabled = getDefaultActiobDisabled();
 	
-	private static Set<Action> _defToolbarActiobDisabled;
+	// Fix concurrent problem by MENGRAN. Add volatile keyword
+	private static volatile Set<Action> _defToolbarActiobDisabled;
 	
 	public Spreadsheet() {
 		this.addEventListener("onStartEditingImpl", new EventListener() {
@@ -364,7 +350,12 @@ public class Spreadsheet extends XulElement implements Serializable {
 				}
 			}
 		}
-		return _defToolbarActiobDisabled; 
+		
+		// Fix concurrent problem by MENGRAN.
+		HashSet<Action> forReturn = new HashSet<Action>();
+		forReturn.addAll(_defToolbarActiobDisabled);
+//		return _defToolbarActiobDisabled;
+		return forReturn;
 	}
 	
 	/**
