@@ -64,14 +64,14 @@
 				<executions>
 					<execution>
 						<id>deploy-jar</id>
-						<phase>deploy</phase>
+						<phase>install</phase>
 						<goals>
 							<goal>deploy-file</goal>
 						</goals>
 						<configuration>
 							<url>${googlecode.releases.url}</url>
 							<repositoryId>${googlecode.releases.repositoryId}</repositoryId>
-							<file>${project.build.directory}/${project.artifactId}-${project.version}.jar</file>
+							<file>${project.artifactId}.jar</file>
 							<groupId>${project.groupId}</groupId>
 							<artifactId>${project.artifactId}</artifactId>
 							<packaging>jar</packaging>
