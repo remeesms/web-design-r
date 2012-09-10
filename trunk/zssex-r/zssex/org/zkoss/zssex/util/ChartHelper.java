@@ -1,16 +1,14 @@
 package org.zkoss.zssex.util;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+
 import org.zkoss.lang.Strings;
-import org.zkoss.poi.hssf.model.InternalWorkbook;
 import org.zkoss.poi.hssf.record.LabelSSTRecord;
 import org.zkoss.poi.hssf.record.chart.LinkedDataRecord;
 import org.zkoss.poi.hssf.record.chart.PieRecord;
-import org.zkoss.poi.hssf.record.chart.SeriesRecord;
-import org.zkoss.poi.hssf.record.common.UnicodeString;
 import org.zkoss.poi.hssf.usermodel.HSSFChart;
-import org.zkoss.poi.hssf.usermodel.HSSFChart.HSSFChartType;
-import org.zkoss.poi.hssf.usermodel.HSSFChart.HSSFSeries;
 import org.zkoss.poi.hssf.usermodel.HSSFSheet;
 import org.zkoss.poi.hssf.usermodel.HSSFWorkbook;
 import org.zkoss.poi.hssf.usermodel.HSSFWorkbookHelper;
@@ -22,8 +20,6 @@ import org.zkoss.poi.ss.formula.ptg.RefPtgBase;
 import org.zkoss.poi.ss.formula.ptg.UnionPtg;
 import org.zkoss.poi.ss.usermodel.ChartDrawer;
 import org.zkoss.poi.ss.usermodel.ChartInfo;
-import org.zkoss.poi.ss.usermodel.RichTextString;
-import org.zkoss.poi.ss.usermodel.Workbook;
 import org.zkoss.poi.ss.usermodel.ZssChartX;
 import org.zkoss.poi.ss.usermodel.charts.CategoryData;
 import org.zkoss.poi.ss.usermodel.charts.CategoryDataSerie;
@@ -55,17 +51,17 @@ import org.zkoss.poi.xssf.usermodel.charts.XSSFStockChartData;
 import org.zkoss.zss.model.Range;
 import org.zkoss.zss.model.Ranges;
 import org.zkoss.zss.model.Worksheet;
-import org.zkoss.zul.CategoryModel;
+import org.zkoss.zssex.model.impl.JsSimpleCategoryModel;
+import org.zkoss.zssex.model.impl.JsSimplePieModel;
+import org.zkoss.zssex.model.impl.JsSimpleXYModel;
 import org.zkoss.zssex.ui.widget.Chart;
-import org.zkoss.zssex.ui.widget.PicChart;
 import org.zkoss.zssex.ui.widget.JsChart;
+import org.zkoss.zssex.ui.widget.PicChart;
+import org.zkoss.zul.CategoryModel;
 import org.zkoss.zul.ChartModel;
 import org.zkoss.zul.HiLoModel;
 import org.zkoss.zul.PieModel;
-import org.zkoss.zul.SimpleCategoryModel;
 import org.zkoss.zul.SimpleHiLoModel;
-import org.zkoss.zul.SimplePieModel;
-import org.zkoss.zul.SimpleXYModel;
 import org.zkoss.zul.SimpleXYZModel;
 import org.zkoss.zul.XYModel;
 import org.zkoss.zul.XYZModel;
@@ -301,7 +297,51 @@ public class ChartHelper {
 		else
 			drawXSSFChart(drawer, zchart, sheet, poiChart);
 	}
-
+	
+	/**
+	 * 根据数据集，获得其展现格式类型。（如："I,III.DD%"）
+	 */
+	public static String analyzeDataFormat(Collection<?> values) {
+		if (values == null || values.size() == 0) {
+			return "";
+		}
+		
+		boolean isPercent = false;
+		boolean isFraction = false;
+		int maxFractionLength = 0;
+		
+		Iterator<?> it = values.iterator();
+		while(it.hasNext()) {
+			Object value = it.next();
+			if (value == null) { continue; }
+			String valueStr = value.toString();
+			if (valueStr.contains("%")) {
+				isPercent = true;
+			}
+			valueStr.replace("%", "");
+			int dotIndex = valueStr.lastIndexOf(".");
+			if (dotIndex >= 0) {
+				isFraction = true;
+				int fractionLength = valueStr.length() - dotIndex - 1;
+				maxFractionLength = fractionLength > maxFractionLength ? fractionLength : maxFractionLength;
+			}
+		}
+		
+		StringBuilder dataFormat = new StringBuilder();
+		dataFormat.append("I,III");
+		if (isFraction) {
+			dataFormat.append(".");
+			for (int i=0; i<maxFractionLength; i++) {
+				dataFormat.append("D");
+			}
+		}
+		if (isPercent) {
+			dataFormat.append("%");
+		}
+		
+		return dataFormat.toString();
+	}
+	
 	private static void drawHSSFChart(ChartDrawer drawer, Chart chart, Worksheet sheet, ZssChartX chartX) {
 		HSSFChart chartInfo = (HSSFChart) chartX.getChartInfo();
 		HSSFChart.HSSFChartType type = chartInfo.getType();
@@ -345,7 +385,7 @@ public class ChartHelper {
 	}
 
 	private static ChartModel prepareCategoryModel(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
-		CategoryModel model = new SimpleCategoryModel();
+		CategoryModel model = new JsSimpleCategoryModel();
 
 		for (HSSFChart.HSSFSeries ser : series) {
 			String title = prepareTitle(drawer, sheet, ser, -1);
@@ -359,7 +399,7 @@ public class ChartHelper {
 	}
 
 	private static XYModel prepareXYModel(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
-		XYModel model = new SimpleXYModel();
+		XYModel model = new JsSimpleXYModel();
 		int sj = 1;
 		for (HSSFChart.HSSFSeries ser : series) {
 			String title = prepareTitle(drawer, sheet, ser, sj);
@@ -373,7 +413,7 @@ public class ChartHelper {
 	}
 
 	private static PieModel preparePieModel(ChartDrawer drawer, HSSFSheet sheet, HSSFChart.HSSFSeries[] series) {
-		PieModel model = new SimplePieModel();
+		PieModel model = new JsSimplePieModel();
 
 		for (HSSFChart.HSSFSeries ser : series) {
 			String[] labels = prepareLabels(drawer, sheet, ser);
@@ -642,7 +682,7 @@ public class ChartHelper {
 		Number[] vals;
 		String[] labels;
 		int j;
-		CategoryModel model = new SimpleCategoryModel();
+		CategoryModel model = new JsSimpleCategoryModel();
 		int sj = 1;
 		for (CategoryDataSerie ser : series) {
 			title = prepareTitle(drawer, sheet, ser.getTitle(), sj++);
@@ -660,7 +700,7 @@ public class ChartHelper {
 		Number[] xs;
 		Number[] ys;
 		int j;
-		XYModel model = new SimpleXYModel();
+		XYModel model = new JsSimpleXYModel();
 		int sj = 1;
 		for (XYDataSerie ser : series) {
 			title = prepareTitle(drawer, sheet, ser.getTitle(), sj++);
@@ -698,7 +738,7 @@ public class ChartHelper {
 		Number[] vals;
 		String[] labels;
 		int j;
-		PieModel model = new SimplePieModel();
+		PieModel model = new JsSimplePieModel();
 
 		for (CategoryDataSerie ser : series) {
 			vals = prepareValues(drawer, sheet, ser.getValues());
