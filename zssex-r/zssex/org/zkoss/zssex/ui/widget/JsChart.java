@@ -3,9 +3,7 @@ package org.zkoss.zssex.ui.widget;
 import java.awt.Font;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -20,12 +18,10 @@ import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zk.ui.sys.ContentRenderer;
 import org.zkoss.zk.ui.util.ComponentCloneListener;
+import org.zkoss.zssex.model.JsChartModel;
 import org.zkoss.zssex.util.HTMLUtil;
-import org.zkoss.zul.CategoryModel;
 import org.zkoss.zul.ChartModel;
 import org.zkoss.zul.Div;
-import org.zkoss.zul.PieModel;
-import org.zkoss.zul.SimpleXYModel;
 import org.zkoss.zul.WaferMapModel;
 import org.zkoss.zul.event.ChartAreaListener;
 import org.zkoss.zul.event.ChartDataEvent;
@@ -34,7 +30,8 @@ import org.zkoss.zul.impl.ChartEngine;
 
 public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 
-	private static final long serialVersionUID = -6422154590657439151L;
+	private static final long serialVersionUID = -743050747209373431L;
+	
 	// chart type
 	public static final String PIE = "pie";
 	public static final String RING = "ring";
@@ -98,10 +95,8 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 	public static final String MILLISECOND = "millisecond";
 
 	// control variable
-	private boolean _smartDrawChart; // whether post the smartDraw event
-	// already?
-	private SmartDrawListener _smartDrawChartListener; // the
-	// smartDrawListner
+	private boolean _smartDrawChart; // whether post the smartDraw event already?
+	private SmartDrawListener _smartDrawChartListener;
 	private ChartDataListener _dataListener;
 
 	private String _type = PIE; // chart type (pie, ring, bar, line, xy, etc)
@@ -116,27 +111,17 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 	private boolean _showLegend = true; // wether show legend
 	private boolean _showTooltiptext = true; // wether show tooltiptext
 	private String _orient = "vertical"; // orient
-	private ChartAreaListener _areaListener; // callback function when chart
-	// area changed
+	private ChartAreaListener _areaListener; // callback function when chart area changed
 	private String _paneColor; // pane's color
-	private int[] _paneRGB = new int[] { 0xEE, 0xEE, 0xEE }; // pane red, green,
-	// blue (0 ~
-	// 255, 0 ~ 255,
-	// 0 ~ 255)
-	private int _paneAlpha = 255; // pane alpha transparency (0 ~ 255, default
-	// to 255)
-
+	private int[] _paneRGB = new int[] { 0xEE, 0xEE, 0xEE }; // pane red, green, blue (0 ~ 255, 0 ~ 255, 0 ~ 255)
+	private int _paneAlpha = 255; // pane alpha transparency (0 ~ 255, default to 255) 
+	
 	// plot related attributes
-	private int _fgAlpha = 255; // foreground alpha transparency (0 ~ 255,
-	// default to 255)
+	private int _fgAlpha = 255; // foreground alpha transparency (0 ~ 255, default to 255)
 	private String _bgColor;
-	private int[] _bgRGB = new int[] { 0xFF, 0xFF, 0xFF }; // background red,
-	// green, blue (0 ~
-	// 255, 0 ~ 255, 0 ~
-	// 255)
-	private int _bgAlpha = 255; // background alpha transparency (0 ~ 255,
-	// default to 255)
-
+	private int[] _bgRGB = new int[] { 0xFF, 0xFF, 0xFF }; // background red, green, blue (0 ~ 255, 0 ~ 255, 0 ~ 255)
+	private int _bgAlpha = 255; // background alpha transparency (0 ~ 255, default to 255) 
+	
 	// Time Series Chart related attributes
 	private TimeZone _tzone;
 	private String _period;
@@ -170,100 +155,26 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 	}
 
 	/**
-	 * 构建给前端显示的chart model//  FIXME 全是混乱的临时赶的代码
+	 * 构建给前端显示的chart model
 	 * 
 	 * @return
 	 */
 	protected Map<String, Object> buildChartModel() {
-		Map<String, Object> ret = new HashMap<String, Object>();
-		List<Map<String, Object>> datasource = new ArrayList<Map<String, Object>>();
-		List<Map<String, Object>> csDatasource = new ArrayList<Map<String, Object>>();
-		Map<String, Object> sDatasource = new HashMap<String, Object>();
-
-		Map<String, Object> viewMap = new HashMap<String, Object>();
-		viewMap.put("intWidth", getIntWidth());
-		viewMap.put("intHeight", getIntHeight());
-
-		List<Comparable> categories = new ArrayList<Comparable>();
-		List<Comparable> series = new ArrayList<Comparable>();
-
-		if (_model instanceof CategoryModel) {
-			CategoryModel model = (CategoryModel) _model;
-			categories = (List<Comparable>) model.getCategories();
-			series = (List<Comparable>) model.getSeries();
-			fillCSDatasource(categories, series, datasource, csDatasource);
-		} else if (_model instanceof PieModel) {
-			PieModel model = (PieModel) _model;
-			categories = (List<Comparable>) model.getCategories();
-			series.add("a");
-			fillCSDatasource(categories, series, datasource, csDatasource);
-		} else if (_model instanceof SimpleXYModel) {
-			SimpleXYModel model = (SimpleXYModel) _model;
-			series = (List<Comparable>)model.getSeries();
-			fillXYDatasource(sDatasource);
-		}
 		
-		ret.put("viewParam", viewMap);
+		Map<String, Object> ret = new HashMap<String, Object>();
+
+		Map<String, Object> viewParam = new HashMap<String, Object>();
+		viewParam.put("intWidth", getIntWidth());
+		viewParam.put("intHeight", getIntHeight());
+		viewParam.put("chartTitle", getTitle());
+		
+		ret.put("viewParam", viewParam);
 		ret.put("chartType", _type);
-		ret.put("categories", categories);
-		ret.put("series", series);
-		ret.put("datasource", datasource);
-		ret.put("csDatasource", csDatasource);
-		ret.put("sDatasource", sDatasource);
+		ret.put("clientModel", ((JsChartModel)_model).getClientModel());
 
 		return ret;
 	}
 	
-	private void fillCSDatasource(List<Comparable> categories, List<Comparable> series, 
-			List<Map<String, Object>> datasource, List<Map<String, Object>> csDatasource) {
-		for (int j = 0; j < categories.size(); j++) {
-			Map<String, Object> csDataMap = new HashMap<String, Object>();
-			csDataMap.put("c", categories.get(j));
-			for (int i = 0; i < series.size(); i++) {
-				Map<String, Object> dataMap = new HashMap<String, Object>();
-				dataMap.put("s", series.get(i));
-				dataMap.put("c", categories.get(j));
-				Number number = getModelValue(series.get(i), categories.get(j));
-				if (number != null) {
-					dataMap.put("v", number);
-					csDataMap.put(series.get(i).toString(), number);
-				}
-				datasource.add(dataMap);
-			}
-			csDatasource.add(csDataMap);
-		}
-	}
-	
-	private void fillXYDatasource(Map<String, Object> sDatasource) {
-		SimpleXYModel model = (SimpleXYModel) _model;
-		List<Comparable> series = (List<Comparable>)model.getSeries();
-		for (int i = 0; i < series.size(); i++) {
-			int dataCount = model.getDataCount(series.get(i));
-			List<Map<String, Object>> sList = new ArrayList<Map<String, Object>>(series.size());
-			for (int j = 0; j < dataCount; j++) {
-				Map<String, Object> dataMap = new HashMap<String, Object>();
-				Number x = model.getX(series.get(i), j);
-				Number y = model.getY(series.get(i), j);
-				dataMap.put("x", x);
-				dataMap.put("y", y);
-				sList.add(dataMap);
-			}
-			sDatasource.put(series.get(i).toString(), sList);
-		}		
-	}
-	
-	private Number getModelValue(Comparable seriesI, Comparable categoriesJ) {
-		if (_model instanceof CategoryModel) {
-			CategoryModel model = (CategoryModel) _model;
-			return model.getValue(seriesI, categoriesJ);
-		} else if (_model instanceof PieModel) {
-			PieModel model = (PieModel) _model;
-			return model.getValue(categoriesJ);
-		} else {
-			return null;
-		}
-	}
-
 	private ChartModel createDefaultModel() {
 		if (WAFERMAP.equals(getType())) {
 			return new WaferMapModel(100, 100);
@@ -288,7 +199,8 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 	}
 
 	private class SmartDrawListener implements SerializableEventListener {
-		private static final long serialVersionUID = -6930476931169944227L;
+
+		private static final long serialVersionUID = 1366220686057350006L;
 
 		public void onEvent(Event event) throws Exception {
 			doSmartDraw();
@@ -313,10 +225,7 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 		try {
 
 			this.smartUpdate("chartModel", buildChartModel());
-			// this.setContext("asfasdffffffffffffffffffffffffffffffffffffffffffffffffffff");
-			// final AImage image = new AImage("chart" + new Date().getTime(),
-			// getEngine().drawChart(JsChart.this));
-			// setContent(image);
+			
 		} catch (Exception ex) {
 			throw UiException.Aide.wrap(ex);
 		} finally {
