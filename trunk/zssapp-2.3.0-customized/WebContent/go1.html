@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <title>Pulse</title>
+    <script src="jquery-1.7.1.js">
+    </script>
+    <style type="text/css">
+        .bbb {border:2px red solid; width:1000px}
+    </style>
+    
+</head>
+
+
+<body>
+
+	<div class="bbb">asdfasdf</div>
+	<div class="bbb">asdfasdf</div>
+	<div class="bbb">asdfasdf</div>
+	<div class="bbb">asdfasdf</div>
+
+    <button onclick="$('#anchor').load('index.zul')">Load the fragment in div</button>
+    <button onclick="document.getElementById('iframeAnchor').src='index.zul'">Load the fragment in iframe</button>
+    <button onclick="$('#anchor').hide();">hide</button>
+    <button onclick="$('#anchor').show();">show</button>
+    <button onclick="$('#anchor')[0].innerHTML = '';">clear div</button>
+    <button onclick="var el = document.getElementById('iframeAnchor'); el.src='javascript:false'; el.removeNode(true);">clear iframe</button>
+    
+    <div class="bbb" id="anchor">this is a zss</div>
+    
+
+	<div class="bbb">asdfasdf</div>
+	<div style="color:red">asdfasdf</div>
+	<div class="bbb">asdfasdf</div>
+
+    <iframe id="iframeAnchor">this is a iframe</iframe>
+    
+	
+	<div class="bbb">asdfasdf</div>
+	<div style="color:red">asdfasdf</div>
+	<div class="bbb">asdfasdf</div>
+	
+	
+	
+</body>
+
+</html>
