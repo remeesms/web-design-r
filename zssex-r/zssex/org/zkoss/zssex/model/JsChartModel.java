@@ -34,5 +34,23 @@ import org.zkoss.zul.XYZModel;
  */
 public interface JsChartModel {
 	
+	public static final String SERIES = "series";
+	public static final String CATEGORIES = "categories";
+	public static final String DATASOURCE = "datasource";
+	public static final String CATEGORIES_ITEM = "c";
+	public static final String SERIES_ITEM = "s";
+	public static final String LABEL = "label";
+	public static final String SERIES_FORMAT = "seriesFormat";
+	public static final String FAKE_SERIES_VALUE = "a";
+	public static final String X = "x";
+	public static final String Y = "y";
+	
+	public static final String TICK_TYPE = "tickType";
+	public static final String TICK_TYPE_DATETIME = "datetime";
+	public static final String TICK_TYPE_MONTH = "month";
+	public static final String TICK_TYPE_QUARTER = "quarter";
+	public static final String TICK_TYPE_YEAR = "year";
+	public static final String TICK_TYPE_CATEGORY = "category";
+	
 	public Map<String, Object> getClientModel();
 }

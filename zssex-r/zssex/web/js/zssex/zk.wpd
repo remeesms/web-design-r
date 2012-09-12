@@ -11,6 +11,8 @@
 Copyright (C) 2010 Potix Corporation. All Rights Reserved.
 -->
 <package name="zssex" language="xul/html" depends="zss">
+	<script src="highstock.customized.src.js"/>
+	<script src="util.js"/>
 	<widget name="Ghost" />
 	<widget name="Widget"/>
 	<widget name="Btn"/>
@@ -18,5 +20,4 @@ Copyright (C) 2010 Potix Corporation. All Rights Reserved.
 	<widget name="JsChart"/>
 	<widget name="SimpleTable"/>
 	<script src="autofilter.js"/>
-	<script src="highstock.customized.src.js"/>
 </package>

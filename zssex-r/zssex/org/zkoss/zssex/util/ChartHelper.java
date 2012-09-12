@@ -298,50 +298,6 @@ public class ChartHelper {
 			drawXSSFChart(drawer, zchart, sheet, poiChart);
 	}
 	
-	/**
-	 * 根据数据集，获得其展现格式类型。（如："I,III.DD%"）
-	 */
-	public static String analyzeDataFormat(Collection<?> values) {
-		if (values == null || values.size() == 0) {
-			return "";
-		}
-		
-		boolean isPercent = false;
-		boolean isFraction = false;
-		int maxFractionLength = 0;
-		
-		Iterator<?> it = values.iterator();
-		while(it.hasNext()) {
-			Object value = it.next();
-			if (value == null) { continue; }
-			String valueStr = value.toString();
-			if (valueStr.contains("%")) {
-				isPercent = true;
-			}
-			valueStr.replace("%", "");
-			int dotIndex = valueStr.lastIndexOf(".");
-			if (dotIndex >= 0) {
-				isFraction = true;
-				int fractionLength = valueStr.length() - dotIndex - 1;
-				maxFractionLength = fractionLength > maxFractionLength ? fractionLength : maxFractionLength;
-			}
-		}
-		
-		StringBuilder dataFormat = new StringBuilder();
-		dataFormat.append("I,III");
-		if (isFraction) {
-			dataFormat.append(".");
-			for (int i=0; i<maxFractionLength; i++) {
-				dataFormat.append("D");
-			}
-		}
-		if (isPercent) {
-			dataFormat.append("%");
-		}
-		
-		return dataFormat.toString();
-	}
-	
 	private static void drawHSSFChart(ChartDrawer drawer, Chart chart, Worksheet sheet, ZssChartX chartX) {
 		HSSFChart chartInfo = (HSSFChart) chartX.getChartInfo();
 		HSSFChart.HSSFChartType type = chartInfo.getType();

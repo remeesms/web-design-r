@@ -6,43 +6,51 @@ import java.util.List;
 import java.util.Map;
 
 import org.zkoss.zssex.model.JsChartModel;
+import org.zkoss.zssex.util.ChartUtil.DataFormatAnalyzer;
+import org.zkoss.zssex.util.ChartUtil.TickTypeAnalyzer;
+import org.zkoss.zssex.util.ChartUtil;
+import org.zkoss.zssex.util.CommonUtil;
 import org.zkoss.zul.SimplePieModel;
 
 public class JsSimplePieModel extends SimplePieModel implements JsChartModel {
 
 	private static final long serialVersionUID = 6362412551929393133L;
 
-	private static final String FAKE_SERIES = "a";
-
 	public Map<String, Object> getClientModel() {
 
 		Map<String, Object> clientModel = new HashMap<String, Object>();
 
-		List<Map<String, Object>> categoryDatasource = new ArrayList<Map<String, Object>>();
-		this.fillClientDatasource(categoryDatasource);
+		this.fillClientDatasource(clientModel);
 
 		List<String> series = new ArrayList<String>();
-		series.add(FAKE_SERIES);
+		series.add(FAKE_SERIES_VALUE);
 
-		clientModel.put("categories", this.getCategories());
-		clientModel.put("series", series);
-		clientModel.put("datasource", categoryDatasource);
+		clientModel.put(CATEGORIES, CommonUtil.wrapCollection(this.getCategories(), LABEL));
+		/** 目前暂所有都是category */
+		clientModel.put(TICK_TYPE, TICK_TYPE_CATEGORY);
+//		clientModel.put(TICK_TYPE, ChartUtil.analyzeValues(this.getCategories(), TickTypeAnalyzer.class));
+		clientModel.put(SERIES, CommonUtil.wrapCollection(series, LABEL));
 
 		return clientModel;
 	}
 
-	private void fillClientDatasource(List<Map<String, Object>> categoryDatasource) {
+	private void fillClientDatasource(Map<String, Object> clientModel) {
 
 		List<Comparable<?>> categories = (List<Comparable<?>>) this.getCategories();
-
+		List<Map<String, Object>> categoryDatasource = new ArrayList<Map<String, Object>>();
+		DataFormatAnalyzer analyzer = new DataFormatAnalyzer();
+		
 		for (int j = 0; j < categories.size(); j++) {
 			Map<String, Object> csDataMap = new HashMap<String, Object>();
-			csDataMap.put("c", categories.get(j));
+			csDataMap.put(CATEGORIES_ITEM, categories.get(j));
 			Number number = this.getValue(categories.get(j));
 			if (number != null) {
-				csDataMap.put(FAKE_SERIES, number);
+				csDataMap.put(FAKE_SERIES_VALUE, number);
+				analyzer.analyze(number);
 			}
 			categoryDatasource.add(csDataMap);
 		}
+		clientModel.put(DATASOURCE, categoryDatasource);
+		clientModel.put(SERIES_FORMAT, analyzer.getResult());
 	}
 }
