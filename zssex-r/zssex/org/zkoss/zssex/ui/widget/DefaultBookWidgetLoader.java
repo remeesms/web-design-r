@@ -1,6 +1,7 @@
 package org.zkoss.zssex.ui.widget;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,7 +30,12 @@ import org.zkoss.zss.ui.sys.SpreadsheetCtrl;
 import org.zkoss.zss.ui.sys.WidgetLoader;
 import org.zkoss.zssex.util.SpreadsheetHelper;
 
-public class DefaultBookWidgetLoader implements WidgetLoader {
+public class DefaultBookWidgetLoader implements WidgetLoader, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private static final Log log = Log.lookup(DefaultBookWidgetLoader.class);
 	private Spreadsheet _spreadsheet;
 	private HeaderPositionHelper _rowSizeHelper;

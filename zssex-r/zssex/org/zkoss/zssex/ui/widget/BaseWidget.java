@@ -1,5 +1,7 @@
 package org.zkoss.zssex.ui.widget;
 
+import java.io.Serializable;
+
 import org.zkoss.lang.Objects;
 import org.zkoss.poi.ss.util.AreaReference;
 import org.zkoss.zk.ui.Component;
@@ -7,7 +9,13 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zss.ui.Widget;
 import org.zkoss.zss.ui.sys.WidgetHandler;
 
-public abstract class BaseWidget implements Widget {
+public abstract class BaseWidget implements Widget, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String _id;
 	private int _row;
 	private int _column;
