@@ -273,6 +273,8 @@
             case 'bar':
             case 'pie':
                 axis.labels.rotation = 315;
+                axis.labels.x = -3; // TODO 暂简单化处理，后续应该计算字长而判断位置
+                axis.labels.y = 30; 
                 axis.labels.formatter = this.$$getAxisTickFormatter();
                 break;
             }
