@@ -32,8 +32,14 @@ import java.util.List;
  * @author Dennis.Chen
  * 
  */
-public class HeaderPositionHelper {
+public class HeaderPositionHelper implements Serializable
+{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	int _defaultSize;
 	private List<HeaderPositionInfo> _infos;
 	//int[][] _customizedSize; //[0]: column/row index, [1]: width/height, [2]: column/row id
@@ -266,7 +272,13 @@ public class HeaderPositionHelper {
 		System.out.println(">>>>" + helper.getCellIndex(480));// 12
 	}
 */
-	public static class HeaderPositionInfo {
+	public static class HeaderPositionInfo implements Serializable {
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		//[0]: column/row index, [1]: width/height, [2]: column/row id
 		public int index; //column/row idnex
 		public int size; //width/height in pixel

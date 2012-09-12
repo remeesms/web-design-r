@@ -67,9 +67,11 @@ public class BookCtrlImpl implements BookCtrl {
 	//if browser is closed directly
 	private void syncFocus() { 
 		for (final Iterator<Object> it = _focusMap.keySet().iterator(); it.hasNext(); ) {
-			final Focus focus = (Focus) it.next();
+			Focus focus = (Focus) it.next();
 			if (focus.isDetached()) {
 				it.remove();
+				// FIXME: MENGRAN. Remove week ref
+				focus = null;
 			}
 		}
 	}

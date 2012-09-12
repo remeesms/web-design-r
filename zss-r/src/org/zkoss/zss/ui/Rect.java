@@ -18,13 +18,20 @@ Copyright (C) 2007 Potix Corporation. All Rights Reserved.
 */
 package org.zkoss.zss.ui;
 
+import java.io.Serializable;
+
 /**
  * a class to represent a rectangle range with 4 value : left, top, right, bottom
  * @author Dennis.Chen
  *
  */
-public class Rect {
+public class Rect implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int _left = -1;
 	private int _top = -1;
 	private int _right = -1;
