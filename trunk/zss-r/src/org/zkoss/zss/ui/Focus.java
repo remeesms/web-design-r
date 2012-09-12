@@ -4,14 +4,20 @@
 
 package org.zkoss.zss.ui;
 
-import java.lang.ref.WeakReference;
+import java.io.Serializable;
 
-public class Focus {
+public class Focus implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	/*package*/ final String id;
 	/*package*/ String name;
 	/*package*/ String color;
 	/*package*/ int row,col;
-	final private WeakReference<Spreadsheet> ss;
+	final private Spreadsheet ss;
 	
 	public Focus(String id, String name, String color, int row, int col, Spreadsheet ss) {
 		this.id=id;
@@ -19,13 +25,13 @@ public class Focus {
 		this.color=color;
 		this.row=row;
 		this.col=col;
-		this.ss= new WeakReference<Spreadsheet>(ss);
+		this.ss= ss;
 	}
 	public String getId() {
 		return this.id;
 	}
 	public boolean isDetached() {
-		return ss == null || ss.get() == null || ss.get().getDesktop() == null || !ss.get().getDesktop().isAlive();
+		return ss == null || ss == null || ss.getDesktop() == null || !ss.getDesktop().isAlive();
 	}
 	public int hashCode() {
 		return id == null ? 0 : id.hashCode();
