@@ -1,5 +1,6 @@
 package org.zkoss.zssex.engine.impl;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -96,9 +97,15 @@ public class RefBookImpl extends org.zkoss.zss.engine.impl.RefBookImpl
   }
 
   private static class DelegateListener
-    implements EventListener
+    implements EventListener, Serializable
+    
   {
-    private EventListener _listener;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private EventListener _listener;
 
     public DelegateListener(EventListener paramEventListener)
     {
