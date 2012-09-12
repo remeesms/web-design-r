@@ -54,6 +54,7 @@ Copyright (C) 2007 Potix Corporation. All Rights Reserved.
 		<mold>
 			<mold-name>default</mold-name>
 			<mold-uri>mold/jschart.js</mold-uri>
+			<css-uri>css/chart.css.dsp</css-uri>
 		</mold>
 	</component>
 	<component>
