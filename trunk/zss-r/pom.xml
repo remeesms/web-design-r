@@ -74,6 +74,20 @@
 		</resources>
 		<plugins>
 			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <version>2.1.2</version>
+            </plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
@@ -95,29 +109,6 @@
 				</dependencies>
 			</plugin>
 			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>deploy-jar</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>deploy-file</goal>
-						</goals>
-						<configuration>
-							<url>${googlecode.releases.url}</url>
-							<repositoryId>${googlecode.releases.repositoryId}</repositoryId>
-							<file>${project.build.directory}/${project.artifactId}-${project.version}.jar</file>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>${project.artifactId}</artifactId>
-							<packaging>jar</packaging>
-							<version>${project.version}</version>
-						</configuration>
-					</execution>
-				</executions>
-				<version>2.5</version>
-			</plugin>
 		</plugins>
 		
 		<extensions>
