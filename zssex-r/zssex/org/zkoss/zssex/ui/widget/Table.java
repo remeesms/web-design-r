@@ -1,7 +1,8 @@
 package org.zkoss.zssex.ui.widget;
 
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zul.ChartModel;
+import org.zkoss.zssex.model.TableModel;
+import org.zkoss.zssex.model.impl.SimpleTableModel;
 
 public interface Table {
 

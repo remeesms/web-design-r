@@ -3,7 +3,6 @@ package org.zkoss.zssex.ui.widget;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +15,10 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zk.ui.sys.ContentRenderer;
+import org.zkoss.zssex.model.TableModel;
+import org.zkoss.zssex.model.impl.SimpleTableModel;
 import org.zkoss.zssex.util.HTMLUtil;
-import org.zkoss.zul.ChartModel;
+import org.zkoss.zul.Column;
 import org.zkoss.zul.Columns;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Grid;
@@ -26,7 +27,6 @@ import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Rows;
-import org.zkoss.zul.Column;
 
 public class SimpleTable extends Div implements org.zkoss.zssex.ui.widget.Table {
 
@@ -78,7 +78,7 @@ public class SimpleTable extends Div implements org.zkoss.zssex.ui.widget.Table 
 	protected void renderProperties(ContentRenderer renderer) throws IOException {
 		super.renderProperties(renderer);
 
-		renderer.render("tableModel", buildModel());
+//		renderer.render("tableModel", buildModel());
 	}
 
 	/**
@@ -89,29 +89,9 @@ public class SimpleTable extends Div implements org.zkoss.zssex.ui.widget.Table 
 	protected Map<String, Object> buildModel() {
 
 		// FIXME 如果没有invalidate则用缓存的table model
-
-		Map<String, Object> ret = new HashMap<String, Object>();
-		List<Map<String, Object>> datasource = new ArrayList<Map<String, Object>>();
-		List<Map<String, Object>> csDatasource = new ArrayList<Map<String, Object>>();
-		Map<String, Object> sDatasource = new HashMap<String, Object>();
-
-		Map<String, Object> viewMap = new HashMap<String, Object>();
-		viewMap.put("intWidth", getIntWidth());
-		viewMap.put("intHeight", getIntHeight());
-
-		List categories = new ArrayList();
-		List series = new ArrayList();
-
-		ret.put("viewParam", viewMap);
-		ret.put("chartType", _type);
-		ret.put("categories", categories);
-		ret.put("series", series);
-		ret.put("datasource", datasource);
-		ret.put("csDatasource", csDatasource);
-		ret.put("sDatasource", sDatasource);
-
-		return ret;
+		return null;
 	}
+	
 
 	private void init() {
 
@@ -129,6 +109,8 @@ public class SimpleTable extends Div implements org.zkoss.zssex.ui.widget.Table 
 	private void initGridTable() {
 		try {
 			_gridTable = new Grid();
+			
+			// [mock] //
 			_gridTable.setWidth("100%");
 			// _gridTable.setVflex(true); // ??
 
@@ -165,8 +147,10 @@ public class SimpleTable extends Div implements org.zkoss.zssex.ui.widget.Table 
 			m.put("ccc", 5566777);
 			m.put("ddd", 5566777);
 			datasource.add(m);
+			
 			ListModel gridModel = new ListModelList(datasource);
 			// _gridTable.setModel(gridModel);
+			
 
 			// prepare columns
 			Columns columns = new Columns();
@@ -220,6 +204,8 @@ public class SimpleTable extends Div implements org.zkoss.zssex.ui.widget.Table 
 			_gridTable.setParent(this);
 
 			_gridTable.renderAll();
+			
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -511,13 +497,19 @@ public class SimpleTable extends Div implements org.zkoss.zssex.ui.widget.Table 
 	}
 
 	public void setModel(TableModel model) {
-		// TODO Auto-generated method stub
-
+		if (getModel() != model) {
+//			if (_model != null) {
+//				_model.removeTableDataListener(_dataListener);
+//			}
+			this._gridTable.setModel((SimpleTableModel)model);
+//			initDataListener();
+		}
+		// Always redraw
+		smartDrawTable();
 	}
 
 	public TableModel getModel() {
-		// TODO Auto-generated method stub
-		return null;
+		return (TableModel)this._gridTable.getModel();
 	}
 
 }
