@@ -2,11 +2,12 @@ package org.zkoss.zssex.ui.widget;
 
 import java.util.Date;
 
-import org.zkoss.poi.ss.usermodel.PivotTable;
+import org.zkoss.poi.ss.usermodel.ZssTableX;
 import org.zkoss.poi.ss.util.AreaReference;
 import org.zkoss.poi.ss.util.CellReference;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zss.model.Worksheet;
+import org.zkoss.zssex.model.TableModel;
 import org.zkoss.zssex.util.SpreadsheetHelper;
 import org.zkoss.zssex.util.TableHelper;
 
@@ -14,7 +15,7 @@ public class TableWidget extends BaseWidget {
 
 	private Worksheet _sheet;
 	private int _zindex;
-	private PivotTable _tableP;
+	private ZssTableX _tableX;
 	private Table _table;
 	private int _outcol1;
 	private int _outcol2;
@@ -25,15 +26,14 @@ public class TableWidget extends BaseWidget {
 		return this._table;
 	}
 
-	public TableWidget(Worksheet sheet, PivotTable tableP, int zindex) {
+	public TableWidget(Worksheet sheet, ZssTableX tableX, int zindex) {
 		this._sheet = sheet;
 		this._zindex = zindex;
-		this._tableP = tableP;
+		this._tableX = tableX;
 
 		this.createTable();
 
-		//setId(String.valueOf(this._tableP.getCacheId())); // FIXME 检查正误
-		setId(String.valueOf(new Date().getTime())); // FIXME 不是这么做的
+		setId(String.valueOf(this._tableX.getTableId()));
 		setSizable(false);
 		setMovable(false);
 		setFocusable(false);
@@ -92,7 +92,7 @@ public class TableWidget extends BaseWidget {
 	}
 
 	private Table newTable() {
-		Table table = TableHelper.createTable(this._tableP);
+		Table table = TableHelper.createTable(this._tableX);
 		table.setParent(getCtrl());
 		return table;
 	}
@@ -110,14 +110,17 @@ public class TableWidget extends BaseWidget {
 	}
 
 	private void prepareAnchorPosition() {
-//		AreaReference areaReference = this._tableP.getLocationRef();
-//		CellReference firstCell = areaReference.getFirstCell();
-//		CellReference lastCell = areaReference.getLastCell();
+		/*AreaReference areaReference = this._tableX.getPreferredSize();
+		CellReference firstCell = areaReference.getFirstCell();
+		CellReference lastCell = areaReference.getLastCell();
+		*/
 		
-		// FIXME mock ////////////////////////////////////
+		// [mock] ////////////////////////////////////
+		
 		CellReference firstCell = new CellReference(3,3);
 		CellReference lastCell = new CellReference(7,7);
 		AreaReference areaReference = new AreaReference(firstCell, lastCell);
+		
 		
 		if (areaReference != null) {
 			int row = firstCell.getRow();
@@ -144,7 +147,7 @@ public class TableWidget extends BaseWidget {
 	private void initTable() {
 		initUpdateAreaReference();
 		prepareAnchorPosition();
-		TableHelper.drawTable(this._table, this._sheet, this._tableP);
+		TableHelper.drawTable(this._table, this._sheet, this._tableX);
 	}
 
 	public String getWidgetType() {

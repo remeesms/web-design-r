@@ -1,8 +1,6 @@
 package org.zkoss.zssex.ui.widget;
 
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -14,9 +12,11 @@ import org.zkoss.poi.ss.usermodel.Chart;
 import org.zkoss.poi.ss.usermodel.ClientAnchor;
 import org.zkoss.poi.ss.usermodel.Picture;
 import org.zkoss.poi.ss.usermodel.PictureData;
-import org.zkoss.poi.ss.usermodel.PivotTable;
 import org.zkoss.poi.ss.usermodel.ZssChartX;
+import org.zkoss.poi.ss.usermodel.ZssTableX;
 import org.zkoss.poi.xssf.usermodel.XSSFSheet;
+import org.zkoss.poi.xssf.usermodel.XSSFTable;
+import org.zkoss.poi.xssf.usermodel.XSSFTableX;
 import org.zkoss.util.logging.Log;
 import org.zkoss.zk.ui.UiException;
 import org.zkoss.zss.model.Worksheet;
@@ -132,26 +132,27 @@ public class DefaultBookWidgetLoader implements WidgetLoader, Serializable {
 	 */
 	private void prepareTableWidgets(Worksheet sheet, Map<String, Widget> list) {
 		// TODO 得到model
-		List<PivotTable> pTableList = sheet.getPivotTables();
-//		((XSSFSheet)sheet).getTables();
-		// FIXME mock
-		pTableList= new ArrayList<PivotTable>();
-//		pTableList.add(null);
-		
-		if (pTableList == null || pTableList.size() == 0) {
-			return;
-		}
-
-		int zindex = 200 + list.size();
-		for (PivotTable tableP : pTableList) {
-			try {
-				TableWidget tablewgt = newTableWidget(sheet, tableP, zindex++);
-				if (tablewgt != null) {
-					list.put(tablewgt.getId(), tablewgt);
-					((SpreadsheetCtrl) this._spreadsheet.getExtraCtrl()).addWidget(tablewgt);
+		if (sheet instanceof XSSFSheet) {
+			List<XSSFTable> tables = ((XSSFSheet)sheet).getTables();
+			// FIXME mock
+	//		tables.add(null);
+			
+			if (tables == null || tables.size() == 0) {
+				return;
+			}
+	
+			int zindex = 200 + list.size();
+			for (XSSFTable table : tables) {
+				try {
+					XSSFTableX tableX = new XSSFTableX(table); // 简单实现
+					TableWidget tablewgt = newTableWidget(sheet, tableX, zindex++);
+					if (tablewgt != null) {
+						list.put(tablewgt.getId(), tablewgt);
+						((SpreadsheetCtrl) this._spreadsheet.getExtraCtrl()).addWidget(tablewgt);
+					}
+				} catch (IOException e) {
+					throw UiException.Aide.wrap(e);
 				}
-			} catch (IOException e) {
-				throw UiException.Aide.wrap(e);
 			}
 		}
 	}
@@ -296,8 +297,8 @@ public class DefaultBookWidgetLoader implements WidgetLoader, Serializable {
 		return new ChartWidget(sheet, chart, zindex);
 	}
 
-	protected TableWidget newTableWidget(Worksheet sheet, PivotTable tableP, int zindex) throws IOException {
-		return new TableWidget(sheet, tableP, zindex);
+	protected TableWidget newTableWidget(Worksheet sheet, ZssTableX tableX, int zindex) throws IOException {
+		return new TableWidget(sheet, tableX, zindex);
 	}
 
 	public void updateChartWidget(Worksheet sheet, Chart chart) {
