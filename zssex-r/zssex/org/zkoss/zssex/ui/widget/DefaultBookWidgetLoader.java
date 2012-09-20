@@ -1,6 +1,7 @@
 package org.zkoss.zssex.ui.widget;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
