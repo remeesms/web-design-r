@@ -23,7 +23,6 @@
 	top: 0px;
 	position: absolute;
 	z-index: 0;
-	overflow:auto;
 	left:0px;
 	background-color:#FFFFFF;
 }
