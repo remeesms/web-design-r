@@ -124,6 +124,7 @@
             
             return {
                 chart : {
+                	animation : false, 
                     renderTo : chartId,
                     zoomType : 'x',
                     marginRight : 10,
@@ -153,7 +154,11 @@
         $$setupPlot : function (options) {
           var chartModel = this.getChartModel(),
               chartType = chartModel.chartType,
-              plotOptions = {};
+              plotOptions = {
+        	  series: {
+                  animation: false
+		             }
+          		};
           
           switch (chartType) {
               case 'pie':
