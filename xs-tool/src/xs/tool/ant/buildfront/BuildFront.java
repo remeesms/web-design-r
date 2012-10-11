@@ -22,6 +22,8 @@ import org.apache.tools.ant.util.ResourceUtils;
 public class BuildFront extends Task {
 
 	private String buildtype = "js";
+	
+	private String webbase = "/";
 
 	private String outputencoding = "UTF-8";
 
@@ -74,9 +76,9 @@ public class BuildFront extends Task {
 
 				pathItem = pathItem.trim();
 				if (this.buildtype.equalsIgnoreCase("js")) {
-					createJsLine(sb, BuildHelper.formatPath(this, pathItem));
+					createJsLine(sb, this.webbase + BuildHelper.formatPath(this, pathItem));
 				} else {
-					createCssLine(sb, BuildHelper.formatPath(this, pathItem));
+					createCssLine(sb, this.webbase + BuildHelper.formatPath(this, pathItem));
 				}
 			}
 		}
@@ -125,11 +127,11 @@ public class BuildFront extends Task {
 		this.dest = dest;
 	}
 
-	public String getBuildType() {
+	public String getBuildtype() {
 		return buildtype;
 	}
 
-	public void setBuildType(String buildType) {
+	public void setBuildtype(String buildType) {
 		this.buildtype = buildType;
 	}
 
@@ -141,4 +143,11 @@ public class BuildFront extends Task {
 		this.outputencoding = outputencoding;
 	}
 
+	public String getWebbase() {
+		return webbase;
+	}
+
+	public void setWebbase(String webbase) {
+		this.webbase = webbase;
+	}
 }
