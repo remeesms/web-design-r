@@ -15,6 +15,40 @@ import org.apache.tools.ant.util.ResourceUtils;
 /**
  * Create js and css file for ER debug
  * 
+ * @usage
+ * 		(1) Declare ant task "buildfront":
+ * 		<p>
+ * 		&lt;taskdef name="buildfront" classname="xs.tool.ant.buildfront.BuildFront"&gt; <br>
+ * 			&nbsp;&lt;classpath&gt; <br>
+ * 			&nbsp;&nbsp;&lt;pathelement location="${dir-tool}/ant/buildfront.jar" /&gt; <br>
+ * 			&nbsp;&lt;/classpath&gt; <br>
+ *      &lt;/taskdef&gt; <br>
+ * 		</p>
+ * 		
+ * 		(2) Use ant task "buildfront" for Javascript
+ * 		<p>
+ *      &lt;buildfront <br>
+ *      &nbsp;&nbsp;buildtype="js" <br>
+ *      &nbsp;&nbsp;pathbase="/" <br>
+ *      &nbsp;&nbsp;destfile="${dir-build}/mycode-debug.js" <br> 
+ *      &nbsp;&nbsp;outputencoding="utf-8"&gt; <br>
+ * 		&nbsp;&lt;path refid="path-mycode.jssrc" /&gt; <br>
+ *      &lt;/buildfront&gt; <br>
+ * 		</p>
+ * 
+ * 		(3) Use ant task "buildfront" for CSS
+ * 		<p>
+ *      &lt;buildfront <br>
+ *      &nbsp;&nbsp;buildtype="css" <br>
+ *      &nbsp;&nbsp;pathbase="../../" <br>
+ *      &nbsp;&nbsp;destfile="${dir-build}/css/mycode-debug.css" <br> 
+ *      &nbsp;&nbsp;outputencoding="utf-8"&gt; <br>
+ * 		&nbsp;&lt;path refid="path-mycode.csssrc" /&gt; <br>
+ *      &lt;/buildfront&gt; <br>
+ * 		</p>
+ * 
+ * 
+ * 		
  * @author sushuang
  * @date 2011-11-05
  * 
@@ -23,7 +57,7 @@ public class BuildFront extends Task {
 
 	private String buildtype = "js";
 	
-	private String webbase = "/";
+	private String pathbase = "";
 
 	private String outputencoding = "UTF-8";
 
@@ -76,9 +110,9 @@ public class BuildFront extends Task {
 
 				pathItem = pathItem.trim();
 				if (this.buildtype.equalsIgnoreCase("js")) {
-					createJsLine(sb, this.webbase + BuildHelper.formatPath(this, pathItem));
+					createJsLine(sb, BuildHelper.formatPath(this, pathItem));
 				} else {
-					createCssLine(sb, this.webbase + BuildHelper.formatPath(this, pathItem));
+					createCssLine(sb, BuildHelper.formatPath(this, pathItem));
 				}
 			}
 		}
@@ -92,13 +126,15 @@ public class BuildFront extends Task {
 	private void createJsLine(StringBuilder sb, String pathItem) {
 
 		sb.append("document.write( '<script src=\"");
+		sb.append(this.pathbase);
 		sb.append(pathItem);
 		sb.append("\" type=\"text/javascript\"></script>' );  \n");
 	}
 
 	private void createCssLine(StringBuilder sb, String pathItem) {
 
-		sb.append("@import url(../../");
+		sb.append("@import url(");
+		sb.append(this.pathbase);
 		sb.append(pathItem);
 		sb.append("); \n");
 	}
@@ -143,11 +179,11 @@ public class BuildFront extends Task {
 		this.outputencoding = outputencoding;
 	}
 
-	public String getWebbase() {
-		return webbase;
+	public String getPathbase() {
+		return pathbase;
 	}
 
-	public void setWebbase(String webbase) {
-		this.webbase = webbase;
+	public void setPathbase(String webbase) {
+		this.pathbase = webbase;
 	}
 }
