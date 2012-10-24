@@ -14,6 +14,8 @@ Copyright (C) 2010 Potix Corporation. All Rights Reserved.
 package org.zkoss.zss.model.impl;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1145,7 +1147,16 @@ public final class BookHelper {
 		case Cell.CELL_TYPE_FORMULA:
 			return cell.getCellFormula();
 		case Cell.CELL_TYPE_NUMERIC:
-			return new Double(cell.getNumericCellValue());
+			// Add by MENGRAN at 2012-10-24
+			try {
+				String df = cell.getCellStyle().getDataFormatString();
+//				df = null;
+				df = (df.contains(".") ? df + "" : df + ".")  + "#############";
+				DecimalFormat myFormatter = new DecimalFormat(df);
+				return new BigDecimal(myFormatter.format(cell.getNumericCellValue()).replaceAll(",", ""));
+			} catch (Exception e) {
+				return new Double(cell.getNumericCellValue());
+			}
 		case Cell.CELL_TYPE_STRING:
 			final RichTextString rtstr = cell.getRichStringCellValue();
 			return rtstr; 
