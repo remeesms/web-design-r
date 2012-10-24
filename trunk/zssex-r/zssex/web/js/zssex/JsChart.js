@@ -312,7 +312,7 @@
                     title: null
                 };
             
-            axis.labels.formatter = this.$$getAxisValueFormatter(this.DEFAULT_AXIS_FORMAT);
+            axis.labels.formatter = this.$$getAxisValueFormatter(chartModel.clientModel.seriesFormat);
 
             options.yAxis = axis;
             return options;

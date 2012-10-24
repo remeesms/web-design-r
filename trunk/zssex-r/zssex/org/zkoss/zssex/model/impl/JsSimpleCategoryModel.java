@@ -44,8 +44,8 @@ public class JsSimpleCategoryModel extends SimpleCategoryModel implements JsChar
 			for (int i = 0; i < series.size(); i++) {
 				Number number = this.getValue(series.get(i), categories.get(j));
 				if (number != null) {
-					csDataMap.put(series.get(i).toString(), number);
 					analyzer.analyze(number);
+					csDataMap.put(series.get(i).toString(), number.doubleValue());
 				}
 			}
 			categoryDatasource.add(csDataMap);
