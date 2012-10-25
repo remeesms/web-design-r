@@ -154,11 +154,7 @@
         $$setupPlot : function (options) {
           var chartModel = this.getChartModel(),
               chartType = chartModel.chartType,
-              plotOptions = {
-        	  series: {
-                  animation: false
-		             }
-          		};
+              plotOptions = {series: {animation: false}};
           
           switch (chartType) {
               case 'pie':
@@ -205,6 +201,7 @@
                     break;
                 default:
                     tooltip.shared = true;
+                    tooltip.crosshairs = true;
                     tooltip.formatter = (function (seriesFormat) {
                         return function () {
                             var html = ['<div class="ui-charts-tooltip">'], item, i,
@@ -216,7 +213,7 @@
                                 html.push('<table cellpadding="0" cellspacing="0">');
                                 for (i = 0; item = this.points[i]; i++) {
                                     o = item.series;
-                                    html.push('<tr><th style="color:#333">' + o.name + '</th><td>');
+                                    html.push('<tr><th style="color:' + o.color + '">' + o.name + '</th><td>');
                                     //暂存格式化后的文本
                                     if (item.__formatStr) {
                                         html.push(item.__formatStr);
