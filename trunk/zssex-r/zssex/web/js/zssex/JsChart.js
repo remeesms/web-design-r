@@ -260,7 +260,12 @@
                         }
                     }
                 };
-
+            
+            if (chartModel.tickInterval) {
+                // TODO 以后如果加了非category的模式，不要设tickInterval
+                axis.tickInterval = chartModel.tickInterval;
+            }
+            
             if (tickType == 'category') {
                 axis.categories = util.unwrapList(categories, 'label');
             }
