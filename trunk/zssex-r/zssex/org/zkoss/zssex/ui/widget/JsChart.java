@@ -181,17 +181,11 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 	
 	protected int calculateTickInterval(int width, Map<String, Object> cm) {
 		
-//		List<Map<String, Object>> categories = (List<Map<String, Object>>) cm.get(JsChartModel.CATEGORIES);
-//		for (int i = 0; i < categories.size(); i++) {
-//			if (i % 5 != 0) {
-//				for (Entry<String, Object> entry : categories.get(i).entrySet()) {
-//					entry.setValue("");
-//				}
-//			}
-//		}
-//		cm.put(JsChartModel.CATEGORIES, categories);
+		// FIXM: MENGRAN. Compatible all chart???
+		List<Map<String, Object>> categories = (List<Map<String, Object>>) cm.get(JsChartModel.CATEGORIES);
+		int labelCnt = categories.size();
 		
-		return 5;
+		return (labelCnt * 130 / width) <= 1 ? 1 : (labelCnt * 130 / width);
 	}
 	
 	private ChartModel createDefaultModel() {
