@@ -246,13 +246,14 @@
                 tickType = chartModel.clientModel.tickType,
                 categories = chartModel.clientModel.categories || [],
                 axis = {
-                    gridLineWidth : 1,
-                    gridLineColor : '#DBDBDB',
+//                    gridLineWidth : 1,
+//                    gridLineColor : '#DBDBDB',
                     showLastLabel : true,
                     tickPosition : 'inside',
                     title : null,
+                    tickmarkPlacement: 'on',
                     labels : {
-                        overflow: null,
+                        overflow: 'justify',
                         style: {
                             fontFamily: 'Arial,Serif,Times', 
                             fontSize: '11px', 
@@ -279,11 +280,13 @@
             case 'column':
             case 'bar':
             case 'pie':
-                axis.labels.rotation = 315;
-                axis.labels.x = -3; // TODO 暂简单化处理，后续应该计算字长而判断位置
-                axis.labels.y = 30; 
-                axis.labels.formatter = this.$$getAxisTickFormatter();
+                 axis.labels.rotation = 1;
+//                 axis.labels.x = -3;
+                axis.labels.y = 20; 
+//                axis.labels.formatter = this.$$getAxisTickFormatter();
+                axis.labels.formatter = (function () {return this.value;});
                 break;
+                
             }
 
             options.xAxis = axis;
@@ -297,9 +300,9 @@
             var chartModel = this.getChartModel(),
                 chartType = chartModel.chartType,
                 axis = {
-                    gridLineWidth : 1,
-                    gridLineColor : '#DBDBDB',
-                    lineWidth : 1,
+//                    gridLineWidth : 1,
+//                    gridLineColor : '#DBDBDB',
+//                    lineWidth : 1,
                     labels : { 
                         align : 'right', 
                         x : -10,
@@ -310,7 +313,7 @@
                         }
                     },
                     tickPosition: 'inside', 
-                    lineWidth: 1,
+//                    lineWidth: 1,
                     title: null
                 };
             

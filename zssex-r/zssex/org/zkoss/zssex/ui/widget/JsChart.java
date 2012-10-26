@@ -4,7 +4,9 @@ import java.awt.Font;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TimeZone;
 
 import org.zkoss.lang.Classes;
@@ -171,8 +173,25 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 		ret.put("viewParam", viewParam);
 		ret.put("chartType", _type);
 		ret.put("clientModel", ((JsChartModel)_model).getClientModel());
+		
+		ret.put("tickInterval", calculateTickInterval(getIntWidth(), (Map<String, Object>) ret.get("clientModel")));
 
 		return ret;
+	}
+	
+	protected int calculateTickInterval(int width, Map<String, Object> cm) {
+		
+//		List<Map<String, Object>> categories = (List<Map<String, Object>>) cm.get(JsChartModel.CATEGORIES);
+//		for (int i = 0; i < categories.size(); i++) {
+//			if (i % 5 != 0) {
+//				for (Entry<String, Object> entry : categories.get(i).entrySet()) {
+//					entry.setValue("");
+//				}
+//			}
+//		}
+//		cm.put(JsChartModel.CATEGORIES, categories);
+		
+		return 5;
 	}
 	
 	private ChartModel createDefaultModel() {
