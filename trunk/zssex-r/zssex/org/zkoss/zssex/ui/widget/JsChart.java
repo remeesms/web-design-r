@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TimeZone;
 
 import org.zkoss.lang.Classes;
@@ -181,7 +180,7 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 	
 	protected int calculateTickInterval(int width, Map<String, Object> cm) {
 		
-		// FIXM: MENGRAN. Compatible all chart???
+		// FIXME: MENGRAN. All chart is compatible???
 		List<Map<String, Object>> categories = (List<Map<String, Object>>) cm.get(JsChartModel.CATEGORIES);
 		int labelCnt = categories.size();
 		
