@@ -26,11 +26,18 @@ public class ChartWidget extends BaseWidget implements ChartDrawer {
 	private int _outrow1;
 	private int _outrow2;
 
-	private Chart inner() {
+	public Chart inner() {
 		return this._chart;
 	}
 
 	public ChartWidget(Worksheet sheet, ZssChartX chartX, int zindex) {
+		this(sheet, chartX, zindex, ChartHelper.CHART_LIB_TYPE_JS_CHART);
+	}
+	
+	public ChartWidget(Worksheet sheet, ZssChartX chartX, int zindex, int chartType) {
+		
+		this._chartLibType = chartType;
+		
 		this._sheet = sheet;
 		this._chartX = chartX;
 		this._zindex = zindex;
