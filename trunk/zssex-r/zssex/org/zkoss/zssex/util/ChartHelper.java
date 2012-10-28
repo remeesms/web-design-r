@@ -1,7 +1,5 @@
 package org.zkoss.zssex.util;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.zkoss.lang.Strings;
@@ -169,12 +167,12 @@ public class ChartHelper {
 		} else {
 			PicChart chart = new PicChart();
 			String type = getChartType(chartInfo);
-//			if ("line".equals(type))
-//				chart.setEngine(new LineChartEngine(chartInfo));
-//			else if (("pie".equals(type)) || ("ring".equals(type)))
-//				chart.setEngine(new PieChartEngine(chartInfo));
-//			else
-//				chart.setEngine(new ZssChartEngine(chartInfo));
+			if ("line".equals(type))
+				chart.setEngine(new LineChartEngine(chartInfo));
+			else if (("pie".equals(type)) || ("ring".equals(type)))
+				chart.setEngine(new PieChartEngine(chartInfo));
+			else
+				chart.setEngine(new ZssChartEngine(chartInfo));
 
 			return (Chart) chart;
 		}
@@ -281,13 +279,14 @@ public class ChartHelper {
 		} else {
 			PicChart chart = new PicChart();
 			String type = getChartType(poiChart);
-//			if ("line".equals(type))
-//				chart.setEngine(new LineChartEngine(poiChart));
-//			else if (("pie".equals(type)) || ("ring".equals(type)))
-//				chart.setEngine(new PieChartEngine(poiChart));
-//			else
-//				chart.setEngine(new ZssChartEngine(poiChart));
-			return (Chart) chart;
+			chart.setType(type);
+			if ("line".equals(type))
+				chart.setEngine(new LineChartEngine(poiChart));
+			else if (("pie".equals(type)) || ("ring".equals(type)))
+				chart.setEngine(new PieChartEngine(poiChart));
+			else
+				chart.setEngine(new ZssChartEngine(poiChart));
+			return (PicChart) chart;
 		}
 	}
 
