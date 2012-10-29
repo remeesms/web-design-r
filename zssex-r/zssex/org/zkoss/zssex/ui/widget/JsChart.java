@@ -180,11 +180,12 @@ public class JsChart extends Div implements org.zkoss.zssex.ui.widget.Chart {
 	
 	protected int calculateTickInterval(int width, Map<String, Object> cm) {
 		
+		final int peerLabelWidth = 110;
 		// FIXME: MENGRAN. All chart is compatible???
 		List<Map<String, Object>> categories = (List<Map<String, Object>>) cm.get(JsChartModel.CATEGORIES);
 		int labelCnt = categories.size();
 		
-		return (labelCnt * 130 / width) <= 1 ? 1 : (labelCnt * 130 / width);
+		return (labelCnt * peerLabelWidth / width) <= 1 ? 1 : (labelCnt * peerLabelWidth / width);
 	}
 	
 	private ChartModel createDefaultModel() {

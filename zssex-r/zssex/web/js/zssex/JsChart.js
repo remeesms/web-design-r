@@ -142,7 +142,8 @@
         $$setupLegend : function (options) {
             var legend = {
                     enabled: true,
-                    align: 'center'
+//                    align: 'left',
+                    verticalAlign: 'top'
                 };
             options.legend = legend;
             return options;
@@ -280,7 +281,7 @@
             case 'column':
             case 'bar':
             case 'pie':
-                 axis.labels.rotation = 1;
+                 axis.labels.rotation = 0.000001;
 //                 axis.labels.x = -3;
                 axis.labels.y = 20; 
 //                axis.labels.formatter = this.$$getAxisTickFormatter();
