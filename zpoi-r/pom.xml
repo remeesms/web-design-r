@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zkoss.zss</groupId>
 	<artifactId>zpoi</artifactId>
-	<version>2.4.0-r</version>
+	<version>2.4.0-r1</version>
 	
 	<properties>
 		<googlecode.releases.url>svn:https://rill-bpm-api.googlecode.com/svn/maven-repo/releases</googlecode.releases.url>
@@ -12,7 +12,30 @@
 	</properties>
 	
 	<build>
+		<sourceDirectory>${project.basedir}/</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/archive</directory>
+			</resource>
+			<resource>
+				<directory>${project.basedir}/srcresources</directory>
+			</resource>
+		</resources>
 		<plugins>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <version>2.1.2</version>
+            </plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -22,29 +45,15 @@
 					<showWarnings>true</showWarnings>
 					<optimize>true</optimize>
 					<encoding>UTF8</encoding>
+					<configuration>
+			          <includes>
+			          	<include>**/srcjava/**</include>
+			          	<include>**/srcscratchpad/**</include>
+			          	<include>**/srcooxml/**</include>
+			          </includes>
+			        </configuration>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>install-jar</id>
-						<phase>install</phase>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<configuration>
-							<file>${project.artifactId}.jar</file>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>${project.artifactId}</artifactId>
-							<packaging>jar</packaging>
-							<version>${project.version}</version>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
@@ -58,29 +67,6 @@
 				</dependencies>
 			</plugin>
 			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>deploy-jar</id>
-						<phase>install</phase>
-						<goals>
-							<goal>deploy-file</goal>
-						</goals>
-						<configuration>
-							<url>${googlecode.releases.url}</url>
-							<repositoryId>${googlecode.releases.repositoryId}</repositoryId>
-							<file>${project.artifactId}.jar</file>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>${project.artifactId}</artifactId>
-							<packaging>jar</packaging>
-							<version>${project.version}</version>
-						</configuration>
-					</execution>
-				</executions>
-				<version>2.5</version>
-			</plugin>
 		</plugins>
 		
 		<extensions>
@@ -112,4 +98,56 @@
 			<uniqueVersion>false</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
+	<dependencies>
+	<dependency>
+		<groupId>org.apache.xmlbeans</groupId>
+		<artifactId>xmlbeans</artifactId>
+		<version>2.3.0</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>ooxml-schemas</artifactId>
+		<version>1.1</version>
+	</dependency>
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.16</version>
+	</dependency>
+	<dependency>
+		<groupId>dom4j</groupId>
+		<artifactId>dom4j</artifactId>
+		<version>1.6.1</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-codec</groupId>
+		<artifactId>commons-codec</artifactId>
+		<version>1.4</version>
+	</dependency>
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.8.1</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-logging</groupId>
+		<artifactId>commons-logging</artifactId>
+		<version>1.1</version>
+	</dependency>
+	<dependency>
+		<groupId>javax.xml.stream</groupId>
+		<artifactId>stax-api</artifactId>
+		<version>1.0</version>
+	</dependency>
+	<dependency>
+		<groupId>org.zkoss.common</groupId>
+		<artifactId>zcommon</artifactId>
+		<version>5.0.11</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi</artifactId>
+		<version>3.8</version>
+	</dependency>
+	</dependencies>
 </project> 
