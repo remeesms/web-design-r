@@ -43,7 +43,8 @@ public class XSSFConditionalFormatting implements ConditionalFormatting {
         _sh = sh;
     }
 
-    /*package*/  CTConditionalFormatting getCTConditionalFormatting(){
+    // Add public key word by MENGRAN at 2012-11-02
+    public  CTConditionalFormatting getCTConditionalFormatting(){
         return _cf;
     }
 
