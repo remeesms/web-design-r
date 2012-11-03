@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- lang-addon.xml
+	Purpose:
+		
+	Description:
+		
+	History:
+		Wed Sep 19 12:37:15     2007, Created by tomyeh
+
+Copyright (C) 2007 Potix Corporation. All Rights Reserved.
+-->
+
+<language-addon>
+	<!-- The name of this addon. It must be unique -->
+	<addon-name>zkex</addon-name>
+	<!-- Specifies what other addon this depends
+	<depends></depends>
+	-->
+
+	<!-- Which language this addon will be added to -->
+	<language-name>xul/html</language-name>
+	
+	<version>
+		<version-class>org.zkoss.zkex.Version</version-class>
+		<version-uid>5.0.11</version-uid>
+		<zk-version>5.0.11</zk-version><!-- or later -->
+	</version>
+
+	<!-- Interpreters -->
+	<zscript language="Java">
+	import org.zkoss.zkex.zul.*;
+	</zscript><!-- the later the import, the higher the priority -->
+	<zscript language="JavaScript">
+	importPackage(Packages.org.zkoss.zkex.zul);
+	</zscript>
+	<!-- Groovy "forgot" what are imported, so we have to import each time
+	-->
+	<zscript language="Groovy" each-time="true">
+	import org.zkoss.zkex.zul.*
+	</zscript>
+	<zscript language="Ruby">
+	module Java
+		include_package 'org.zkoss.zkex.zul'
+	end
+	</zscript>
+	<zscript language="Python">
+import org.zkoss.zkex.zul
+	</zscript>
+
+	<component>
+		<component-name>colorbox</component-name>
+		<component-class>org.zkoss.zkex.zul.Colorbox</component-class>
+		<widget-class>zkex.inp.Colorbox</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/colorbox.js</mold-uri>
+			<css-uri>css/colorbox.css.dsp</css-uri>
+		</mold>
+		<annotation>
+			<annotation-name>default-bind</annotation-name>
+			<property-name>value</property-name>
+			<attribute>
+				<attribute-name>access</attribute-name>
+				<attribute-value>both</attribute-value>
+			</attribute>
+			<attribute>
+				<attribute-name>save-when</attribute-name>
+				<attribute-value>self.onChange</attribute-value>
+			</attribute>
+		</annotation>
+	</component>
+	<component>
+		<component-name>columnchildren</component-name>
+		<component-class>org.zkoss.zkex.zul.Columnchildren</component-class>
+		<widget-class>zkex.layout.Columnchildren</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/columnchildren.js</mold-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>columnlayout</component-name>
+		<component-class>org.zkoss.zkex.zul.Columnlayout</component-class>
+		<widget-class>zkex.layout.Columnlayout</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/columnlayout.js</mold-uri>
+			<css-uri>css/columnlayout.css.dsp</css-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>detail</component-name>
+		<component-class>org.zkoss.zul.Detail</component-class>
+		<widget-class>zkex.grid.Detail</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/detail.js</mold-uri>
+			<css-uri>css/grid.css.dsp</css-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>fisheyebar</component-name>
+		<component-class>org.zkoss.zkex.zul.Fisheyebar</component-class>
+		<widget-class>zkex.menu.Fisheyebar</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/fisheyebar.js</mold-uri>
+			<css-uri>css/fisheye.css.dsp</css-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>fisheye</component-name>
+		<component-class>org.zkoss.zkex.zul.Fisheye</component-class>
+		<widget-class>zkex.menu.Fisheye</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/fisheye.js</mold-uri>
+			<css-uri>css/fisheye.css.dsp</css-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>group</component-name>
+		<component-class>org.zkoss.zul.Group</component-class>
+		<widget-class>zkex.grid.Group</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/group.js</mold-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>groupfoot</component-name>
+		<component-class>org.zkoss.zul.Groupfoot</component-class>
+		<widget-class>zkex.grid.Groupfoot</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/groupfoot.js</mold-uri>
+		</mold>		
+	</component>
+	<component>
+		<component-name>listgroup</component-name>
+		<component-class>org.zkoss.zul.Listgroup</component-class>
+		<widget-class>zkex.sel.Listgroup</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/listgroup.js</mold-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>listgroupfoot</component-name>
+		<component-class>org.zkoss.zul.Listgroupfoot</component-class>
+		<widget-class>zkex.sel.Listgroupfoot</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/listgroupfoot.js</mold-uri>
+		</mold>
+	</component>
+</language-addon>

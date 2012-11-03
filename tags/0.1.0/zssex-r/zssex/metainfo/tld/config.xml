@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml
+	Purpose:
+		
+	Description:
+		
+	History:
+		Thu Sep 20 14:24:13     2007, Created by henrichen
+
+Copyright (C) 2007 Potix Corporation. All Rights Reserved.
+-->
+
+<config>
+	<version>
+		<version-class>org.zkoss.zssex.Version</version-class>
+		<version-uid>2.3.0</version-uid>
+		<zk-version>5.0.7</zk-version><!-- or later -->
+	</version>
+	
+	<!-- 
+	<taglib>
+		<taglib-uri>http://www.zkoss.org/zss/functions/financial</taglib-uri>
+		<taglib-location>/web/WEB-INF/tld/zssex/functions/financial.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://www.zkoss.org/zss/functions/engineering</taglib-uri>
+		<taglib-location>/web/WEB-INF/tld/zssex/functions/engineering.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://www.zkoss.org/zss/functions/math</taglib-uri>
+		<taglib-location>/web/WEB-INF/tld/zssex/functions/math.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://www.zkoss.org/zss/functions/statistical</taglib-uri>
+		<taglib-location>/web/WEB-INF/tld/zssex/functions/statistical.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://www.zkoss.org/zss/functions/text</taglib-uri>
+		<taglib-location>/web/WEB-INF/tld/zssex/functions/text.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://www.zkoss.org/zss/functions/info</taglib-uri>
+		<taglib-location>/web/WEB-INF/tld/zssex/functions/info.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://www.zkoss.org/zss/functions/datetime</taglib-uri>
+		<taglib-location>/web/WEB-INF/tld/zssex/functions/datetime.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://www.zkoss.org/zss/functions/logical</taglib-uri>
+		<taglib-location>/web/WEB-INF/tld/zssex/functions/logical.tld</taglib-location>
+	</taglib>
+	
+	 -->
+	 
+</config>

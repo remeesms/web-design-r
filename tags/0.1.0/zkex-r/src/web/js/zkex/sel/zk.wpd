@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- zk.wpd
+	Purpose:
+		
+	Description:
+		
+	History:
+		Sat Feb  6 09:59:04 TST 2010, Created by jumperchen
+
+Copyright (C) 2009 Potix Corporation. All Rights Reserved.
+-->
+
+<package name="zkex.sel" language="xul/html" depends="zul.sel">
+	<widget name="Listgroup"/>
+	<widget name="Listgroupfoot"/>
+</package>

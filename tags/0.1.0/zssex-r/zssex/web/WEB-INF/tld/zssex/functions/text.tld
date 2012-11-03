@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	Purpose: Defines functions for ZK Spread Sheet formula. 
+	Description: 
+	Histroy: Oct 18 17:14:27 2010, Created by ashish 
+	
+	Copyright (C) 2010 Potix Corporation. All Rights Reserved. 
+-->
+
+<taglib>
+	<uri>http://www.zkoss.org/zss/functions/text</uri>
+	<description>
+		Statistical Functions for ZK Spread Sheet
+		formula.
+	</description>
+
+	<!-- -->
+	<!-- Imports -->
+	<!-- -->
+	<import>
+		<import-name>TextFns</import-name>
+		<import-class>org.zkoss.zssex.formula.fn.TextFns</import-class>
+	</import>
+
+	<!-- -->
+	<!-- Math and trigonometry Functions -->
+	<!-- -->
+	<function>
+		<name>CHAR</name>
+		<function-class>org.zkoss.zssex.formula.fn.TextFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			textChar(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the character specified by the code number.
+		</description>
+	</function>
+	<function>
+		<name>CODE</name>
+		<function-class>org.zkoss.zssex.formula.fn.TextFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			code(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns a numeric code for the first character in a text string.
+		</description>
+	</function>
+	<function>
+		<name>FIXED</name>
+		<function-class>org.zkoss.zssex.formula.fn.TextFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			fixed(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Formats a number as text with a fixed number of decimals.
+		</description>
+	</function>
+	<function>
+		<name>PROPER</name>
+		<function-class>org.zkoss.zssex.formula.fn.TextFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			proper(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Capitalizes the first letter in each word of a text value.
+		</description>
+	</function>
+	<function>
+		<name>REPLACE</name>
+		<function-class>org.zkoss.zssex.formula.fn.TextFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			replace(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Replaces characters within text.
+		</description>
+	</function>
+	<function>
+		<name>REPT</name>
+		<function-class>org.zkoss.zssex.formula.fn.TextFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			rept(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Repeats text a given number of times.
+		</description>
+	</function>
+	<function>
+		<name>SUBSTITUTE</name>
+		<function-class>org.zkoss.zssex.formula.fn.TextFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			substitute(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Substitutes new text for old text in a text string.
+		</description>
+	</function>
+</taglib>
+

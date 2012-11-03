@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- lang-addon.xml
+	Purpose:
+		ZK Spreadsheet components
+	Description:
+		
+	Note:
+		
+	History:
+		Dec 19, 2007 03:10:40 PM , Created by Dennis.Chen
+
+Copyright (C) 2007 Potix Corporation. All Rights Reserved.
+-->
+<language-addon>
+	<!-- The name of this addon. It must be unique -->
+	<addon-name>zssex</addon-name>
+	<!-- Specifies what other addon this depends -->
+	<depends>zkex,zss</depends>
+
+	<!-- Which language this addon will be added to -->
+	<language-name>xul/html</language-name>
+	
+	<javascript package="zssex" merge="true"/>
+
+	<version>
+		<version-class>org.zkoss.zssex.Version</version-class>
+		<version-uid>2.3.0</version-uid>
+		<zk-version>5.0.7</zk-version><!-- or later -->
+	</version>
+	
+	<component>
+		<component-name>ghost</component-name>
+		<component-class>org.zkoss.zssex.ui.widget.Ghost</component-class>
+		<widget-class>zssex.Ghost</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/ghost.js</mold-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>widgetctrl</component-name>
+		<component-class>org.zkoss.zssex.ui.widget.WidgetCtrl</component-class>
+		<widget-class>zssex.Widget</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/widget.js</mold-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>jschart</component-name>
+		<component-class>org.zkoss.zssex.ui.widget.JsChart</component-class>
+		<widget-class>zssex.JsChart</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/jschart.js</mold-uri>
+			<css-uri>css/chart.css.dsp</css-uri>
+		</mold>
+	</component>
+	<component>
+        <component-name>simpletable</component-name>
+        <component-class>org.zkoss.zssex.ui.widget.SimpleTable</component-class>
+        <widget-class>zssex.SimpleTable</widget-class>
+        <mold>
+            <mold-name>default</mold-name>
+            <mold-uri>mold/simpletable.js</mold-uri>
+        </mold>
+    </component>
+</language-addon>
