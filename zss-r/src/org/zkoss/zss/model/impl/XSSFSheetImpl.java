@@ -12,8 +12,6 @@ Copyright (C) 2010 Potix Corporation. All Rights Reserved.
 
 package org.zkoss.zss.model.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -62,6 +60,7 @@ import org.zkoss.poi.xssf.usermodel.XSSFRow;
 import org.zkoss.poi.xssf.usermodel.XSSFRowHelper;
 import org.zkoss.poi.xssf.usermodel.XSSFSheet;
 import org.zkoss.poi.xssf.usermodel.XSSFWorkbook;
+import org.zkoss.poi.xssf.usermodel.helpers.XSSFPivotTableHelpers;
 import org.zkoss.zss.model.Book;
 import org.zkoss.zss.model.Range;
 import org.zkoss.zss.model.Worksheet;
@@ -1234,5 +1233,11 @@ public class XSSFSheetImpl extends XSSFSheet implements SheetCtrl, Worksheet {
 				}
 			}
 		}
+	}
+    
+	@Override
+	public List<PivotTable> getPivotTables() {
+		
+		return XSSFPivotTableHelpers.instance.getHelper().initPivotTables(this);
 	}
 }	
