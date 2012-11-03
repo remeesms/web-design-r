@@ -112,6 +112,7 @@ import org.zkoss.poi.xssf.usermodel.XSSFAutoFilter;
 import org.zkoss.poi.xssf.usermodel.XSSFCell;
 import org.zkoss.poi.xssf.usermodel.XSSFCellStyle;
 import org.zkoss.poi.xssf.usermodel.XSSFColor;
+import org.zkoss.poi.xssf.usermodel.XSSFConditionalFormatting;
 import org.zkoss.poi.xssf.usermodel.XSSFDataFormat;
 import org.zkoss.poi.xssf.usermodel.XSSFDataValidation;
 import org.zkoss.poi.xssf.usermodel.XSSFDataValidationConstraint;
@@ -1666,6 +1667,11 @@ public final class BookHelper {
 			}
 		}
 		
+		// Add by MENGRAN at 2012-11-03 for copy conditional-formatting
+		if (Range.PASTE_ALL == pasteType) {
+			copyConditionalFormat(srcCell, dstCell);
+		}
+		
 		//paste comment
 		if ((pasteType & BookHelper.INNERPASTE_COMMENTS) != 0) {
 			copyComment(srcCell, dstCell);
@@ -1731,6 +1737,37 @@ public final class BookHelper {
 		}
 		
 		return changeInfo;
+	}
+
+	private static void copyConditionalFormat(Cell srcCell, Cell dstCell) {
+		
+		int numCF = srcCell.getSheet().getSheetConditionalFormatting().getNumConditionalFormattings();
+		if (numCF <= 0) {
+			return;
+		}
+		
+		for (int j = 0; j < numCF; j++) {
+			try {
+				XSSFConditionalFormatting cf = (XSSFConditionalFormatting) srcCell.getSheet().getSheetConditionalFormatting().getConditionalFormattingAt(j);
+				boolean isInRange = false;
+				for (int r = 0; r < cf.getNumberOfRules(); r++) {
+					for (CellRangeAddress address : cf.getFormattingRanges()) {
+						isInRange = address.isInRange(srcCell.getRowIndex(), srcCell.getColumnIndex());
+						if (isInRange) {
+							break;
+						}
+					}
+				}
+				if (isInRange) {
+					StringBuilder leftTopCell = new StringBuilder(CellReference.convertNumToColString(srcCell.getColumnIndex())).append(srcCell.getRowIndex() + 1);
+					StringBuilder rightBottomCell = new StringBuilder(CellReference.convertNumToColString(dstCell.getColumnIndex())).append(dstCell.getRowIndex() + 1);
+					cf.getCTConditionalFormatting().xgetSqref().setStringValue(leftTopCell + ":" + rightBottomCell);
+				}
+			} catch (Exception e) {
+				// Ignore
+			}
+		}
+		
 	}
 
 	public static void assignRefs(Set<Ref> toEval, Set<Ref> affected, Set<Ref>[] refs) {
