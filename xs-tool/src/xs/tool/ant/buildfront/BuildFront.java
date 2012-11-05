@@ -143,7 +143,7 @@ public class BuildFront extends Task {
 	private void createJsHead(StringBuilder sb) {
 		sb.append("(function (){ \n");
 		if (!isBlank(this.pathbasevar)) {
-			sb.append("var WEB_ROOT = window." + this.pathbasevar + ";\n");
+			sb.append("var WEB_ROOT = window." + this.pathbasevar + " || '.';\n");
 		}
 	}
 	
