@@ -79,7 +79,7 @@ public class DefaultBookWidgetLoader implements WidgetLoader, Serializable {
 		Map<String, Widget> list = new LinkedHashMap<String, Widget>();
 		preparePictureWidgets(sheet, dm, list);
 		prepareChartWidgets(sheet, dm, list);
-		prepareTableWidgets(sheet, list);
+//		prepareTableWidgets(sheet, list);
 		if ((list != null) && (list.size() > 0))
 			this._widgetMap.put(key, list);
 	}
