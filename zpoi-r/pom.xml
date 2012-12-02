@@ -12,7 +12,7 @@
 	</properties>
 	
 	<build>
-		<sourceDirectory>${project.basedir}/</sourceDirectory>
+		<sourceDirectory>${project.basedir}/srcjava</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>${project.basedir}/src/archive</directory>
