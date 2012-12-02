@@ -11,7 +11,7 @@
 		<googlecode.releases.url>svn:https://rill-bpm-api.googlecode.com/svn/maven-repo/releases</googlecode.releases.url>
     	<googlecode.releases.repositoryId>googlecode-repo-releases</googlecode.releases.repositoryId>
 	</properties>
-	<version>2.4.0-r</version>
+	<version>2.4.0-r1</version>
 	<packaging>jar</packaging>
 	<name>ZK Spreadsheet Extension</name>
 	<url>http://www.zkoss.org/zssex</url>
