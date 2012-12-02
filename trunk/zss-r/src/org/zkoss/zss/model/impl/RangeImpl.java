@@ -43,9 +43,7 @@ import org.zkoss.poi.ss.usermodel.Hyperlink;
 import org.zkoss.poi.ss.usermodel.Picture;
 import org.zkoss.poi.ss.usermodel.RichTextString;
 import org.zkoss.poi.ss.usermodel.Row;
-import org.zkoss.poi.ss.usermodel.Sheet;
 import org.zkoss.poi.ss.usermodel.Workbook;
-import org.zkoss.poi.ss.usermodel.ZssContext;
 import org.zkoss.poi.ss.usermodel.charts.ChartData;
 import org.zkoss.poi.ss.usermodel.charts.ChartGrouping;
 import org.zkoss.poi.ss.usermodel.charts.ChartType;
@@ -53,7 +51,6 @@ import org.zkoss.poi.ss.usermodel.charts.LegendPosition;
 import org.zkoss.poi.ss.util.CellRangeAddress;
 import org.zkoss.poi.xssf.usermodel.XSSFChartX;
 import org.zkoss.zk.ui.UiException;
-import org.zkoss.zk.ui.event.EventQueue;
 import org.zkoss.zss.engine.Ref;
 import org.zkoss.zss.engine.RefBook;
 import org.zkoss.zss.engine.RefSheet;
@@ -1631,7 +1628,7 @@ public class RangeImpl implements Range {
 		if (cellType == Cell.CELL_TYPE_FORMULA) {
 			final Book book = (Book)cell.getSheet().getWorkbook();
 			final CellValue cv = BookHelper.evaluate(book, cell);
-			return BookHelper.getValueByCellValue(cv);
+			return BookHelper.getValueByCellValue(cell, cv);
 		} else {
 			final Object obj = BookHelper.getCellValue(cell);
 			return obj instanceof RichTextString ?

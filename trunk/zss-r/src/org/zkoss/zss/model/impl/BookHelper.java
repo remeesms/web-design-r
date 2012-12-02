@@ -1042,7 +1042,7 @@ public final class BookHelper {
 		return "";
 	}
 	
-	public static Object getValueByCellValue(CellValue cellValue) {
+	public static Object getValueByCellValue(Cell cell, CellValue cellValue) {
 		final int cellType = cellValue.getCellType();
 		switch(cellType) {
 		case Cell.CELL_TYPE_BLANK:
@@ -1052,7 +1052,16 @@ public final class BookHelper {
 		case Cell.CELL_TYPE_ERROR:
 			return Byte.valueOf(cellValue.getErrorValue());
 		case Cell.CELL_TYPE_NUMERIC:
-			return new Double(cellValue.getNumberValue());
+			// Add by MENGRAN at 2012-10-24
+			try {
+				String df = cell.getCellStyle().getDataFormatString();
+//							df = null;
+				df = (df.contains(".") ? df + "" : df + ".")  + "#############";
+				DecimalFormat myFormatter = new DecimalFormat(df);
+				return new BigDecimal(myFormatter.format(cell.getNumericCellValue()).replaceAll(",", ""));
+			} catch (Exception e) {
+				return new Double(cellValue.getNumberValue());
+			}
 		case Cell.CELL_TYPE_STRING:
 			return cellValue.getStringValue();
 		}
@@ -2831,7 +2840,7 @@ public final class BookHelper {
 		if (cellType == Cell.CELL_TYPE_FORMULA) {
 			final Book book = (Book)cell.getSheet().getWorkbook();
 			final CellValue cv = BookHelper.evaluate(book, cell);
-			return BookHelper.getValueByCellValue(cv);
+			return BookHelper.getValueByCellValue(cell, cv);
 		} else {
 			return BookHelper.getCellValue(cell);
 		}
@@ -5108,7 +5117,7 @@ public final class BookHelper {
 			final Book book = sheet.getBook();
 			final int sheetIndex = book.getSheetIndex(sheet);
 			final CellValue cv = BookHelper.evaluateFormula(book, sheetIndex, (String) value);
-			value = BookHelper.getValueByCellValue(cv);
+			value = BookHelper.getValueByCellValue(null, cv);
 			cellType = cv.getCellType();
 		}
 		//start validation
