@@ -10,6 +10,7 @@ import org.zkoss.poi.hssf.usermodel.HSSFChart;
 import org.zkoss.poi.hssf.usermodel.HSSFSheet;
 import org.zkoss.poi.hssf.usermodel.HSSFWorkbook;
 import org.zkoss.poi.hssf.usermodel.HSSFWorkbookHelper;
+import org.zkoss.poi.ss.formula.eval.ArrayEval;
 import org.zkoss.poi.ss.formula.ptg.Area3DPtg;
 import org.zkoss.poi.ss.formula.ptg.AreaPtgBase;
 import org.zkoss.poi.ss.formula.ptg.Ptg;
@@ -26,17 +27,22 @@ import org.zkoss.poi.ss.usermodel.charts.ChartDirection;
 import org.zkoss.poi.ss.usermodel.charts.ChartGrouping;
 import org.zkoss.poi.ss.usermodel.charts.ChartTextSource;
 import org.zkoss.poi.ss.usermodel.charts.ChartType;
+import org.zkoss.poi.ss.usermodel.charts.DataSources;
 import org.zkoss.poi.ss.usermodel.charts.XYDataSerie;
 import org.zkoss.poi.ss.usermodel.charts.XYZDataSerie;
 import org.zkoss.poi.ss.util.AreaReference;
+import org.zkoss.poi.ss.util.CellRangeAddress;
 import org.zkoss.poi.ss.util.CellReference;
 import org.zkoss.poi.xssf.usermodel.XSSFChart;
+import org.zkoss.poi.xssf.usermodel.XSSFName;
 import org.zkoss.poi.xssf.usermodel.XSSFSheet;
 import org.zkoss.poi.xssf.usermodel.charts.XSSFArea3DChartData;
 import org.zkoss.poi.xssf.usermodel.charts.XSSFAreaChartData;
 import org.zkoss.poi.xssf.usermodel.charts.XSSFBar3DChartData;
 import org.zkoss.poi.xssf.usermodel.charts.XSSFBarChartData;
 import org.zkoss.poi.xssf.usermodel.charts.XSSFBubbleChartData;
+import org.zkoss.poi.xssf.usermodel.charts.XSSFChartAxDataSource;
+import org.zkoss.poi.xssf.usermodel.charts.XSSFChartNumDataSource;
 import org.zkoss.poi.xssf.usermodel.charts.XSSFColumn3DChartData;
 import org.zkoss.poi.xssf.usermodel.charts.XSSFColumnChartData;
 import org.zkoss.poi.xssf.usermodel.charts.XSSFDoughnutChartData;
@@ -696,7 +702,34 @@ public class ChartHelper {
 		PieModel model = new JsSimplePieModel();
 
 		for (CategoryDataSerie ser : series) {
+			// Add by MENGRAN for adapte named area
+			for (int i = 0; i < sheet.getWorkbook().getNumberOfNames(); i++) {
+				XSSFName name = (XSSFName) sheet.getWorkbook().getNameAt(i);
+				String s = ser.getValues().getFormulaString();
+				if ((name.getSheetName() + "!" + name.getNameName()).equals(s)) {
+					ArrayEval arrayEval = (ArrayEval) sheet.getWorkbook().getCreationHelper().createFormulaEvaluator().evaluateFormulaValueEval(name.getSheetIndex(), name.getRefersToFormula(), false);
+					StringBuilder startCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getFirstRow() + 1);
+					StringBuilder endCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getLastRow() + 1);
+					ChartDataSource<String> cats = DataSources.fromStringCellRange(sheet.getWorkbook().getSheetAt(name.getSheetIndex()), CellRangeAddress.valueOf(startCell + ":" + endCell));
+					((XSSFChartNumDataSource) ser.getValues()).getVal().getNumRef().setF(cats.getFormulaString());
+				}
+			}
 			vals = prepareValues(drawer, sheet, ser.getValues());
+			for (int i = 0; i < sheet.getWorkbook().getNumberOfNames(); i++) {
+				XSSFName name = (XSSFName) sheet.getWorkbook().getNameAt(i);
+				String s = ser.getCategories().getFormulaString();
+				if ((name.getSheetName() + "!" + name.getNameName()).equals(s)) {
+					ArrayEval arrayEval = (ArrayEval) sheet.getWorkbook().getCreationHelper().createFormulaEvaluator().evaluateFormulaValueEval(name.getSheetIndex(), name.getRefersToFormula(), false);
+					StringBuilder startCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getFirstRow() + 1);
+					StringBuilder endCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getLastRow() + 1);
+					ChartDataSource<String> cats = DataSources.fromStringCellRange(sheet.getWorkbook().getSheetAt(name.getSheetIndex()), CellRangeAddress.valueOf(startCell + ":" + endCell));
+					try {
+						((XSSFChartAxDataSource) ser.getCategories()).getCat().getStrRef().setF(cats.getFormulaString());
+					} catch (Exception e) {
+						((XSSFChartAxDataSource) ser.getCategories()).getCat().getNumRef().setF(cats.getFormulaString());
+					}
+				}
+			}
 			labels = prepareLabels(drawer, sheet, ser.getCategories(), vals.length);
 			for (j = 0; j < vals.length; ++j)
 				model.setValue(labels[j], vals[j]);
