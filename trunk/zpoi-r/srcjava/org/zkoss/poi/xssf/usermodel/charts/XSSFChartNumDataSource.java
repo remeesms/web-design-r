@@ -31,6 +31,10 @@ public class XSSFChartNumDataSource<T> implements ChartDataSource<T> {
 		this.val = vat;
 	}
 	
+	public CTNumDataSource getVal() {
+		return val;
+	}
+
 	@Override
 	public int getPointCount() {
 		if (val != null) {
