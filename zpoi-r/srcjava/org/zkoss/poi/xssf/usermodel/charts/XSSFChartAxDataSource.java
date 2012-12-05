@@ -32,6 +32,10 @@ public class XSSFChartAxDataSource<T> implements ChartDataSource<T> {
 		this.cat = cat;
 	}
 	
+	public CTAxDataSource getCat() {
+		return cat;
+	}
+
 	@Override
 	public int getPointCount() {
 		if (cat != null) {
