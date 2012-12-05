@@ -717,7 +717,7 @@ public class ChartHelper {
 			vals = prepareValues(drawer, sheet, ser.getValues());
 			for (int i = 0; i < sheet.getWorkbook().getNumberOfNames(); i++) {
 				XSSFName name = (XSSFName) sheet.getWorkbook().getNameAt(i);
-				String s = ser.getCategories().getFormulaString();
+				String s = ser.getCategories().isReference() ? ser.getCategories().getFormulaString() : "";
 				if ((name.getSheetName() + "!" + name.getNameName()).equals(s)) {
 					ArrayEval arrayEval = (ArrayEval) sheet.getWorkbook().getCreationHelper().createFormulaEvaluator().evaluateFormulaValueEval(name.getSheetIndex(), name.getRefersToFormula(), false);
 					StringBuilder startCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getFirstRow() + 1);
