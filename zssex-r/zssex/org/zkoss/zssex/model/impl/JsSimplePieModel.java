@@ -45,7 +45,7 @@ public class JsSimplePieModel extends SimplePieModel implements JsChartModel {
 			csDataMap.put(CATEGORIES_ITEM, categories.get(j));
 			Number number = this.getValue(categories.get(j));
 			if (number != null) {
-				csDataMap.put(FAKE_SERIES_VALUE, number);
+				csDataMap.put(FAKE_SERIES_VALUE, new Double(number.toString()));
 				analyzer.analyze(number);
 			}
 			categoryDatasource.add(csDataMap);
