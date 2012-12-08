@@ -650,8 +650,8 @@ public class ChartHelper {
 		int sj = 1;
 		for (CategoryDataSerie ser : series) {
 			title = prepareTitle(drawer, sheet, ser.getTitle(), sj++);
-			vals = prepareValues(drawer, sheet, ser.getValues());
-			labels = prepareLabels(drawer, sheet, ser.getCategories(), vals.length);
+			vals = prepareValues2(drawer, sheet, ser);
+			labels = prepareLabels2(drawer, sheet, ser, vals);
 			for (j = 0; j < vals.length; ++j)
 				model.setValue(title, labels[j], vals[j]);
 		}
@@ -696,6 +696,69 @@ public class ChartHelper {
 
 		return model;
 	}
+	
+	private static Number[] prepareValues2(ChartDrawer drawer, XSSFSheet sheet, CategoryDataSerie ser) {
+		
+		Number[] vals;
+		Number singleValue = null;
+		// Add by MENGRAN for adapte named area
+		for (int i = 0; i < sheet.getWorkbook().getNumberOfNames(); i++) {
+			XSSFName name = (XSSFName) sheet.getWorkbook().getNameAt(i);
+			String s = ser.getValues().getFormulaString();
+			if ((name.getSheetName() + "!" + name.getNameName()).equals(s)) {
+				ValueEval ve = sheet.getWorkbook().getCreationHelper().createFormulaEvaluator().evaluateFormulaValueEval(name.getSheetIndex(), name.getRefersToFormula(), false);
+				if (ve instanceof ArrayEval) {
+					ArrayEval arrayEval = (ArrayEval) ve;
+					StringBuilder startCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getFirstRow() + 1);
+					StringBuilder endCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getLastRow() + 1);
+					ChartDataSource<String> cats = DataSources.fromStringCellRange(sheet.getWorkbook().getSheetAt(name.getSheetIndex()), CellRangeAddress.valueOf(startCell + ":" + endCell));
+					((XSSFChartNumDataSource) ser.getValues()).getVal().getNumRef().setF(cats.getFormulaString());
+				} else {
+					singleValue = new BigDecimal(((NumberEval) ve).getStringValue());
+				}
+			}
+		}
+		if (singleValue != null) {
+			vals = new Number[] {singleValue};
+		} else {
+			vals = prepareValues(drawer, sheet, ser.getValues());
+		}
+		
+		return vals;
+	}
+	
+	private static String[] prepareLabels2(ChartDrawer drawer, XSSFSheet sheet, CategoryDataSerie ser, Number[] vals) {
+		
+		String[] labels;
+		String singleText = null;
+		for (int i = 0; i < sheet.getWorkbook().getNumberOfNames(); i++) {
+			XSSFName name = (XSSFName) sheet.getWorkbook().getNameAt(i);
+			String s = ser.getCategories().isReference() ? ser.getCategories().getFormulaString() : "";
+			if ((name.getSheetName() + "!" + name.getNameName()).equals(s)) {
+				ValueEval ve = sheet.getWorkbook().getCreationHelper().createFormulaEvaluator().evaluateFormulaValueEval(name.getSheetIndex(), name.getRefersToFormula(), false);
+				if (ve instanceof ArrayEval) {
+					ArrayEval arrayEval = (ArrayEval) ve;
+					StringBuilder startCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getFirstRow() + 1);
+					StringBuilder endCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getLastRow() + 1);
+					ChartDataSource<String> cats = DataSources.fromStringCellRange(sheet.getWorkbook().getSheetAt(name.getSheetIndex()), CellRangeAddress.valueOf(startCell + ":" + endCell));
+					try {
+						((XSSFChartAxDataSource) ser.getCategories()).getCat().getStrRef().setF(cats.getFormulaString());
+					} catch (Exception e) {
+						((XSSFChartAxDataSource) ser.getCategories()).getCat().getNumRef().setF(cats.getFormulaString());
+					}
+				} else {
+					singleText = ((NumberEval) ve).getStringValue();
+				}
+			}
+		}
+		if (singleText != null) {
+			labels = new String[] {singleText};
+		} else {
+			labels = prepareLabels(drawer, sheet, ser.getCategories(), vals.length);
+		}
+		
+		return labels;
+	}
 
 	private static ChartModel preparePieModel(ChartDrawer drawer, XSSFSheet sheet,
 			List<? extends CategoryDataSerie> series) {
@@ -705,56 +768,9 @@ public class ChartHelper {
 		PieModel model = new JsSimplePieModel();
 
 		for (CategoryDataSerie ser : series) {
-			Number singleValue = null;
-			// Add by MENGRAN for adapte named area
-			for (int i = 0; i < sheet.getWorkbook().getNumberOfNames(); i++) {
-				XSSFName name = (XSSFName) sheet.getWorkbook().getNameAt(i);
-				String s = ser.getValues().getFormulaString();
-				if ((name.getSheetName() + "!" + name.getNameName()).equals(s)) {
-					ValueEval ve = sheet.getWorkbook().getCreationHelper().createFormulaEvaluator().evaluateFormulaValueEval(name.getSheetIndex(), name.getRefersToFormula(), false);
-					if (ve instanceof ArrayEval) {
-						ArrayEval arrayEval = (ArrayEval) ve;
-						StringBuilder startCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getFirstRow() + 1);
-						StringBuilder endCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getLastRow() + 1);
-						ChartDataSource<String> cats = DataSources.fromStringCellRange(sheet.getWorkbook().getSheetAt(name.getSheetIndex()), CellRangeAddress.valueOf(startCell + ":" + endCell));
-						((XSSFChartNumDataSource) ser.getValues()).getVal().getNumRef().setF(cats.getFormulaString());
-					} else {
-						singleValue = new BigDecimal(((NumberEval) ve).getStringValue());
-					}
-				}
-			}
-			if (singleValue != null) {
-				vals = new Number[] {singleValue};
-			} else {
-				vals = prepareValues(drawer, sheet, ser.getValues());
-			}
 			
-			String singleText = null;
-			for (int i = 0; i < sheet.getWorkbook().getNumberOfNames(); i++) {
-				XSSFName name = (XSSFName) sheet.getWorkbook().getNameAt(i);
-				String s = ser.getCategories().isReference() ? ser.getCategories().getFormulaString() : "";
-				if ((name.getSheetName() + "!" + name.getNameName()).equals(s)) {
-					ValueEval ve = sheet.getWorkbook().getCreationHelper().createFormulaEvaluator().evaluateFormulaValueEval(name.getSheetIndex(), name.getRefersToFormula(), false);
-					if (ve instanceof ArrayEval) {
-						ArrayEval arrayEval = (ArrayEval) ve;
-						StringBuilder startCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getFirstRow() + 1);
-						StringBuilder endCell = new StringBuilder(CellReference.convertNumToColString(arrayEval.getFirstColumn())).append(arrayEval.getLastRow() + 1);
-						ChartDataSource<String> cats = DataSources.fromStringCellRange(sheet.getWorkbook().getSheetAt(name.getSheetIndex()), CellRangeAddress.valueOf(startCell + ":" + endCell));
-						try {
-							((XSSFChartAxDataSource) ser.getCategories()).getCat().getStrRef().setF(cats.getFormulaString());
-						} catch (Exception e) {
-							((XSSFChartAxDataSource) ser.getCategories()).getCat().getNumRef().setF(cats.getFormulaString());
-						}
-					} else {
-						singleText = ((NumberEval) ve).getStringValue();
-					}
-				}
-			}
-			if (singleText != null) {
-				labels = new String[] {singleText};
-			} else {
-				labels = prepareLabels(drawer, sheet, ser.getCategories(), vals.length);
-			}
+			vals = prepareValues2(drawer, sheet, ser);
+			labels = prepareLabels2(drawer, sheet, ser, vals);
 			
 			for (j = 0; j < vals.length; ++j)
 				model.setValue(labels[j], vals[j]);
