@@ -1,5 +1,7 @@
 package org.zkoss.zssex.util;
 
+import java.awt.Font;
+
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.block.BlockBorder;
 import org.jfree.ui.RectangleEdge;
@@ -33,7 +35,12 @@ public class ZssChartEngine extends JFreeChartEngine
   public boolean prepareJFreeChart(JFreeChart jfchart, org.zkoss.zul.Chart chart) {
     chart.setPaneColor("#FFFFFF");
     chart.setSclass("chartborder");
-
+    
+    // Process chart text font. FIXME: MENGRAN. Need retrieve from POI-chart.
+    chart.setLegendFont(new Font("SimSun", Font.BOLD, 10));
+    chart.setXAxisTickFont(new Font("SimSun", Font.PLAIN, 10));
+    chart.setYAxisTickFont(new Font("SimSun", Font.PLAIN, 10));
+    
     jfchart.getPlot().setOutlineVisible(false);
     jfchart.getLegend().setFrame(BlockBorder.NONE);
     RectangleEdge edge = null;

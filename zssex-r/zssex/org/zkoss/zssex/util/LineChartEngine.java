@@ -29,8 +29,9 @@ public class LineChartEngine extends ZssChartEngine
     }
     
     // Process chart text font. FIXME: MENGRAN. Need retrieve from POI-chart.
-    chart.setLegendFont(new Font("黑体", Font.PLAIN, 10));
-    chart.setXAxisTickFont(new Font("宋体", Font.PLAIN, 10));
+    chart.setLegendFont(new Font("SimSun", Font.BOLD, 10));
+    chart.setXAxisTickFont(new Font("SimSun", Font.PLAIN, 10));
+    chart.setYAxisTickFont(new Font("SimSun", Font.PLAIN, 10));
     return false;
   }
 }

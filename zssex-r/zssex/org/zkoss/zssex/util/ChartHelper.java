@@ -219,7 +219,7 @@ public class ChartHelper {
 			return "bubble";
 		case 6:
 		case 7:
-			return "column";
+			return "bar";
 		case 8:
 			return "ring";
 		case 9:
@@ -255,7 +255,7 @@ public class ChartHelper {
 			return "bar";
 		case 6:
 		case 7:
-			return "column";
+			return "bar";
 		case 8:
 			return "ring";
 		case 9:
