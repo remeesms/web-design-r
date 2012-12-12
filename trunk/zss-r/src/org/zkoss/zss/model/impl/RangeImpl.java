@@ -747,25 +747,29 @@ public class RangeImpl implements Range {
 		if (info == null) {
 			return;
 		}
-		final Set<Ref> last = info.getToEval();
-		final Set<Ref> all = info.getAffected();
-		if (event != null && ref != null) {
-			refBook.publish(new SSDataEvent(event, ref, orient));
-		}
-		//must delete and add in batch, or merge ranges can interfere to each other
-		for(MergeChange change : info.getMergeChanges()) {
-			final Ref orgMerge = change.getOrgMerge();
-			if (orgMerge != null) {
-				refBook.publish(new SSDataEvent(SSDataEvent.ON_MERGE_DELETE, orgMerge, orient));
+		try {
+			final Set<Ref> last = info.getToEval();
+			final Set<Ref> all = info.getAffected();
+			if (event != null && ref != null) {
+				refBook.publish(new SSDataEvent(event, ref, orient));
 			}
-		}
-		for(MergeChange change : info.getMergeChanges()) {
-			final Ref merge = change.getMerge();
-			if (merge != null) {
-				refBook.publish(new SSDataEvent(SSDataEvent.ON_MERGE_ADD, merge, orient));
+			//must delete and add in batch, or merge ranges can interfere to each other
+			for(MergeChange change : info.getMergeChanges()) {
+				final Ref orgMerge = change.getOrgMerge();
+				if (orgMerge != null) {
+					refBook.publish(new SSDataEvent(SSDataEvent.ON_MERGE_DELETE, orgMerge, orient));
+				}
 			}
+			for(MergeChange change : info.getMergeChanges()) {
+				final Ref merge = change.getMerge();
+				if (merge != null) {
+					refBook.publish(new SSDataEvent(SSDataEvent.ON_MERGE_ADD, merge, orient));
+				}
+			}
+			BookHelper.reevaluateAndNotify((Book) _sheet.getWorkbook(), last, all);
+		} catch (IllegalStateException e) {
+			// Ignore
 		}
-		BookHelper.reevaluateAndNotify((Book) _sheet.getWorkbook(), last, all);
 	}
 
 	@Override
