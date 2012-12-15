@@ -1,0 +1,1 @@
+function(b){b.push("<div",this.domAttrs_(),'><div id="',this.uuid,'-cave"','class="',this.getZclass(),'-inner">');for(var a=this.firstChild;a;a=a.nextSibling){a.redraw(b)}b.push("</div></div>")};

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <title>Pulse</title>
+    <script src="jquery-1.7.1.js?fff=121212">
+    </script>
+    <style type="text/css">
+        .bbb {border:2px red solid; width:1000px}
+    </style>
+    
+</head>
+
+
+<body>
+
+	<div class="bbb">asdfasdf</div>
+	<div class="bbb">asdfasdf</div>
+	<div class="bbb">asdfasdf</div>
+	<div class="bbb">asdfasdf</div>
+	
+    <button onclick="location.reload()">refresh</button>
+
+    <button onclick="$('#anchor').load('index.zul')">Load the fragment in div</button>
+    <button onclick="var el = document.createElement('iframe'); document.getElementById('div').appendChild(el); el.src='index.zul'">Load the fragment in iframe</button>
+    <button onclick="$('#anchor').hide();">hide</button>
+    <button onclick="$('#anchor').show();">show</button>
+    <button onclick="$('#anchor')[0].innerHTML = '';">clear div</button>
+    <button onclick="var eldiv = document.getElementById('div'); eldiv.firstChild.src='javascript:false'; eldiv.innerHTML = '';">clear iframe</button>
+    
+    <div class="bbb" id="anchor">this is a zss</div>
+    
+
+	<div class="bbb">asdfasdf</div>
+	<div style="color:red">asdfasdf</div>
+	<div class="bbb">asdfasdf</div>
+
+    <div id="div"></div>
+    
+	
+	<div class="bbb">asdfasdf</div>
+	<div style="color:red">asdfasdf</div>
+	<div class="bbb">asdfasdf</div>
+	
+	
+	
+</body>
+
+</html>

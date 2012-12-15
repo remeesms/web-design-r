@@ -1,0 +1,1 @@
+zkex.sel.Listgroupfoot=zk.$extends(zul.sel.Listitem,{getZclass:function(){return this._zclass!=null?this._zclass:"z-listgroupfoot"},isStripeable_:function(){return false}});

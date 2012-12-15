@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	Purpose: Defines functions for ZK Spread Sheet formula. 
+	Description: 
+	Histroy: Oct 19 17:14:27 2010, Created by ashish 
+	
+	Copyright (C) 2010 Potix Corporation. All Rights Reserved. 
+-->
+
+<taglib>
+	<uri>http://www.zkoss.org/zss/functions/info</uri>
+	<description>
+		Information Functions for ZK Spread Sheet
+		formula.
+	</description>
+
+	<!-- -->
+	<!-- Imports -->
+	<!-- -->
+	<import>
+		<import-name>InfoFns</import-name>
+		<import-class>org.zkoss.zssex.formula.fn.InfoFns</import-class>
+	</import>
+
+	<!-- -->
+	<!-- Information Functions -->
+	<!-- -->
+	<function>
+		<name>ISERR</name>
+		<function-class>org.zkoss.zssex.formula.fn.InfoFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			iserr(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns a number corresponding to an error type except #N/A!.
+		</description>
+	</function>
+	<function>
+		<name>N</name>
+		<function-class>org.zkoss.zssex.formula.fn.InfoFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			n(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns a value converted to a number.
+		</description>
+	</function>
+	<function>
+		<name>TYPE</name>
+		<function-class>org.zkoss.zssex.formula.fn.InfoFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			type(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns the type of value.
+		</description>
+	</function>
+</taglib>
+

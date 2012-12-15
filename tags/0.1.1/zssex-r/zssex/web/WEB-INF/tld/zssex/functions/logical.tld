@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	Purpose: Defines functions for ZK Spread Sheet formula. 
+	Description: 
+	Histroy: Oct 20 17:14:27 2010, Created by ashish 
+	
+	Copyright (C) 2010 Potix Corporation. All Rights Reserved. 
+-->
+
+<taglib>
+	<uri>http://www.zkoss.org/zss/functions/logical</uri>
+	<description>
+		Logical Functions for ZK Spread Sheet
+		formula.
+	</description>
+
+	<!-- -->
+	<!-- Imports -->
+	<!-- -->
+	<import>
+		<import-name>LogicalFns</import-name>
+		<import-class>org.zkoss.zssex.formula.fn.LogicalFns</import-class>
+	</import>
+
+	<!-- -->
+	<!-- Logical Functions -->
+	<!-- -->
+	<function>
+		<name>IFERROR</name>
+		<function-class>org.zkoss.zssex.formula.fn.LogicalFns
+		</function-class>
+		<function-signature>org.zkoss.poi.ss.formula.eval.ValueEval
+			iferror(org.zkoss.poi.ss.formula.eval.ValueEval[] args,
+			int
+			srcRowIndex, int srcColumnIndex);</function-signature>
+		<description>
+			Returns a value you specify if a formula evaluates to an
+			error; otherwise, returns the result of the formula.
+		</description>
+	</function>
+</taglib>
+

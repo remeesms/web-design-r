@@ -1,0 +1,226 @@
+<project name="zss" basedir="." default="alltasks">
+	
+	<property name="encoding" value="UTF-8"/>
+	
+	<!-- [abuild]============================== -->
+	<property name="dir-abuild" value="../abuild" />
+	<property name="dir-abuild.release" value="${dir-abuild}/release" />
+	<property name="dir-abuild.zkexr.bin" value="${dir-abuild}/zkexr/bin" />
+	<property name="dir-abuild.zssr.bin" value="${dir-abuild}/zssr/bin" />
+	<property name="dir-abuild.zssexr.bin" value="${dir-abuild}/zssexr/bin" />
+	
+	<!-- [zssapp]============================== -->
+	<property name="dir-zssapp" value="../zssapp-2.3.0-customized" />
+	<property name="dir-zssapp.lib" value="${dir-zssapp}/WebContent/WEB-INF/lib" />
+	
+	<!-- [zkexr]============================== -->
+	<property name="dir-zkexr" value="../zkex-r" />
+	<property name="dir-zkexr.bin" value="${dir-abuild.zkexr.bin}" />
+	<property name="dir-zkexr.javasrc" value="${dir-zkexr}/src" />
+	<property name="name-zkexr.jar" value="zkex-r.jar" />
+	<property name="name-zkexr-release.jar" value="zkex-r-1.0.0.0.jar" />
+	<path id="path-zkexr.javasrc">
+		<fileset dir="${dir-zkexr.javasrc}">
+			<include name="org/**/*"/>
+	    </fileset>
+	</path>
+	<path id="path-zkexr.websrc">
+		<fileset dir="${dir-zkexr.javasrc}">
+			<include name="web/**/*"/>
+			<include name="metainfo/**/*"/>
+	    </fileset>
+	</path>
+	<path id="path-zkexr.lib">
+		<fileset dir="${dir-zssapp.lib}">
+			<exclude name="${name-zkexr.jar}"/>
+			<exclude name="${name-zssr.jar}"/>
+			<exclude name="${name-zpoiexr.jar}"/>
+			<exclude name="${name-zssexr.jar}"/>
+	    </fileset>
+	</path>
+	
+	<!-- [zssr]============================== -->
+	<property name="dir-zssr" value="../zss-r" />
+	<property name="dir-zssr.bin" value="${dir-abuild.zssr.bin}" />
+	<property name="dir-zssr.javasrc" value="${dir-zssr}/src" />
+	<property name="name-zssr.jar" value="zss-r.jar" />
+	<property name="name-zssr-release.jar" value="zss-r-1.0.0.0.jar" />
+	<path id="path-zssr.javasrc">
+		<fileset dir="${dir-zssr.javasrc}">
+			<include name="org/**/*"/>
+	    </fileset>
+	</path>
+	<path id="path-zssr.websrc">
+		<fileset dir="${dir-zssr.javasrc}/archive">
+			<include name="web/**/*"/>
+			<include name="metainfo/**/*"/>
+	    </fileset>
+	</path>
+	<path id="path-zssr.lib">
+		<fileset dir="${dir-zssapp.lib}">
+			<exclude name="${name-zssr.jar}"/>
+			<exclude name="${name-zpoiexr.jar}"/>
+			<exclude name="${name-zssexr.jar}"/>
+	    </fileset>
+	</path>
+	
+	<!-- [zpoiexr]============================== -->
+	<property name="dir-zpoiexr" value="../zpoiex-r" />
+	<property name="dir-zpoiexr.bin" value="${dir-zpoiexr}/bin" />
+	<property name="name-zpoiexr.jar" value="zpoiex-r.jar" />
+	<property name="name-zpoiexr-release.jar" value="zpoiex-r-1.0.0.0.jar" />
+	
+	<!-- [zssexr]============================== -->
+	<property name="dir-zssexr" value="../zssex-r" />
+	<property name="dir-zssexr.bin" value="${dir-abuild.zssexr.bin}" />
+	<property name="dir-zssexr.javasrc" value="${dir-zssexr}/zssex" />
+	<property name="name-zssexr.jar" value="zssex-r.jar" />
+	<property name="name-zssexr-release.jar" value="zssex-r-1.0.0.0.jar" />
+	<path id="path-zssexr.javasrc">
+		<fileset dir="${dir-zssexr.javasrc}">
+			<include name="org/**/*"/>
+	    </fileset>
+	</path>
+	<path id="path-zssexr.websrc">
+		<fileset dir="${dir-zssexr.javasrc}">
+			<include name="web/**/*"/>
+			<include name="metainfo/**/*"/>
+	    </fileset>
+	</path>
+	<path id="path-zssexr.lib">
+		<fileset dir="${dir-zssapp.lib}">
+			<exclude name="${name-zssexr.jar}"/>
+	    </fileset>
+	</path>
+	
+	
+	
+	
+	
+	
+	
+    <!-- zkexr================================================================= -->
+    <target name="compile-zkexr.javasrc">
+        <delete dir="${dir-zkexr.bin}"/>
+        <mkdir dir="${dir-zkexr.bin}"/>
+        <javac destdir="${dir-zkexr.bin}" 
+               deprecation="true" encoding="${encoding}" debug="on" 
+               debuglevel="lines,vars,source" fork="yes" memoryMaximumSize="1000M"
+               srcdir="${dir-zkexr.javasrc}"
+               sourcepathref="path-zkexr.javasrc">
+            <classpath>
+                <path refid="path-zkexr.lib"/>
+            </classpath>
+        </javac>
+    </target>
+    <target name="copy-zkexr.websrc">
+        <copy todir="${dir-zkexr.bin}" overwrite="yes">
+             <path refid="path-zkexr.websrc"></path>
+        </copy>
+    </target>
+    <target name="gen-zkexr.jar">
+        <jar basedir="${dir-zkexr.bin}" destfile="${dir-abuild}/${name-zkexr.jar}">
+        </jar>
+    </target>
+    <target name="copy-zkexr.jar">
+        <copy file="${dir-abuild}/${name-zkexr.jar}" todir="${dir-zssapp.lib}" overwrite="yes"/>
+        <copy file="${dir-abuild}/${name-zkexr.jar}" tofile="${dir-abuild.release}/${name-zkexr-release.jar}" overwrite="yes"/>
+    </target>	
+	
+	<!-- zssr================================================================= -->
+	<target name="compile-zssr.javasrc">
+		<delete dir="${dir-zssr.bin}"/>
+		<mkdir dir="${dir-zssr.bin}"/>
+        <javac destdir="${dir-zssr.bin}" 
+        	   deprecation="true" encoding="${encoding}" debug="on" 
+        	   debuglevel="lines,vars,source" fork="yes" memoryMaximumSize="1000M"
+        	   srcdir="${dir-zssr.javasrc}"
+        	   sourcepathref="path-zssr.javasrc"> <!-- sorcepathref属性指定了源文件夹srcdir中特定的源文件-->
+            <classpath>
+                <path refid="path-zssr.lib"/>
+            </classpath>
+        </javac>
+	</target>
+    <target name="copy-zssr.websrc">
+        <copy todir="${dir-zssr.bin}" overwrite="yes">
+             <path refid="path-zssr.websrc"></path>
+        </copy>
+    </target>
+	<target name="gen-zssr.jar">
+        <jar basedir="${dir-zssr.bin}" destfile="${dir-abuild}/${name-zssr.jar}">
+        </jar>
+	</target>
+	<target name="copy-zssr.jar">
+        <copy file="${dir-abuild}/${name-zssr.jar}" todir="${dir-zssapp.lib}" overwrite="yes"/>
+        <copy file="${dir-abuild}/${name-zssr.jar}" tofile="${dir-abuild.release}/${name-zssr-release.jar}" overwrite="yes"/>
+	</target>
+
+	
+	<!-- zpoiexr================================================================= -->
+    <target name="gen-zpoiexr.jar">
+        <jar basedir="${dir-zpoiexr.bin}" destfile="${dir-abuild}/${name-zpoiexr.jar}">
+        </jar>
+    </target>
+    <target name="copy-zpoiexr.jar">
+        <copy file="${dir-abuild}/${name-zpoiexr.jar}" todir="${dir-zssapp.lib}" overwrite="yes"/>
+        <copy file="${dir-abuild}/${name-zpoiexr.jar}" tofile="${dir-abuild.release}/${name-zpoiexr-release.jar}" overwrite="yes"/>
+    </target>
+	
+	
+	<!-- zssexr==================dir-zssexr========================================= -->
+	<target name="compile-zssexr.javasrc">
+		<delete dir="${dir-zssexr.bin}"/>
+		<mkdir dir="${dir-zssexr.bin}"/>
+        <javac destdir="${dir-zssexr.bin}" 
+        	   deprecation="true" encoding="${encoding}" debug="on" 
+        	   debuglevel="lines,vars,source" fork="yes" memoryMaximumSize="1000M"
+        	   srcdir="${dir-zssexr.javasrc}"
+        	   sourcepathref="path-zssexr.javasrc">
+            <classpath>
+                <path refid="path-zssexr.lib"/>
+            </classpath>
+        </javac>
+	</target>
+    <target name="copy-zssexr.websrc">
+        <copy todir="${dir-zssexr.bin}" overwrite="yes">
+             <path refid="path-zssexr.websrc"></path>
+        </copy>
+    </target>
+    <target name="gen-zssexr.jar">
+        <jar basedir="${dir-zssexr.bin}" destfile="${dir-abuild}/${name-zssexr.jar}">
+        </jar>
+    </target>
+    <target name="copy-zssexr.jar">
+        <copy file="${dir-abuild}/${name-zssexr.jar}" todir="${dir-zssapp.lib}" overwrite="yes"/>
+        <copy file="${dir-abuild}/${name-zssexr.jar}" tofile="${dir-abuild.release}/${name-zssexr-release.jar}" overwrite="yes"/>
+    </target>
+	
+	<!-- ================================================================= -->
+	<target name="alltasks">
+		<!-- 順序不可變，表明了依賴關係 -->
+		
+		<antcall target="compile-zkexr.javasrc" />
+		<antcall target="copy-zkexr.websrc" />
+		<antcall target="gen-zkexr.jar" />
+		<antcall target="copy-zkexr.jar" />
+		
+		<antcall target="compile-zssr.javasrc" />
+		<antcall target="copy-zssr.websrc" />
+		<antcall target="gen-zssr.jar" />
+		<antcall target="copy-zssr.jar" />
+		
+		<!--
+		<antcall target="gen-zpoiexr.jar" />
+		<antcall target="copy-zpoiexr.jar" />
+		-->
+		
+		<antcall target="compile-zssexr.javasrc" />
+		<antcall target="copy-zssexr.websrc" />
+		<antcall target="gen-zssexr.jar" />
+		<antcall target="copy-zssexr.jar" />
+	</target>
+
+	<!-- Target clean -->
+	<target name="clean">
+	</target>
+</project>
