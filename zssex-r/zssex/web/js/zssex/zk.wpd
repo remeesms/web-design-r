@@ -15,8 +15,6 @@ Copyright (C) 2010 Potix Corporation. All Rights Reserved.
 	<script src="util.js"/>
 	<widget name="Ghost" />
 	<widget name="Widget"/>
-	<widget name="Btn"/>
-	<widget name="Popup"/>
 	<widget name="JsChart"/>
 	<widget name="SimpleTable"/>
 	<script src="autofilter.js"/>

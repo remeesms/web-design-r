@@ -7,11 +7,12 @@
 	<properties>
 		<zkex.version>5.0.11-r</zkex.version>
 		<zpoi.version>2.4.0-r</zpoi.version>
+		<zss.version>2.4.0-r1</zss.version>
 		<jfreechart.version>1.0.13</jfreechart.version>
 		<googlecode.releases.url>svn:https://rill-bpm-api.googlecode.com/svn/maven-repo/releases</googlecode.releases.url>
     	<googlecode.releases.repositoryId>googlecode-repo-releases</googlecode.releases.repositoryId>
 	</properties>
-	<version>2.4.0-r1</version>
+	<version>2.4.0-r2</version>
 	<packaging>jar</packaging>
 	<name>ZK Spreadsheet Extension</name>
 	<url>http://www.zkoss.org/zssex</url>
@@ -49,7 +50,7 @@
 		<dependency>
 			<groupId>org.zkoss.zss</groupId>
 			<artifactId>zss</artifactId>
-			<version>${project.version}</version>
+			<version>${zss.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zss</groupId>
