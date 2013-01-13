@@ -13,6 +13,7 @@ import org.zkoss.poi.hssf.usermodel.HSSFWorkbook;
 import org.zkoss.poi.hssf.usermodel.HSSFWorkbookHelper;
 import org.zkoss.poi.ss.formula.eval.ArrayEval;
 import org.zkoss.poi.ss.formula.eval.NumberEval;
+import org.zkoss.poi.ss.formula.eval.StringEval;
 import org.zkoss.poi.ss.formula.eval.ValueEval;
 import org.zkoss.poi.ss.formula.ptg.Area3DPtg;
 import org.zkoss.poi.ss.formula.ptg.AreaPtgBase;
@@ -747,7 +748,7 @@ public class ChartHelper {
 						((XSSFChartAxDataSource) ser.getCategories()).getCat().getNumRef().setF(cats.getFormulaString());
 					}
 				} else {
-					singleText = ((NumberEval) ve).getStringValue();
+					singleText = ve instanceof StringEval ? ((StringEval) ve).getStringValue() : ((NumberEval) ve).getStringValue();
 				}
 			}
 		}
