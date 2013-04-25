@@ -1,6 +1,7 @@
 package org.zkoss.zssex.util;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.zkoss.lang.Strings;
@@ -1003,11 +1004,23 @@ public class ChartHelper {
 				} else {
 					if (obj instanceof Byte)
 						break;
-
-					if (obj instanceof Boolean)
-						db = new Double(0.0D);
-					else if (obj instanceof Number)
-						db = (Number) obj;
+					
+					if (obj instanceof BigDecimal) {
+						try {
+							String df = csheet.getRow(r).getCell(c).getCellStyle().getDataFormatString();
+							df = (df.contains(".") ? df + "" : df + ".")  + "";
+							DecimalFormat myFormatter = new DecimalFormat(df);
+							db = new BigDecimal(myFormatter.format(obj).replaceAll(",", ""));
+						} catch (Exception e) {
+							// Ignore
+							db = (BigDecimal) obj;
+						}
+					} else {
+						if (obj instanceof Boolean)
+							db = new Double(0.0D);
+						else if (obj instanceof Number)
+							db = (Number) obj;
+					}
 				}
 				vals[(j++)] = db;
 			}
