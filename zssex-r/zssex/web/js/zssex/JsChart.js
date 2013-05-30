@@ -209,6 +209,18 @@
                             color, o, titleStr, points = [];
                             
                             titleStr = this.x;
+                            
+                            // 如果为日期，显示星期
+                            if (/^(\d{4})-(\d{1,2})-(\d{1,2})$/.test(titleStr) 
+                            	// 不好意思，用了肮脏的写法
+                            	|| /^([2]{1}\d{3})(\d{2})(\d{2})$/.test(titleStr)
+                            ) {
+                            	titleStr += ' 周' 
+                            		+ ['日', '一', '二', '三', '四', '五', '六'][
+                            		         (new Date(RegExp.$1, RegExp.$2 - 1, RegExp.$3)).getDay()
+                            		 ]
+                            }
+                            
                             if (this.points) { //跟踪线tip
                                 html.push('<h3>' + titleStr + '</h3>');
                                 html.push('<table cellpadding="0" cellspacing="0">');
